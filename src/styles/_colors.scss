@@ -1,0 +1,29 @@
+/* Primary colors */
+
+:root {
+  /* Violet */
+  --violet-5: #6247aa;
+  --violet-4: #816cbb;
+  --violet-3: #a191cc;
+  --violet-2: #c0b5dd;
+  --violet-1: #e0daee;
+
+  /* Gray */
+  --gray-5: #062726;
+  --gray-4: #385251;
+  --gray-3: #6a7d7d;
+  --gray-2: #9ba9a8;
+  --gray-1: #cdd4d4;
+
+  /* Violet uses */
+  --primary-violet: var(--violet-5);
+  --primary-highlight: var(--violet-4);
+  --secondary-highlight: var(--violet-1);
+  --violet-background: var(--violet-3);
+
+  /* Gray uses */
+  --light-text: var(--gray-3);
+  --light-border: var(--gray-2);
+  --disabled-color: var(--gray-2);
+  --placeholder-color: var(--gray-1);
+}
