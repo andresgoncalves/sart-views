@@ -1,5 +1,5 @@
-@import "./styles/_colors.scss";
-@import "./styles/_typography.scss";
+@use "styles/colors";
+@use "styles/typography";
 
 :root {
   font-family: Quicksand, Verdana, Geneva, Tahoma, sans-serif;
