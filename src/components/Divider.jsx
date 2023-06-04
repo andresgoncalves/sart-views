@@ -15,7 +15,7 @@ export default function Divider({ children }) {
       <hr />
     </div>
   ) : (
-    <div>
+    <div className={styles.divider}>
       <hr />
     </div>
   );
