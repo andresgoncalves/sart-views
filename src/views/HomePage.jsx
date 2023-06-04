@@ -107,7 +107,9 @@ export default function HomePage() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua
           </p>
-          <Button size="large">Empieza ahora</Button>
+          <Button href="#" size="large">
+            Empieza ahora
+          </Button>
         </div>
       </header>
       <section>
