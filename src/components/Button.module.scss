@@ -15,49 +15,55 @@
     --main-color: var(--primary-highlight);
     --text-color: white;
   }
-}
 
-.negative {
-  --main-color: white;
-  --text-color: var(--primary-violet);
+  /* Negative button colors */
 
-  &:hover {
+  &.negative {
     --main-color: white;
-    --text-color: var(--primary-highlight);
+    --text-color: var(--primary-violet);
+
+    &:hover {
+      --main-color: white;
+      --text-color: var(--primary-highlight);
+    }
   }
-}
 
-.filled {
-  color: var(--text-color);
-  background-color: var(--main-color);
-  border-color: var(--main-color);
-}
+  /* Button variant */
 
-.outlined {
-  color: var(--main-color);
-  border-color: var(--main-color);
-}
+  &.filled {
+    color: var(--text-color);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+  }
 
-.text {
-  color: var(--main-color);
-}
+  &.outlined {
+    color: var(--main-color);
+    border-color: var(--main-color);
+  }
 
-.large {
-  padding: 20px 40px;
-  font-size: var(--text-lg);
-}
+  &.text {
+    color: var(--main-color);
+  }
 
-.medium {
-  padding: 16px 32px;
-  font-size: var(--text-md);
-}
+  /* Button size */
 
-.base {
-  padding: 12px 24px;
-  font-size: var(--text-base);
-}
+  &.large {
+    padding: 16px 36px;
+    font-size: var(--text-lg);
+  }
 
-.small {
-  padding: 8px 16px;
-  font-size: var(--text-sm);
+  &.medium {
+    padding: 12px 28px;
+    font-size: var(--text-md);
+  }
+
+  &.base {
+    padding: 8px 20px;
+    font-size: var(--text-base);
+  }
+
+  &.small {
+    padding: 4px 12px;
+    font-size: var(--text-sm);
+  }
 }
