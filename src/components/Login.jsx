@@ -4,6 +4,7 @@ import facebookIcon from "../assets/FacebookIcon.svg";
 import googleIcon from "../assets/GoogleIcon.svg";
 import instagramIcon from "../assets/InstagramIcon.svg";
 import Button from "./Button";
+import InputField from "./InputField";
 import styles from "./Login.module.scss";
 
 export default function Login(props) {
@@ -54,9 +55,27 @@ export default function Login(props) {
             <div className={styles.subtitle}>
               o utiliza un email para registrarte...
             </div>
-            <input type="text" placeholder="Nombre" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Contraseña" />
+            <div className={styles.inputTop}>
+              <InputField
+                className={styles.letra}
+                labelText="Nombre y apellido"
+                placeholder="Nombre"
+              />
+            </div>
+            <div className={styles.input}>
+              <InputField
+                className={styles.letra}
+                labelText="Correo electrónico"
+                placeholder="Email"
+              />
+            </div>
+            <div className={styles.input}>
+              <InputField
+                className={styles.letra}
+                labelText="Contraseña"
+                placeholder="Contraseña"
+              />
+            </div>
             <Button size="base" className={styles.buttonCA}>
               Crear Cuenta
             </Button>
@@ -66,7 +85,7 @@ export default function Login(props) {
           className={[styles.signInContainer, styles.formContainer].join(" ")}
         >
           <form action="#">
-            <div className={styles.title}>Ingresa a tu cuenta</div>
+            <div className={styles.title}>Inicia Sesión</div>
             <div className={styles.socialContainer}>
               <Link to="#">
                 <img src={instagramIcon}></img>
@@ -79,10 +98,22 @@ export default function Login(props) {
               </Link>
             </div>
             <div className={styles.subtitle}>
-              o inicia sesión con tu email...
+              o accede ingresando tu email...
             </div>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Contraseña" />
+            <div className={styles.inputTop}>
+              <InputField
+                className={styles.letra}
+                labelText="Correo electrónico"
+                placeholder="Email"
+              />
+            </div>
+            <div className={styles.input}>
+              <InputField
+                className={styles.letra}
+                labelText="Contraseña"
+                placeholder="Contraseña"
+              />
+            </div>
             <a href="#" className={styles.subtitle}>
               ¿Olvidaste tu contraseña?
             </a>
@@ -136,10 +167,26 @@ export default function Login(props) {
             adminPanel ? styles.adminCardEnabled : styles.adminCardDisabled
           }
         >
-          <form action="#">
-            <div className={styles.title}>Ingresa a tu cuenta</div>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Contraseña" />
+          <form action="#" className={styles.formulario}>
+            <div className={styles.title}>
+              Bienvenido de vuelta administrador!
+            </div>
+            <div className={styles.adminForm}>
+              <div className={styles.inputTop}>
+                <InputField
+                  className={styles.letra}
+                  labelText="Correo electrónico"
+                  placeholder="Email"
+                />
+              </div>
+              <div className={styles.input}>
+                <InputField
+                  className={styles.letra}
+                  labelText="Contraseña"
+                  placeholder="Contraseña"
+                />
+              </div>
+            </div>
             <Button size="base" className={styles.button}>
               Iniciar Sesión
             </Button>
