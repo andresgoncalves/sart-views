@@ -72,7 +72,9 @@ export default function Header({ isLogged, search, isAdmin }) {
         )
       ) : (
         <div>
-          <Button size="medium">Ingresa a tu cuenta</Button>
+          <Button href="login" size="medium">
+            Ingresa a tu cuenta
+          </Button>
         </div>
       )}
     </div>
