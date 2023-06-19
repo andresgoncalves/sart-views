@@ -64,24 +64,25 @@ abbr[title] {
     text-align: center;
     color:#6247AA;
     background-color: #FFFFFF;
-    border-radius: 50%;
-    border: 1px solid #6247AA;
+    border: none;
     width: 55px;
     height: 55px;
     margin: 2px;
 }
 
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
+.highlight{    
+    border-radius: 50%;
+    border: 1px solid #6247AA;
+}
+
+.highlight:enabled:hover,
+.highlight:enabled:focus {
   background: #6247AA;
   color: #FFFFFF;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.react-calendar__month-view__days__day:nth-child(7n){
-    color: #6247AA;
-    border: none;
-}
 
 .react-calendar__month-view__days__day--neighboringMonth {
     color: #6A7D7D;
@@ -92,4 +93,5 @@ abbr[title] {
 .react-calendar__navigation__prev2-button, .react-calendar__navigation__next2-button{
     visibility: hidden;
 }
+
 
