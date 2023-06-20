@@ -3,6 +3,13 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0;
+    --place-color: var(--placeholder-color);
+    --text-color: black;
+
+    &.negative {
+        --place-color: transparent;
+        --text-color: var(--white);
+    }
 
 }
 
