@@ -3,7 +3,8 @@ import styles from "./InputField.module.scss";
 
 /**
  * @typedef {React.InputHTMLAttributes<HTMLInputElement> & {
- *   labelText?: string;
+ *   negative?: boolean;
+ *   labelText: string;
  *   placeholder?: string;
  *   value?: string;
  *   onChange?: function;
@@ -11,12 +12,17 @@ import styles from "./InputField.module.scss";
  */
 
 /** @param {InputFieldProps} props */
-export default function InputComponent({ labelText, placeholder, ...props }) {
+export default function InputComponent({
+  labelText,
+  placeholder,
+  negative = false,
+  ...props
+}) {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <div className={styles.container}>
-      <div className={styles.label} {...props}>
+    <div className={[styles.input, negative ? styles.negative : ""].join(" ")}>
+      <label className={styles.label}>
         {labelText}
         <input
           type="text"
@@ -25,7 +31,7 @@ export default function InputComponent({ labelText, placeholder, ...props }) {
           value={inputValue}
           onChange={(ev) => setInputValue(ev.target.value)}
         />
-      </div>
+      </label>
     </div>
   );
 }
