@@ -1,0 +1,20 @@
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 2%;
+}
+
+.label {
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+  
+.starArray {
+    padding-left: 2.5%;
+    color: #6247AA;
+    cursor: pointer;
+    font-size: 1.5em;
+    align-items: center;
+    justify-content: center;
+}
