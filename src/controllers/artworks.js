@@ -1,22 +1,23 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
-  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
 /**
  * @typedef {{
+ *   id?: string;
  *   name: string;
  *   category: string;
  *   author: string;
  *   year: number;
  *   location: string;
  *   description: string;
- *   pictures: string[];
+ *   picture: string;
  *   relatedArtworks: string[];
  * }} ArtworkData
  */
@@ -29,18 +30,19 @@ import { db } from "../firebase";
  */
 function mapToArtworkData(snapshot) {
   return {
+    id: snapshot.id,
     name: snapshot.get("name"),
     category: snapshot.get("category"),
     author: snapshot.get("author"),
     year: snapshot.get("year"),
     location: snapshot.get("location"),
     description: snapshot.get("description"),
-    pictures: snapshot.get("pictures"),
+    picture: snapshot.get("picture"),
     relatedArtworks: snapshot.get("relatedArtworks"),
   };
 }
 
-export async function getAllArtworks() {
+export async function getArtworks() {
   const artworksRef = collection(db, "artworks");
   const artworkSnapshots = await getDocs(artworksRef);
   const artworks = artworkSnapshots.docs.map(mapToArtworkData);
@@ -55,17 +57,11 @@ export async function getArtwork(id) {
   return artwork;
 }
 
-/**
- * @param {string} id
- * @param {ArtworkData} data
- */
-export async function createArtwork(id, data) {
+/** @param {ArtworkData} data */
+export async function createArtwork(data) {
   const artworksRef = collection(db, "artworks");
-  const artworkRef = doc(artworksRef, id);
-  const artworkSnapshot = await getDoc(artworkRef);
-  if (!artworkSnapshot.exists()) {
-    await setDoc(artworkRef, data);
-  }
+  const artworkRef = await addDoc(artworksRef, data);
+  return artworkRef.id;
 }
 
 /**

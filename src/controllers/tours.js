@@ -1,15 +1,16 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
-  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
 /**
  * @typedef {{
+ *   id?: string;
  *   name: string;
  *   department: string;
  *   location: string;
@@ -17,6 +18,7 @@ import { db } from "../firebase";
  *   description: string;
  *   artworks: string[];
  *   pictures: string[];
+ *   pointsOfInterest: string[];
  *   relatedTours: string[];
  * }} TourData
  */
@@ -29,6 +31,7 @@ import { db } from "../firebase";
  */
 function mapToTourData(snapshot) {
   return {
+    id: snapshot.id,
     name: snapshot.get("name"),
     department: snapshot.get("department"),
     location: snapshot.get("location"),
@@ -36,11 +39,12 @@ function mapToTourData(snapshot) {
     description: snapshot.get("description"),
     artworks: snapshot.get("artworks"),
     pictures: snapshot.get("pictures"),
+    pointsOfInterest: snapshot.get("pointsOfInterest"),
     relatedTours: snapshot.get("relatedTours"),
   };
 }
 
-export async function getAllTours() {
+export async function getTours() {
   const toursRef = collection(db, "tours");
   const tourSnapshots = await getDocs(toursRef);
   const tours = tourSnapshots.docs.map((tour) => tour.data());
@@ -55,19 +59,11 @@ export async function getTour(id) {
   return tour;
 }
 
-/**
- * @param {string} id
- * @param {TourData} data
- */
-export async function createTour(id, data) {
+/** @param {TourData} data */
+export async function createTour(data) {
   const toursRef = collection(db, "tours");
-  const tourRef = doc(toursRef, id);
-  const tourSnapshot = await getDoc(tourRef);
-  if (tourSnapshot.exists()) {
-    await setDoc(tourRef, data);
-    return true;
-  }
-  return false;
+  const tourRef = await addDoc(toursRef, data);
+  return tourRef.id;
 }
 
 /**
