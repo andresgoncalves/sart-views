@@ -1,0 +1,79 @@
+.banner {
+    display: flex;
+    padding: 150px;
+    color: white;
+    background-size: cover;
+    justify-content: center; 
+    @media (max-width: 800px) {
+      padding: 64px;
+    }
+}
+> .titleContainer {
+    display: flex;
+    font-size: var(--text-xl);
+}
+.frame {
+    display: flex;
+    font-size: 1.3em;
+    justify-content: center;
+    gap: 10%;
+    background-color: #A191CC;
+    height: 10vh;
+    align-items: center;
+}
+.text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 600px;
+    font-size: 1.2em;
+    margin: auto;
+    padding-top: 2%;
+}
+  
+.columna,
+.columna1 {
+    width: 100%;
+    padding: 20px;
+    font: 1em sans-serif;
+}
+
+@media (min-width: 768px) {
+    .columna {
+        width: 50%;
+        line-height: 3.5;
+    }
+
+    .columna1 {
+        width: 50%;
+        line-height: 1.5;
+    }
+}
+
+.artworks{
+  display: flex;
+  gap: 32px;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 32px;
+  overflow-x: auto;
+  overflow-y: visible;
+
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+.pointsContainer{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 55px auto;
+}
+
+

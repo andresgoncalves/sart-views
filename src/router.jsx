@@ -8,6 +8,9 @@ import BlankPage from "./views/BlankPage";
 import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
 import LoginPage from "./views/LoginPage";
+import TourProfile from "./views/TourProfile";
+
+
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +24,7 @@ export default createBrowserRouter(
         <Route path="/calendario" element={<BlankPage />} />
         <Route path="/userDashboard" element={<BlankPage />} />
         <Route path="/adminDashboard" element={<BlankPage />} />
+        <Route path="/profiletour" element={<TourProfile/>}/>
       </Route>
     </Route>
   )
