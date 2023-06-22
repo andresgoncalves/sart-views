@@ -3,7 +3,8 @@ import styles from "./Button.module.scss";
 
 /**
  * @typedef {React.ButtonHTMLAttributes<HTMLButtonElement> &
- *   Partial<import("react-router-dom").LinkProps> & {
+ *   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+ *     href?: string;
  *     variant?: "filled" | "outlined" | "text";
  *     size?: "large" | "medium" | "base" | "small";
  *     negative?: boolean;
@@ -12,20 +13,21 @@ import styles from "./Button.module.scss";
 
 /** @param {ButtonProps} props */
 export default function Button({
+  href,
   variant = "filled",
   size = "base",
   negative = false,
   ...props
 }) {
-  return props.to ? (
+  return href ? (
     <Link
+      to={href}
       className={[
         styles.button,
         styles[variant],
         styles[size],
         negative ? styles.negative : "",
       ].join(" ")}
-      to={props.to || ""}
       {...props}
     />
   ) : (

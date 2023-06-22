@@ -92,7 +92,7 @@ export default function AdminArtworkPage() {
         }
         actions={
           <>
-            <Button to="/admin/obras" variant="text">
+            <Button href="/admin/obras" variant="text">
               Cancelar
             </Button>
             <Button onClick={handleSubmit}>Guardar cambios</Button>
