@@ -1,0 +1,15 @@
+.tab {
+  input {
+    display: none;
+  }
+}
+
+.label {
+  padding: 16px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--light-border);
+
+  input:checked ~ & {
+    border-bottom: 2px solid var(--primary-violet);
+  }
+}

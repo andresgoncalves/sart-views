@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Layout from "./components/Layout";
+import AdminArtworkPage from "./views/AdminArtworkPage";
 import BlankPage from "./views/BlankPage";
 import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
@@ -29,7 +30,8 @@ export default createBrowserRouter(
       <Route path="/admin">
         <Route path="/admin/dashboard" element={<BlankPage />} />
         <Route path="/admin/obras" element={<BlankPage />} />
-        <Route path="/admin/obras/:id" element={<BlankPage />} />
+        <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
+        <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
         <Route path="/admin/tours" element={<BlankPage />} />
         <Route path="/admin/tours/:id" element={<BlankPage />} />
         <Route path="/admin/usuarios" element={<BlankPage />} />

@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import styles from "./Button.module.scss";
 
 /**
  * @typedef {React.ButtonHTMLAttributes<HTMLButtonElement> &
- *   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+ *   Partial<import("react-router-dom").LinkProps> & {
  *     variant?: "filled" | "outlined" | "text";
  *     size?: "large" | "medium" | "base" | "small";
  *     negative?: boolean;
@@ -16,14 +17,15 @@ export default function Button({
   negative = false,
   ...props
 }) {
-  return props.href ? (
-    <a
+  return props.to ? (
+    <Link
       className={[
         styles.button,
         styles[variant],
         styles[size],
         negative ? styles.negative : "",
       ].join(" ")}
+      to={props.to || ""}
       {...props}
     />
   ) : (

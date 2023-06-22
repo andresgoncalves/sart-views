@@ -16,6 +16,7 @@ import { db } from "../firebase";
  *   author: string;
  *   year: number;
  *   location: string;
+ *   department: string;
  *   description: string;
  *   picture: string;
  *   relatedArtworks: string[];
@@ -36,6 +37,7 @@ function mapToArtworkData(snapshot) {
     author: snapshot.get("author"),
     year: snapshot.get("year"),
     location: snapshot.get("location"),
+    department: snapshot.get("department"),
     description: snapshot.get("description"),
     picture: snapshot.get("picture"),
     relatedArtworks: snapshot.get("relatedArtworks"),
