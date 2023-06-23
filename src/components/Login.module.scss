@@ -25,7 +25,41 @@
 }
 
 .buttonCA {
-  margin-top: 20px;
+  margin-top: 15px;
+  padding: 12px 45px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: #6247aa;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+
+  &:hover {
+    background-color: var(--primary-highlight);
+    --text-color: white;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.ghost {
+    background-color: transparent;
+    border-color: #ffffff;
+  }
+}
+
+.buttonSpecial {
+  margin-top: 15px;
+  margin-bottom: 10px;
   padding: 12px 45px;
   color: #ffffff;
   font-weight: bold;
@@ -194,9 +228,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 39.5%;
   height: 100%;
-  padding: 0 40px;
+  padding: 0px 40px;
   text-align: center;
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
@@ -220,6 +254,8 @@
 }
 
 .socialContainer {
+  display: flex;
+  gap: 30px;
   margin: 20px 0;
 }
 
@@ -271,6 +307,14 @@
 }
 
 .formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 50px;
+  text-align: center;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 0 4px #6247aa inset;
 }
@@ -281,7 +325,7 @@
   margin-bottom: 15px;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -292,12 +336,29 @@ form {
   background-color: #ffffff;
 }
 
+/* form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 50px;
+  text-align: center;
+  background-color: #ffffff;
+} */
+
 .input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin-bottom: 8px;
 }
 
 .inputTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin-top: 12px;
   margin-bottom: 8px;
@@ -309,4 +370,8 @@ form {
   gap: 5px;
   align-items: flex-start;
   font-size: 0.85rem;
+}
+
+.iconCursor {
+  cursor: pointer;
 }
