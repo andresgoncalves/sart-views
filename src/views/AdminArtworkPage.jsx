@@ -65,44 +65,44 @@ export default function AdminArtworkPage() {
             <InputField
               name="name"
               labelText="Nombre de la obra"
-              value={data.name}
+              value={data?.name}
               onChange={handleChange}
             />
             <InputField
               name="category"
               labelText="Clasificación"
-              value={data.category}
+              value={data?.category}
               onChange={handleChange}
             />
             <InputField
               name="author"
               labelText="Autor"
-              value={data.author}
+              value={data?.author}
               onChange={handleChange}
             />
             <InputField
               name="year"
               labelText="Año"
-              value={data.year}
+              value={data?.year}
               onChange={handleChange}
             />
             <InputField
               name="location"
               labelText="Dirección"
-              value={data.location}
+              value={data?.location}
               onChange={handleChange}
             />
             <InputField
               name="department"
               labelText="Departamento asociado"
-              value={data.department}
+              value={data?.department}
               onChange={handleChange}
             />
             <InputField
               name="description"
               labelText="Descripción"
               onChange={handleChange}
-              value={data.description}
+              value={data?.description}
               className={styles.description}
             />
           </div>
