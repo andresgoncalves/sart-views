@@ -20,7 +20,7 @@ export default createBrowserRouter(
       <Route path="/registro" element={<BlankPage />} />
       <Route path="/tours" element={<BlankPage />} />
       <Route path="/tours/:id" element={<TourProfile />} />
-      <Route path="/obras" element={<BlankPage />} />
+      <Route path="/obras" element={<ArtworksPage />} />
       <Route path="/obras:id" element={<BlankPage />} />
       <Route path="/calendario" element={<BlankPage />} />
       <Route path="/buscar" element={<BlankPage />} />

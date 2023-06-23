@@ -1,4 +1,8 @@
+import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
+import styles from "./ArtworksPage.module.scss";
+import ArtworkCard from "../components/ArtworkCard";
+
 
 export default function ArtworksPage(){
     const artworks = [
