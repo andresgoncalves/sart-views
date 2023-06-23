@@ -1,58 +1,58 @@
 .banner {
-    display: flex;
-    padding: 150px;
-    color: white;
-    background-size: cover;
-    justify-content: center; 
-    @media (max-width: 800px) {
-      padding: 64px;
-    }
+  display: flex;
+  justify-content: center;
+  padding: 150px;
+  color: white;
+  background-size: cover;
+  @media (max-width: 800px) {
+    padding: 64px;
+  }
 }
-> .titleContainer {
-    display: flex;
-    font-size: var(--text-xl);
+.titleContainer {
+  display: flex;
+  font-size: var(--text-xl);
 }
 .frame {
-    display: flex;
-    font-size: 1.3em;
-    justify-content: center;
-    gap: 10%;
-    background-color: #A191CC;
-    height: 10vh;
-    align-items: center;
+  display: flex;
+  gap: 10%;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  font-size: 1.3em;
+  background-color: #a191cc;
 }
 .text {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    max-width: 600px;
-    font-size: 1.2em;
-    margin: auto;
-    padding-top: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: 600px;
+  margin: auto;
+  padding-top: 2%;
+  font-size: 1.2em;
 }
-  
+
 .columna,
 .columna1 {
-    width: 100%;
-    padding: 20px;
-    font: 1em sans-serif;
+  width: 100%;
+  padding: 20px;
+  font: 1em sans-serif;
 }
 
 @media (min-width: 768px) {
-    .columna {
-        width: 50%;
-        line-height: 3.5;
-    }
+  .columna {
+    width: 50%;
+    line-height: 3.5;
+  }
 
-    .columna1 {
-        width: 50%;
-        line-height: 1.5;
-    }
+  .columna1 {
+    width: 50%;
+    line-height: 1.5;
+  }
 }
 
-.artworks{
+.artworks {
   display: flex;
   gap: 32px;
   box-sizing: border-box;
@@ -68,12 +68,10 @@
   }
 }
 
-.pointsContainer{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin: 55px auto;
+.pointsContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 55px auto;
 }
-
-

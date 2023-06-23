@@ -1,7 +1,4 @@
-import styles from "./ArtworksPage.module.scss";
 import bannerImage from "../assets/home-banner.png";
-import ArtworkCard from "../components/ArtworkCard";
-import { Helmet } from "react-helmet-async";
 
 export default function ArtworksPage(){
     const artworks = [

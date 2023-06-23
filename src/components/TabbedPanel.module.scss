@@ -1,0 +1,13 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+  }
+
+  .content {
+    padding: 32px;
+  }
+}

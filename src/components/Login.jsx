@@ -4,8 +4,8 @@ import facebookIcon from "../assets/FacebookIcon.svg";
 import googleIcon from "../assets/GoogleIcon.svg";
 import instagramIcon from "../assets/InstagramIcon.svg";
 import Button from "./Button";
-import InputField from "./InputField";
 import styles from "./Login.module.scss";
+import InputField from "./TextField";
 
 export default function Login(props) {
   const [rightPanel, setRightPanel] = useState(false);
