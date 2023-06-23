@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { UserContextProvider } from "../contexts/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 import styles from "./Layout.module.scss";
@@ -9,11 +10,13 @@ export default function Layout() {
   const isAdmin = false;
   return (
     <div className={styles.layout}>
-      <Header isLogged={isLogged} search={search} isAdmin={isAdmin} />
-      <main className={styles.main}>
-        <Outlet />
-      </main>
-      <Footer />
+      <UserContextProvider>
+        <Header isLogged={isLogged} search={search} isAdmin={isAdmin} />
+        <main className={styles.main}>
+          <Outlet />
+        </main>
+        <Footer />
+      </UserContextProvider>
     </div>
   );
 }
