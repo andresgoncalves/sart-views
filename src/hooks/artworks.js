@@ -43,7 +43,7 @@ export function useArtwork(id) {
       const artwork = await getArtwork(id);
       setData(artwork);
     }
-    load();
+    id && load();
   }, [id]);
 
   const update = useMemo(
