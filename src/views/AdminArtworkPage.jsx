@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import AdminEditor from "../components/AdminEditor";
 import Button from "../components/Button";
@@ -12,7 +12,7 @@ const initialData = {
   name: "",
   category: "",
   author: "",
-  year: 2000,
+  year: 0,
   location: "",
   department: "",
   description: "",
@@ -26,7 +26,13 @@ export default function AdminArtworkPage() {
   const artworks = useArtworks();
   const artwork = useArtwork(id);
 
-  const [data, setData] = useState(artwork.data || initialData);
+  const [data, setData] = useState(initialData);
+
+  useEffect(() => {
+    if (artwork.data) {
+      setData(artwork.data);
+    }
+  }, [artwork]);
 
   const handleChange = useCallback(
     (event) => {
@@ -59,33 +65,44 @@ export default function AdminArtworkPage() {
             <InputField
               name="name"
               labelText="Nombre de la obra"
+              value={data.name}
               onChange={handleChange}
             />
             <InputField
               name="category"
               labelText="Clasificación"
+              value={data.category}
               onChange={handleChange}
             />
             <InputField
               name="author"
               labelText="Autor"
+              value={data.author}
               onChange={handleChange}
             />
-            <InputField name="year" labelText="Año" onChange={handleChange} />
+            <InputField
+              name="year"
+              labelText="Año"
+              value={data.year}
+              onChange={handleChange}
+            />
             <InputField
               name="location"
               labelText="Dirección"
+              value={data.location}
               onChange={handleChange}
             />
             <InputField
               name="department"
               labelText="Departamento asociado"
+              value={data.department}
               onChange={handleChange}
             />
             <InputField
               name="description"
               labelText="Descripción"
               onChange={handleChange}
+              value={data.description}
               className={styles.description}
             />
           </div>
