@@ -36,11 +36,21 @@ h1{
     }
 }
 
+h2{
+    font-size: 1.5em;
+    @media (max-width:800px) {
+        font-size: 1.3em;
+    }
+    @media (max-width: 600px) {
+        font-size: 1.3em;
+    }
+}
+
 .description{ 
     font-size: 1.5em;
 }
 
-.artworks{
+.tours{
     display: flex;
     gap: 32px;
     box-sizing: border-box;
