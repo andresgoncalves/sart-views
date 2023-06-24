@@ -13,6 +13,8 @@ import LoginPage from "./views/LoginPage";
 import ProfileUser from "./views/ProfileUser";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
+import CalendarPage from "./views/CalendarPage";
+
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +31,7 @@ export default createBrowserRouter(
         <Route path="/obras" element={<ArtworksPage />} />
         <Route path="/obras/:id" element={<BlankPage />} />
       </Route>
-      <Route path="/calendario" element={<BlankPage />} />
+      <Route path="/calendario" element={<CalendarPage />} />
       <Route path="/buscar" element={<BlankPage />} />
       <Route path="/user">
         <Route path="/user/dashboard" element={<ProfileUser />} />
