@@ -1,35 +1,37 @@
-import { useState } from "react";
 import styles from "./StarRating.module.scss";
 
-export default function StarRating(props){
-    const [rating, setRating] = useState(props.initialRating || 0);
-    
-    const handleStarClick = (newRating) => {
-        if (!props.readOnly) {
-          setRating(newRating);
-        }
-    };
+/** @typedef {number} StarRatingValue */
 
-    return (
-        <div className={styles.rating}>
-            <p className={styles.label}>Calificación:</p>
-            <div className={styles.starArray}>
-                {[...Array(5)].map((star, index) => {
-                    const starValue = index + 1;
-                    return (
-                        <span
-                            key={index}
-                            onClick={() => handleStarClick(starValue)}
-                            style={{
-                                color: starValue <= rating ? '#6247AA' : 'gray',
-                                cursor: props.readOnly ? 'default' : 'pointer'
-                            }}
-                        >
-                            &#9733;
-                        </span>
-                    );
-                })}
-            </div>
-        </div>
-    );
+/**
+ * @typedef {{
+ *   value: StarRatingValue;
+ *   onChange?: (value: StarRatingValue) => void;
+ * }} StarRatingProps
+ */
+
+/** @param {StarRatingProps} props */
+export default function StarRating({ value, onChange }) {
+  const handleClick = (/** @type {number} */ value) => {
+    if (onChange) {
+      onChange(value);
+    }
+  };
+
+  return (
+    <div className={[styles.rating, !onChange ? styles.fixed : ""].join(" ")}>
+      {new Array(5).fill(0).map((star, index) => {
+        const starValue = index + 1;
+        return (
+          <span
+            key={index}
+            onClick={() => handleClick(starValue)}
+            className={starValue <= value ? styles.on : styles.off}
+            tabIndex={onChange ? 0 : undefined}
+          >
+            &#9733;
+          </span>
+        );
+      })}
+    </div>
+  );
 }

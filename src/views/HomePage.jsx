@@ -13,7 +13,7 @@ export default function HomePage() {
       title: "La Mona Lisa",
       author: "Leonardo Da Vinci",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
     },
@@ -21,7 +21,7 @@ export default function HomePage() {
       title: "La Mona Lisa",
       author: "Leonardo Da Vinci",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
     },
@@ -29,7 +29,7 @@ export default function HomePage() {
       title: "La Mona Lisa",
       author: "Leonardo Da Vinci",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
     },
@@ -37,7 +37,7 @@ export default function HomePage() {
       title: "La Mona Lisa",
       author: "Leonardo Da Vinci",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
     },
@@ -45,7 +45,7 @@ export default function HomePage() {
       title: "La Mona Lisa",
       author: "Leonardo Da Vinci",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
     },
@@ -56,7 +56,7 @@ export default function HomePage() {
       title: "Tour Gandhi",
       description: "Tour que inicia en la estatua de Gandhi",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
     },
@@ -64,7 +64,7 @@ export default function HomePage() {
       title: "Tour Gandhi",
       description: "Tour que inicia en la estatua de Gandhi",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
     },
@@ -72,7 +72,7 @@ export default function HomePage() {
       title: "Tour Gandhi",
       description: "Tour que inicia en la estatua de Gandhi",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
     },
@@ -80,7 +80,7 @@ export default function HomePage() {
       title: "Tour Gandhi",
       description: "Tour que inicia en la estatua de Gandhi",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
     },
@@ -88,7 +88,7 @@ export default function HomePage() {
       title: "Tour Gandhi",
       description: "Tour que inicia en la estatua de Gandhi",
       location: "Biblioteca Pedro Grases",
-      href: "#",
+      id: "#",
       image:
         "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
     },
@@ -107,7 +107,7 @@ export default function HomePage() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua
           </p>
-          <Button href="login" size="large">
+          <Button id="login" size="large">
             Empieza ahora
           </Button>
         </div>
