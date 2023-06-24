@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import facebookIcon from "../assets/FacebookIcon.svg";
 import googleIcon from "../assets/GoogleIcon.svg";
 import instagramIcon from "../assets/InstagramIcon.svg";
-import { useUsuario } from "../contexts/UserContext";
+import { useAuth } from "../contexts/AuthContext";
 import {
   loginWithEmailAndPassword,
   registerWithEmailAndPassword,
@@ -14,10 +14,10 @@ import Button from "./Button";
 import styles from "./Login.module.scss";
 import InputField from "./TextField";
 
-export default function Login(props) {
+export default function Login() {
   const [rightPanel, setRightPanel] = useState(false);
   const [adminPanel, setAdminPanel] = useState(false);
-  const { user } = useUsuario();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const onClickAdmin = () => {
@@ -38,12 +38,12 @@ export default function Login(props) {
 
   const onSumbit = async (event) => {
     event.preventDefault();
-    const { email, password, ...extraData } = formData;
+    const { email, password, ...extraData } = signUpData;
     await registerWithEmailAndPassword(email, password, extraData);
     //navigate("/");
   };
 
-  const [formData, setFormData] = useState({
+  const [signUpData, setSignUpData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -53,12 +53,12 @@ export default function Login(props) {
     password: "",
   });
 
-  const handleOnChange = (event) => {
+  const handleSignUpChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
+    setSignUpData((data) => ({
+      ...data,
       [name]: value,
-    });
+    }));
   };
 
   const handleSingInWithGoogle = async () => {
@@ -71,22 +71,22 @@ export default function Login(props) {
     //navigate("/user/dashboard");
   };
 
-  const [formDataLogin, setFormDataLogin] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
-  const handleOnChangeLogin = (event) => {
+  const handleLoginChange = (event) => {
     const { name, value } = event.target;
-    setFormDataLogin({
-      ...formData,
+    setLoginData((data) => ({
+      ...data,
       [name]: value,
-    });
+    }));
   };
 
   const onSumbitLogin = async (event) => {
     event.preventDefault();
-    const { email, password } = formDataLogin;
+    const { email, password } = loginData;
     await loginWithEmailAndPassword(email, password);
     //navigate("/");
   };
@@ -127,7 +127,7 @@ export default function Login(props) {
                 <InputField
                   type="text"
                   name="name"
-                  onChange={handleOnChange}
+                  onChange={handleSignUpChange}
                   className={styles.letra}
                   labelText="Nombre y apellido"
                   placeholder="Nombre"
@@ -137,7 +137,7 @@ export default function Login(props) {
                 <InputField
                   type="email"
                   name="email"
-                  onChange={handleOnChange}
+                  onChange={handleSignUpChange}
                   className={styles.letra}
                   labelText="Correo electrónico"
                   placeholder="Email"
@@ -147,7 +147,7 @@ export default function Login(props) {
                 <InputField
                   type="password"
                   name="password"
-                  onChange={handleOnChange}
+                  onChange={handleSignUpChange}
                   className={styles.letra}
                   labelText="Contraseña"
                   placeholder="Contraseña"
@@ -186,7 +186,7 @@ export default function Login(props) {
                 <InputField
                   type="email"
                   name="email"
-                  onChange={handleOnChangeLogin}
+                  onChange={handleLoginChange}
                   className={styles.letra}
                   labelText="Correo electrónico"
                   placeholder="Email"
@@ -196,7 +196,7 @@ export default function Login(props) {
                 <InputField
                   type="password"
                   name="password"
-                  onChange={handleOnChangeLogin}
+                  onChange={handleLoginChange}
                   className={styles.letra}
                   labelText="Contraseña"
                   placeholder="Contraseña"

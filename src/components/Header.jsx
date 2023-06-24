@@ -3,7 +3,7 @@ import logoImage from "../assets/LogoSartViews.svg";
 import searchImage from "../assets/Search.svg";
 import barIcon from "../assets/openBarIcon.svg";
 import adminImage from "../assets/photoAdminProfile.svg";
-import { useUsuario } from "../contexts/UserContext";
+import { useAuth } from "../contexts/AuthContext";
 import { logout } from "../controllers/auth";
 import Button from "./Button";
 import styles from "./Header.module.scss";
@@ -19,20 +19,7 @@ import styles from "./Header.module.scss";
 /** @param {HeaderProps} props */
 export default function Header({ isLogged, search, isAdmin }) {
   const nameAdmin = "Jack Mason";
-
-  /* const [user, setUser] = useState(null); */
-  /* const usuario = useUser(userId); */
-
-  const { user } = useUsuario();
-  console.log(user);
-
-  /* useEffect(() => {
-    if (usuario) {
-      setUser(usuario);
-    } else {
-      setUser(null);
-    }
-  }, [usuario]); */
+  const { user } = useAuth();
 
   const handleLogout = async () => {
     await logout();

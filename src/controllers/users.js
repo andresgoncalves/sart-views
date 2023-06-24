@@ -3,6 +3,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -51,6 +52,17 @@ export async function getUser(id) {
   const userSnapshot = await getDoc(doc(usersRef, id));
   const user = mapToUserData(userSnapshot);
   return user;
+}
+
+/**
+ * @param {string} id
+ * @param {(data: UserData) => void} handler
+ */
+export async function onUserSnapshot(id, handler) {
+  const usersRef = collection(db, "users");
+  return onSnapshot(doc(usersRef, id), (userSnapshot) => {
+    handler(mapToUserData(userSnapshot));
+  });
 }
 
 /**
