@@ -3,7 +3,7 @@ import styles from "./TourCard.module.scss";
 
 /**
  * @typedef {{
- *   href: string;
+ *   id: string;
  *   title: string;
  *   description: string;
  *   location: string;
@@ -14,7 +14,7 @@ import styles from "./TourCard.module.scss";
 
 /** @param {TourCardProps} props */
 export default function TourCard({
-  href,
+  id,
   title,
   description,
   location,
@@ -22,7 +22,7 @@ export default function TourCard({
   size = "base",
 }) {
   return (
-    <Link to={href} className={[styles.card, styles[size]].join(" ")}>
+    <Link to={`/tours/${id}`} className={[styles.card, styles[size]].join(" ")}>
       <div
         className={styles.image}
         style={{ backgroundImage: `url(${image})` }}
