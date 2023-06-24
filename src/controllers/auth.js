@@ -62,7 +62,6 @@ export const registerWithEmailAndPassword = async (
     const result = await createUserWithEmailAndPassword(auth, email, password);
     console.log(result);
     await createUser(result.user.uid, {
-      id: result.user.uid,
       email: email,
       ...extraData,
     });

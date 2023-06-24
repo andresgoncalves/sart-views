@@ -34,17 +34,14 @@ export default function AdminArtworkPage() {
     }
   }, [artwork]);
 
-  const handleChange = useCallback(
-    (event) => {
-      const newData = { ...data };
-      newData[event.target.name] = event.target.value;
-      setData(newData);
-    },
-    [data]
-  );
+  const handleChange = (event) => {
+    setData((data) => ({
+      ...data,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   const handleSubmit = useCallback(async () => {
-    console.log(artwork);
     if (artwork.data) {
       artwork.update(data);
     } else {

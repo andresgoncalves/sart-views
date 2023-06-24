@@ -40,7 +40,7 @@ export function useTour(id) {
 
   useEffect(() => {
     async function load() {
-      const tour = await getTour(id);
+      const tour = id ? await getTour(id) : null;
       setData(tour);
     }
     load();

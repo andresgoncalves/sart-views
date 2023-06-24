@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   createUser,
-  getUser,
   getUsers,
+  onUserSnapshot,
   updateUser,
 } from "../controllers/users";
 
@@ -39,11 +39,16 @@ export function useUser(id) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    async function load() {
-      const user = await getUser(id);
-      setData(user);
+    if (id) {
+      const unsubscribePromise = onUserSnapshot(id, (data) => {
+        setData(data);
+      });
+      return () => {
+        unsubscribePromise.then((unsubscribe) => unsubscribe());
+      };
+    } else {
+      setData(null);
     }
-    load();
   }, [id]);
 
   const update = useMemo(
