@@ -10,6 +10,10 @@ import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
 import LoginPage from "./views/LoginPage";
 import TourProfile from "./views/TourProfile";
+import ArtworksPage from "./views/ArtworksPage";
+import ToursPage from "./views/ToursPage";
+import ProfileUser from "./views/ProfileUser";
+
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -17,14 +21,14 @@ export default createBrowserRouter(
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<BlankPage />} />
-      <Route path="/tours" element={<BlankPage />} />
+      <Route path="/tours" element={<ToursPage/>} />
       <Route path="/tours/:id" element={<TourProfile />} />
-      <Route path="/obras" element={<BlankPage />} />
+      <Route path="/obras" element={<ArtworksPage />} />
       <Route path="/obras:id" element={<BlankPage />} />
       <Route path="/calendario" element={<BlankPage />} />
       <Route path="/buscar" element={<BlankPage />} />
       <Route path="/user">
-        <Route path="/user/dashboard" element={<BlankPage />} />
+        <Route path="/user/dashboard" element={<ProfileUser />} />
         <Route path="/user/perfil" element={<BlankPage />} />
       </Route>
       <Route path="/admin">

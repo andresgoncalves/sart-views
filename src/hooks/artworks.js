@@ -40,10 +40,10 @@ export function useArtwork(id) {
 
   useEffect(() => {
     async function load() {
-      const artwork = await getArtwork(id);
+      const artwork = id ? await getArtwork(id) : null;
       setData(artwork);
     }
-    id && load();
+    load();
   }, [id]);
 
   const update = useMemo(

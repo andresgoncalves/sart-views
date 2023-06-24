@@ -3,7 +3,8 @@ import logoImage from "../assets/LogoSartViews.svg";
 import searchImage from "../assets/Search.svg";
 import barIcon from "../assets/openBarIcon.svg";
 import adminImage from "../assets/photoAdminProfile.svg";
-import userImage from "../assets/photoUserProfile.svg";
+import { useAuth } from "../contexts/AuthContext";
+import { logout } from "../controllers/auth";
 import Button from "./Button";
 import styles from "./Header.module.scss";
 
@@ -17,8 +18,12 @@ import styles from "./Header.module.scss";
 
 /** @param {HeaderProps} props */
 export default function Header({ isLogged, search, isAdmin }) {
-  const nameUser = "Jhon Doe";
   const nameAdmin = "Jack Mason";
+  const { user } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <div className={styles.header}>
@@ -47,13 +52,13 @@ export default function Header({ isLogged, search, isAdmin }) {
           </Link>
         </div>
       )}
-      {isLogged ? (
+      {user ? (
         isAdmin ? (
           <div className={styles.logged}>
-            <Link to="/adminDashboard" className={styles.loggedUseer}>
+            <Link to="/admin/dashboard" className={styles.loggedUseer}>
               {nameAdmin}
             </Link>
-            <Link to="/adminDashboard">
+            <Link to="/admin/dashboard">
               <img src={adminImage} className={styles.userImage}></img>
             </Link>
             <Link to="">
@@ -62,12 +67,15 @@ export default function Header({ isLogged, search, isAdmin }) {
           </div>
         ) : (
           <div className={styles.logged}>
-            <Link to="/userDashboard" className={styles.loggedUser}>
-              {nameUser}
+            <Link to="/user/dashboard" className={styles.loggedUser}>
+              {user.name}
             </Link>
-            <Link to="/userDashboard">
-              <img src={userImage} className={styles.userImage}></img>
+            <Link to="/user/dashboard">
+              <img src={user.picture} className={styles.userImage}></img>
             </Link>
+            <Button className={styles.button} onClick={handleLogout}>
+              Cerrar sesion
+            </Button>
           </div>
         )
       ) : (
