@@ -20,3 +20,15 @@
     gap: 12px;
     margin: 30px;
 }
+
+@media screen and (max-width: 800px) {
+    .content {
+        width: 90%;
+        margin: 30px auto;
+    }
+    
+    .tagsContainer {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

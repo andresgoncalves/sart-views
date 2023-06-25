@@ -5,7 +5,6 @@ import Tag from "../components/Tag";
 import TourCard from "../components/TourCard";
 import styles from "./SearchPage.module.scss";
 
-
 export default function SearchPage(){
     const artworks = [
         {
