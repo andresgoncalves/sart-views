@@ -3,18 +3,18 @@ import styles from "./ArtworkCard.module.scss";
 
 /**
  * @typedef {{
- *   id: string;
- *   title: string;
- *   author: string;
- *   location: string;
- *   image: string;
+ *   href?: string;
+ *   title?: string;
+ *   author?: string;
+ *   location?: string;
+ *   image?: string;
  *   size?: "large" | "medium" | "base";
  * }} ArtworkCardProps
  */
 
 /** @param {ArtworkCardProps} props */
 export default function ArtworkCard({
-  id,
+  href,
   title,
   author,
   location,
@@ -22,7 +22,7 @@ export default function ArtworkCard({
   size = "base",
 }) {
   return (
-    <Link to={`/obras/${id}`} className={[styles.card, styles[size]].join(" ")}>
+    <Link to={href} className={[styles.card, styles[size]].join(" ")}>
       <div
         className={styles.image}
         style={{ backgroundImage: `url(${image})` }}
