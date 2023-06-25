@@ -63,12 +63,12 @@ export default function Login() {
 
   const handleSingInWithGoogle = async () => {
     await singInWithGoogle();
-    //navigate("/user/dashboard");
+    navigate("/user/dashboard");
   };
 
   const handleSingInWithFacebook = async () => {
     await singInWithFacebook();
-    //navigate("/user/dashboard");
+    navigate("/user/dashboard");
   };
 
   const [loginData, setLoginData] = useState({
@@ -122,7 +122,7 @@ export default function Login() {
             <div className={styles.subtitle}>
               o utiliza un email para registrarte...
             </div>
-            <form onSubmit={onSumbit}>
+            <form onSubmit={onSumbit} className={styles.formInterno}>
               <div className={styles.inputTop}>
                 <InputField
                   type="text"
@@ -181,7 +181,7 @@ export default function Login() {
             <div className={styles.subtitle}>
               o accede ingresando tu email...
             </div>
-            <form onSubmit={onSumbitLogin}>
+            <form onSubmit={onSumbitLogin} className={styles.formInterno}>
               <div className={styles.inputTop}>
                 <InputField
                   type="email"
@@ -257,7 +257,7 @@ export default function Login() {
             <div className={styles.title}>
               Bienvenido de vuelta administrador!
             </div>
-            <form className={styles.adminForm}>
+            <form className={[styles.adminForm, styles.formInterno].join(" ")}>
               <div className={styles.inputTop}>
                 <InputField
                   className={styles.letra}
