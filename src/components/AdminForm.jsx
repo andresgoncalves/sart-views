@@ -1,15 +1,15 @@
-import styles from "./AdminEditor.module.scss";
+import styles from "./AdminForm.module.scss";
 
 /**
  * @typedef {{
  *   title: string;
  *   form: React.ReactNode;
  *   actions: React.ReactNode;
- * }} AdminEditorProps
+ * }} AdminFormProps
  */
 
-/** @param {AdminEditorProps} props */
-export default function AdminEditor({ title, form, actions }) {
+/** @param {AdminFormProps} props */
+export default function AdminForm({ title, form, actions }) {
   return (
     <div className={styles.editor}>
       <h2 className={styles.title}>{title}</h2>
