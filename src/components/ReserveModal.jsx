@@ -14,7 +14,7 @@ export default function ReserveModal({ closeModal }) {
                     <h5>¿Quieres hacer una contribución a través de PayPal?</h5>
                     <p>Las donaciones ayudan a financiar el mantenimiento de los Espacios Culturales de la Universidad Metropolitana</p>
                     <div className={styles.modalbuttons}>
-                        <Button  onClick={() => closeModal()} variant="text" size="base">Continuar sin Contribuir</Button>
+                        <Button onClick={() => closeModal()} variant="text" size="base">Continuar sin Contribuir</Button>
                         <Button onClick={() => closeModal()} variant="filled" size="base">Registrar Donación</Button>
                     </div>
                 </div>
@@ -22,3 +22,14 @@ export default function ReserveModal({ closeModal }) {
         </div>
     );
 }
+
+
+  //EJEMPLO DE USO DE MODAL
+  // const [modalOpen, setModalOpen] = useState(false);
+
+  // const openModal = () => setModalOpen(true);
+  // const closeModal = () => setModalOpen(false);
+
+/* EJEMPLO DE USO DE MODAL */
+/* <button onClick={openModal}>Open Modal</button>
+{modalOpen && <ReserveModal closeModal={closeModal} />} */
