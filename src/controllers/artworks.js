@@ -18,7 +18,7 @@ import { db } from "../firebase";
  *   location: string;
  *   department: string;
  *   description: string;
- *   picture: string;
+ *   image: string;
  *   relatedArtworks: string[];
  * }} ArtworkData
  */
@@ -39,7 +39,7 @@ function mapToArtworkData(snapshot) {
     location: snapshot.get("location"),
     department: snapshot.get("department"),
     description: snapshot.get("description"),
-    picture: snapshot.get("picture"),
+    image: snapshot.get("image"),
     relatedArtworks: snapshot.get("relatedArtworks"),
   };
 }

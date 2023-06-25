@@ -8,8 +8,7 @@ import TourCard from "../components/TourCard";
 import styles from "./ProfileUser.module.scss";
 
 export default function ProfileUser() {
-  const image =
-    "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+  const image ="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
   const image1 = "https://masdearte.com/media/g_SalaMendoza.jpg";
 
   const tours = [
@@ -82,15 +81,26 @@ export default function ProfileUser() {
     },
   ];
 
-  const detailedTour = {
-    id: "0",
-    title: "Tour Gandhi",
-    description: "Tour que inicia en la estatua de Gandhi",
-    rating: 4,
-    location: "Biblioteca Pedro Grases",
-    image:
-      "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-  };
+    const detailedTour = [
+        {
+            id: "0",
+            title: "Tour Gandhi",
+            description: "Tour que inicia en la estatua de Gandhi",
+            rating: 4,
+            location: "Biblioteca Pedro Grases",
+            image:
+            "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
+        },
+        {
+            id: "0",
+            title: "Tour Gandhi",
+            description: "Tour que inicia en la estatua de Gandhi",
+            rating: 4,
+            location: "Biblioteca Pedro Grases",
+            image:
+            "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
+        },
+    ]
 
   return (
     <>
@@ -122,31 +132,43 @@ export default function ProfileUser() {
         </div>
       </section>
       <section>
-        <DetailedTourCard {...detailedTour} size="large" />
-        <DetailedTourCard {...detailedTour} size="base" />
-        <DetailedTourCard {...detailedTour} size="small" />
       </section>
       <section>
         <Divider>
-          <h1>Tus próximos eventos</h1>
+          <h2>Tus próximos eventos</h2>
         </Divider>
+        <div className={styles.nextTours}>
+            {detailedTour.length > 0 ? (
+                detailedTour.map((data,index)=>(
+                    <DetailedTourCard key={index} size="base" {...data}/>
+                ))
+            ) : (<p>No hay eventos próximos</p>)}
+        </div>
       </section>
       <section>
         <div className={styles.infoUser}>
           <div className={styles.column1}>
-            <h1>Tours Visitados</h1>
+            <div className={styles.titleColumn}>Tours Visitados</div>
             <div className={styles.tours}>
-              {tours.map((data, index) => (
-                <TourCard key={index} size="medium" {...data} />
-              ))}
+                {tours.length > 0 ? (
+                    tours.map((data, index) => (
+                        <TourCard key={index} size="medium" {...data} />
+                    ))
+                ) : (
+                    <p>No se ha visitado ningún tour</p>
+                )}
             </div>
           </div>
           <div className={styles.column2}>
-            <h1>Obras Favoritas</h1>
+            <div className={styles.titleColumn}>Obras Favoritas</div>
             <div className={styles.artworks}>
-              {artworks.map((data, index) => (
-                <ArtworkCard key={index} size="medium" {...data} />
-              ))}
+                {artworks.length > 0 ? (
+                    artworks.map((data, index) => (
+                        <ArtworkCard key={index} size="medium" {...data} />
+                    ))
+                ) : (
+                    <p>No hay obras destacadas</p>
+                )}
             </div>
           </div>
         </div>
