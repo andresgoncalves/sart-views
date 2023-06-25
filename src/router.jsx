@@ -14,6 +14,7 @@ import ProfileUser from "./views/ProfileUser";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
 import CalendarPage from "./views/CalendarPage";
+import SearchPage from "./views/SearchPage";
 
 
 export default createBrowserRouter(
@@ -32,7 +33,7 @@ export default createBrowserRouter(
         <Route path="/obras/:id" element={<BlankPage />} />
       </Route>
       <Route path="/calendario" element={<CalendarPage />} />
-      <Route path="/buscar" element={<BlankPage />} />
+      <Route path="/buscar" element={<SearchPage />} />
       <Route path="/user">
         <Route path="/user/dashboard" element={<ProfileUser />} />
         <Route path="/user/perfil" element={<BlankPage />} />
