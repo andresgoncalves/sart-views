@@ -17,6 +17,7 @@ export default function Button({
   variant = "filled",
   size = "base",
   negative = false,
+  className = "",
   ...props
 }) {
   return href ? (
@@ -27,6 +28,7 @@ export default function Button({
         styles[variant],
         styles[size],
         negative ? styles.negative : "",
+        className,
       ].join(" ")}
       {...props}
     />
@@ -37,6 +39,7 @@ export default function Button({
         styles[variant],
         styles[size],
         negative ? styles.negative : "",
+        className,
       ].join(" ")}
       {...props}
     />
