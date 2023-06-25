@@ -14,3 +14,14 @@
     color: #6247AA;
     margin: auto;
 }
+
+@media screen and (max-width: 800px) {
+    .container {
+        padding: 2px 4px;
+        margin-right: 4px;
+    }
+    
+    .label {
+        font-size: 12px;
+    }
+}
