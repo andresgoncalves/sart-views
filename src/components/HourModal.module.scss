@@ -5,7 +5,7 @@
     font-family: 'Quicksand', sans-serif;
     font-size: 17px;
     text-align: center;
-    width: fit-content;
+    width: 70%;
     height: auto;
     margin: auto;
     background: #FFFFFF;
@@ -73,4 +73,41 @@
         font-size: 20px;
     }
     
+}
+
+@media screen and (max-width: 767px) {
+    .modalBox{
+        width: 90%;
+        font-size: 15px;
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;      
+            margin: 25px;    
+        }
+
+        .closeButton{       
+            
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+    
+        .bookButton{
+            font-size: 15px;
+            padding: 10px 20px;
+        }
+
+    }
+
+    
+}
+
+@media screen and (max-width: 912px) {
+    .modalBox{
+        width: 90%;
+        font-size: 15px;
+
+
+    }
 }
