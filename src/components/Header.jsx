@@ -4,7 +4,6 @@ import searchImage from "../assets/Search.svg";
 import barIcon from "../assets/openBarIcon.svg";
 import adminImage from "../assets/photoAdminProfile.svg";
 import { useAuth } from "../contexts/AuthContext";
-import { logout } from "../controllers/auth";
 import Button from "./Button";
 import styles from "./Header.module.scss";
 
@@ -20,10 +19,6 @@ import styles from "./Header.module.scss";
 export default function Header({ isLogged, search, isAdmin }) {
   const nameAdmin = "Jack Mason";
   const { user } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-  };
 
   return (
     <div className={styles.header}>
@@ -73,9 +68,6 @@ export default function Header({ isLogged, search, isAdmin }) {
             <Link to="/user/dashboard">
               <img src={user.picture} className={styles.userImage}></img>
             </Link>
-            <Button className={styles.button} onClick={handleLogout}>
-              Cerrar sesion
-            </Button>
           </div>
         )
       ) : (
