@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
 import ArtworkCard from "../components/ArtworkCard";
 import styles from "./ArtworksPage.module.scss";
+import Divider from "../components/Divider";
 
 export default function ArtworksPage() {
   const artworks = [
@@ -62,7 +63,9 @@ export default function ArtworksPage() {
         </div>
       </header>
       <section>
-        <div className={styles.titleSec}>Pinturas</div>
+        <Divider>
+          <h2>Pinturas</h2>
+        </Divider>
         <div className={styles.artworks}>
           {artworks.map((data, index) => (
             <ArtworkCard key={index} size="medium" {...data} />
@@ -70,7 +73,7 @@ export default function ArtworksPage() {
         </div>
       </section>
       <section>
-        <div className={styles.titleSec}>Esculturas</div>
+        <Divider><h2>Esculturas</h2></Divider>
         <div className={styles.artworks}>
           {artworks.map((data, index) => (
             <ArtworkCard key={index} size="medium" {...data} />
@@ -78,7 +81,7 @@ export default function ArtworksPage() {
         </div>
       </section>
       <section>
-        <div className={styles.titleSec}>Departamento de Cultura</div>
+        <Divider><h2>Departamento de Cultura</h2></Divider>
         <div className={styles.artworks}>
           {artworks.map((data, index) => (
             <ArtworkCard key={index} size="medium" {...data} />
@@ -86,7 +89,7 @@ export default function ArtworksPage() {
         </div>
       </section>
       <section>
-        <div className={styles.titleSec}>Biblioteca Pedro Grases</div>
+        <Divider><h2>Biblioteca Pedro Grases</h2></Divider>
         <div className={styles.artworks}>
           {artworks.map((data, index) => (
             <ArtworkCard key={index} size="medium" {...data} />
