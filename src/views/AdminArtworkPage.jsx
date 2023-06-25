@@ -18,7 +18,7 @@ const initialData = {
   location: "",
   department: "",
   description: "",
-  picture: "",
+  image: "",
   relatedArtworks: [],
 };
 
@@ -61,7 +61,7 @@ export default function AdminArtworkPage() {
       console.log(url);
       setData((data) => ({
         ...data,
-        picture: url,
+        image: url,
       }));
       if (id) {
         handleSubmit();
@@ -140,7 +140,7 @@ export default function AdminArtworkPage() {
         title="Galería de Imágenes"
         media={
           <div className={styles.media}>
-            {data.picture && <img src={data.picture} alt="" />}
+            {data.image && <img src={data.image} alt="" />}
             <input
               type="file"
               accept="image/*"

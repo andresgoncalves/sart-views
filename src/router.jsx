@@ -5,17 +5,17 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import AdminArtworkPage from "./views/AdminArtworkPage";
+import AdminArtworksPage from "./views/AdminArtworksPage";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
+import CalendarPage from "./views/CalendarPage";
 import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
 import LoginPage from "./views/LoginPage";
 import ProfileUser from "./views/ProfileUser";
+import SearchPage from "./views/SearchPage";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
-import CalendarPage from "./views/CalendarPage";
-import SearchPage from "./views/SearchPage";
-
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -23,24 +23,24 @@ export default createBrowserRouter(
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<BlankPage />} />
+      <Route path="/calendario" element={<CalendarPage />} />
+      <Route path="/buscar" element={<SearchPage />} />
+      <Route path="/obras">
+        <Route path="/obras" element={<ArtworksPage />} />
+        <Route path="/obras/:id" element={<BlankPage />} />
+      </Route>
       <Route path="/tours">
         <Route path="/tours" element={<ToursPage />} />
         <Route path="/tours/:id" element={<TourProfile />} />
         <Route path="/tours/:id/reservar" element={<TourProfile />} />
       </Route>
-      <Route path="/obras">
-        <Route path="/obras" element={<ArtworksPage />} />
-        <Route path="/obras/:id" element={<BlankPage />} />
-      </Route>
-      <Route path="/calendario" element={<CalendarPage />} />
-      <Route path="/buscar" element={<SearchPage />} />
       <Route path="/user">
         <Route path="/user/dashboard" element={<ProfileUser />} />
         <Route path="/user/perfil" element={<BlankPage />} />
       </Route>
       <Route path="/admin">
         <Route path="/admin/dashboard" element={<BlankPage />} />
-        <Route path="/admin/obras" element={<BlankPage />} />
+        <Route path="/admin/obras" element={<AdminArtworksPage />} />
         <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
         <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
         <Route path="/admin/tours" element={<BlankPage />} />
