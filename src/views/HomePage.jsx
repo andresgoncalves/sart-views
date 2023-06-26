@@ -5,94 +5,13 @@ import ArtworkCard from "../components/ArtworkCard";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import TourCard from "../components/TourCard";
+import { useArtworks } from "../hooks/artworks";
+import { useTours } from "../hooks/tours";
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
-  const artworks = [
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-  ];
-
-  const tours = [
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-  ];
+  const artworks = useArtworks();
+  const tours = useTours();
 
   return (
     <>
@@ -107,7 +26,7 @@ export default function HomePage() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua
           </p>
-          <Button id="login" size="large">
+          <Button href="/login" size="large">
             Empieza ahora
           </Button>
         </div>
@@ -163,9 +82,11 @@ export default function HomePage() {
           <h2>DESCUBRE NUESTROS TOURS</h2>
         </Divider>
         <div className={styles.tours}>
-          {tours.map((data, index) => (
-            <TourCard key={index} size="medium" {...data} />
-          ))}
+          {tours.data
+            ? tours.data.map((data, key) => (
+                <TourCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
       <section>
@@ -173,9 +94,11 @@ export default function HomePage() {
           <h2>CONOCE NUESTRAS OBRAS</h2>
         </Divider>
         <div className={styles.artworks}>
-          {artworks.map((data, index) => (
-            <ArtworkCard key={index} size="medium" {...data} />
-          ))}
+          {artworks.data
+            ? artworks.data.map((data, key) => (
+                <ArtworkCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
     </>

@@ -1,34 +1,13 @@
-import { useEffect, useState } from "react";
 import ArtworkCard from "../components/ArtworkCard";
 import Button from "../components/Button";
-import { useArtworks } from "../hooks/artworks";
+import { useArtworks, useCategories } from "../hooks/artworks";
+import styles from "./AdminArtworksPage.module.scss";
 
 export default function AdminArtworksPage() {
   const artworks = useArtworks();
+  const categories = useCategories(artworks.data);
 
-  const [categories, setCategories] = useState(null);
-
-  useEffect(() => {
-    if (artworks.data) {
-      /**
-       * @type {Record<
-       *   string,
-       *   import("../controllers/artworks").ArtworkData[]
-       * >}
-       */
-      const categories = {};
-      for (const artwork of artworks.data) {
-        if (categories[artwork.category]) {
-          categories[artwork.category].push(artwork);
-        } else {
-          categories[artwork.category] = [artwork];
-        }
-      }
-      setCategories(categories);
-    }
-  }, [artworks.data]);
-
-  return categories ? (
+  return artworks.data ? (
     Object.keys(categories).length > 0 ? (
       <div>
         {Object.entries(categories).map(
@@ -41,29 +20,29 @@ export default function AdminArtworksPage() {
              */
             [category, artworks]
           ) => (
-            <div key={category}>
-              <div>
-                <h2>Pinturas</h2>
-                <Button>Agregar obra</Button>
+            <section key={category} className={styles.section}>
+              <div className={styles.heading}>
+                <h2>{category}</h2>
+                <Button href="/admin/obras/crear">Agregar obra</Button>
               </div>
-              <div>
-                {artworks.map(({ id, name, ...artwork }, key) => (
+              <div className={styles.artworks}>
+                {artworks.map((data, key) => (
                   <ArtworkCard
                     key={key}
-                    href={`/admin/obras/${id}`}
-                    title={name}
-                    {...artwork}
+                    data={data}
+                    size="medium"
+                    target="admin"
                   />
                 ))}
               </div>
-            </div>
+            </section>
           )
         )}
       </div>
     ) : (
       <div>
         <div>No hay obras registradas</div>
-        <Button href="/admin/obras/crear">Agregar obra</Button>{" "}
+        <Button href="/admin/obras/crear">Agregar obra</Button>
       </div>
     )
   ) : (

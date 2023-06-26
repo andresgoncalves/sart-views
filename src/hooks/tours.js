@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createTour,
   getTour,
@@ -29,7 +29,7 @@ export function useTours() {
     [data]
   );
 
-  return { data, create };
+  return useMemo(() => ({ data, create }), [data, create]);
 }
 
 /** @param {string} id */
@@ -55,5 +55,5 @@ export function useTour(id) {
     [id, data]
   );
 
-  return { data, update };
+  return useMemo(() => ({ data, update }), [data, update]);
 }
