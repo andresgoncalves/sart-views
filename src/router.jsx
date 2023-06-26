@@ -6,6 +6,8 @@ import {
 import Layout from "./components/Layout";
 import AdminArtworkPage from "./views/AdminArtworkPage";
 import AdminArtworksPage from "./views/AdminArtworksPage";
+import AdminTourPage from "./views/AdminTourPage";
+import AdminToursPage from "./views/AdminToursPage";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
 import CalendarPage from "./views/CalendarPage";
@@ -43,8 +45,9 @@ export default createBrowserRouter(
         <Route path="/admin/obras" element={<AdminArtworksPage />} />
         <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
         <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
-        <Route path="/admin/tours" element={<BlankPage />} />
-        <Route path="/admin/tours/:id" element={<BlankPage />} />
+        <Route path="/admin/tours" element={<AdminToursPage />} />
+        <Route path="/admin/tours/:id" element={<AdminTourPage />} />
+        <Route path="/admin/tours/crear" element={<AdminTourPage />} />
         <Route path="/admin/usuarios" element={<BlankPage />} />
         <Route path="/admin/usuarios/:id" element={<BlankPage />} />
       </Route>

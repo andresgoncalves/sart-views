@@ -1,15 +1,11 @@
+import { useFiles } from "../hooks/storage";
 import Button from "./Button";
 import styles from "./DetailedTourCard.module.scss";
 import StarRating from "./StarRating";
 
 /**
  * @typedef {{
- *   id: string;
- *   title: string;
- *   description: string;
- *   rating: number;
- *   location: string;
- *   image: string;
+ *   data: import("../controllers/tours").TourData;
  *   status?: "available" | "unavailable" | "reserved" | "visited";
  *   size?: "large" | "base" | "small";
  * }} DetailedTourCardProps
@@ -17,21 +13,17 @@ import StarRating from "./StarRating";
 
 /** @param {DetailedTourCardProps} props */
 export default function DetailedTourCard({
-  id,
-  title,
-  description,
-  rating,
-  location,
-  image,
+  data: { id, name, description, location, images: imagePaths, rating },
   status = "available",
   size = "base",
 }) {
+  const images = useFiles(imagePaths);
   return (
     <div className={[styles.card, styles[size]].join(" ")}>
-      <img className={styles.image} src={image} alt="" />
+      <img className={styles.image} src={images[0]} alt="" />
       <div className={styles.content}>
         <div className={styles.details}>
-          <div className={styles.title}>{title}</div>
+          <div className={styles.title}>{name}</div>
           <div>{description}</div>
           <StarRating value={rating} />
         </div>

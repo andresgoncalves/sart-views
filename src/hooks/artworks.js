@@ -56,6 +56,7 @@ export function useArtwork(id) {
   return useMemo(() => ({ data, update }), [data, update]);
 }
 
+/** @param {import("../controllers/artworks").ArtworkData[]} artworks */
 export function useCategories(artworks) {
   const [categories, setCategories] = useState({});
 

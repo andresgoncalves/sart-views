@@ -1,0 +1,19 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px;
+
+  .heading {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+
+  .tours {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    gap: 16px;
+  }
+}
