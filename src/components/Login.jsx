@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import facebookIcon from "../assets/FacebookIcon.svg";
 import googleIcon from "../assets/GoogleIcon.svg";
-import instagramIcon from "../assets/InstagramIcon.svg";
 import { useAuth } from "../contexts/AuthContext";
 import {
   loginWithEmailAndPassword,
@@ -107,9 +106,6 @@ export default function Login() {
             <div className={styles.title}>Crea tu cuenta</div>
             <div className={styles.socialContainer}>
               <div className={styles.iconCursor}>
-                <img src={instagramIcon}></img>
-              </div>
-              <div className={styles.iconCursor}>
                 <img
                   src={facebookIcon}
                   onClick={handleSingInWithFacebook}
@@ -165,9 +161,6 @@ export default function Login() {
           <div className={styles.form}>
             <div className={styles.title}>Inicia Sesión</div>
             <div className={styles.socialContainer}>
-              <div className={styles.iconCursor}>
-                <img src={instagramIcon}></img>
-              </div>
               <div className={styles.iconCursor}>
                 <img
                   src={facebookIcon}
