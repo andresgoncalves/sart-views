@@ -4,12 +4,10 @@ import styles from "./AdminHeader.module.scss";
 
 export default function AdminHeader() {
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <Link to="/">
-          <img src={logoImage} className={styles.logoImg}></img>
-        </Link>
-      </div>
+    <div className={styles.header}>
+      <Link to="/">
+        <img src={logoImage} className={styles.logoImg}></img>
+      </Link>
     </div>
   );
 }

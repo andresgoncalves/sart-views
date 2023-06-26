@@ -1,0 +1,19 @@
+.layout {
+  display: grid;
+  grid-row-gap: 0px;
+  grid-column-gap: 0px;
+  grid-template-rows: 0.92fr repeat(6, 1fr);
+  grid-template-columns: 0.9fr repeat(5, 1fr);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  grid-area: 1 / 1 / 8 / 2;
+}
+.header {
+  grid-area: 1 / 2 / 2 / 7;
+}
+.content {
+  grid-area: 2 / 2 / 8 / 7;
+}
