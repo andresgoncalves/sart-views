@@ -5,51 +5,11 @@ import ArtworkCard from "../components/ArtworkCard";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import TourCard from "../components/TourCard";
+import { useArtworks } from "../hooks/artworks";
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
-  const artworks = [
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-    {
-      title: "La Mona Lisa",
-      author: "Leonardo Da Vinci",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-    },
-  ];
+  const artworks = useArtworks();
 
   const tours = [
     {
@@ -173,9 +133,11 @@ export default function HomePage() {
           <h2>CONOCE NUESTRAS OBRAS</h2>
         </Divider>
         <div className={styles.artworks}>
-          {artworks.map((data, index) => (
-            <ArtworkCard key={index} size="medium" {...data} />
-          ))}
+          {artworks.data
+            ? artworks.data.map((data, key) => (
+                <ArtworkCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
     </>

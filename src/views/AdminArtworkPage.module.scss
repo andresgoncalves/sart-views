@@ -14,11 +14,23 @@
   }
 }
 
-.media {
+.formButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 100%;
+
   img {
     position: relative;
     width: 160px;
     height: 160px;
+    object-fit: cover;
     background-color: var(--placeholder-gray);
     border-radius: 16px;
 
@@ -35,24 +47,15 @@
         rgba(0, 0, 0, 0.75) 100%
       );
     }
-
-    // &.large {
-    //   width: 260px;
-    //   height: 260px;
-    // }
-
-    // &.medium {
-    //   width: 200px;
-    //   height: 200px;
-    // }
-
-    // &.base {
-    //   width: 160px;
-    //   height: 160px;
-    // }
   }
 
   input {
     display: none;
   }
+}
+
+.imagesButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
 }

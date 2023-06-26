@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import AdminForm from "../components/AdminForm";
-import AdminMedia from "../components/AdminMedia";
+import AdminEditor from "../components/AdminEditor";
 import Button from "../components/Button";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
-import { uploadFile } from "../controllers/storage";
 import { useArtwork, useArtworks } from "../hooks/artworks";
+import { useFiles, useStorage } from "../hooks/storage";
 import styles from "./AdminArtworkPage.module.scss";
 
 /** @type {import("../controllers/artworks").ArtworkData} */
@@ -18,17 +17,19 @@ const initialData = {
   location: "",
   department: "",
   description: "",
-  image: "",
+  images: [],
   relatedArtworks: [],
 };
 
 export default function AdminArtworkPage() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const storage = useStorage();
   const artworks = useArtworks();
   const artwork = useArtwork(id);
 
   const [data, setData] = useState(initialData);
+  const images = useFiles(data.images);
 
   /** @type {React.MutableRefObject<HTMLInputElement>} */
   const imageInputRef = useRef();
@@ -37,7 +38,7 @@ export default function AdminArtworkPage() {
     if (artwork.data) {
       setData(artwork.data);
     }
-  }, [artwork]);
+  }, [artwork.data]);
 
   const handleChange = (event) => {
     setData((data) => ({
@@ -57,14 +58,13 @@ export default function AdminArtworkPage() {
 
   const handleImageChange = async (event) => {
     if (event.target.files.length > 0) {
-      const url = await uploadFile(event.target.files[0], "artworks");
-      console.log(url);
+      const image = await storage.upload(event.target.files[0], "artworks");
       setData((data) => ({
         ...data,
-        image: url,
+        images: [image],
       }));
-      if (id) {
-        handleSubmit();
+      if (id && artwork.data) {
+        artwork.update({ images: [image] });
       }
     }
   };
@@ -78,44 +78,44 @@ export default function AdminArtworkPage() {
       name="artwork"
       tabs={["Datos de la Obra", "Galería de Imágenes", "Obras Relacionadas"]}
     >
-      <AdminForm
+      <AdminEditor
         title="Datos de la Obra"
-        form={
+        content={
           <div className={styles.form}>
             <InputField
               name="name"
               labelText="Nombre de la obra"
-              value={data?.name}
+              value={data.name}
               onChange={handleChange}
             />
             <InputField
               name="category"
-              labelText="Clasificación"
-              value={data?.category}
+              labelText="Categoría"
+              value={data.category}
               onChange={handleChange}
             />
             <InputField
               name="author"
               labelText="Autor"
-              value={data?.author}
+              value={data.author}
               onChange={handleChange}
             />
             <InputField
               name="year"
               labelText="Año"
-              value={data?.year}
+              value={data.year}
               onChange={handleChange}
             />
             <InputField
               name="location"
-              labelText="Dirección"
-              value={data?.location}
+              labelText="Ubicación"
+              value={data.location}
               onChange={handleChange}
             />
             <InputField
               name="department"
               labelText="Departamento asociado"
-              value={data?.department}
+              value={data.department}
               onChange={handleChange}
             />
             <InputField
@@ -128,33 +128,34 @@ export default function AdminArtworkPage() {
           </div>
         }
         actions={
-          <>
+          <div className={styles.formButtons}>
             <Button href="/admin/obras" variant="text">
-              Cancelar
+              Volver
             </Button>
             <Button onClick={handleSubmit}>Guardar cambios</Button>
-          </>
+          </div>
         }
       />
-      <AdminMedia
+      <AdminEditor
         title="Galería de Imágenes"
-        media={
-          <div className={styles.media}>
-            {data.image && <img src={data.image} alt="" />}
+        content={
+          <div className={styles.images}>
+            {images[0] && <img src={images[0]} alt="" />}
             <input
               type="file"
               accept="image/*"
+              value=""
               onChange={handleImageChange}
               ref={imageInputRef}
             />
           </div>
         }
         actions={
-          <>
+          <div className={styles.imagesButtons}>
             <Button onClick={handleImageUpload} variant="text">
               Seleccionar imagen
             </Button>
-          </>
+          </div>
         }
       />
     </TabbedPanel>

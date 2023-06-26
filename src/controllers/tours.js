@@ -17,7 +17,7 @@ import { db } from "../firebase";
  *   duration: number;
  *   description: string;
  *   artworks: string[];
- *   pictures: string[];
+ *   images: string[];
  *   pointsOfInterest: string[];
  *   relatedTours: string[];
  * }} TourData
@@ -38,7 +38,7 @@ function mapToTourData(snapshot) {
     duration: snapshot.get("duration"),
     description: snapshot.get("description"),
     artworks: snapshot.get("artworks"),
-    pictures: snapshot.get("pictures"),
+    images: snapshot.get("images"),
     pointsOfInterest: snapshot.get("pointsOfInterest"),
     relatedTours: snapshot.get("relatedTours"),
   };
