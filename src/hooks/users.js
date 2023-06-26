@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createUser,
   getUsers,
@@ -18,19 +18,18 @@ export function useUsers() {
     load();
   }, []);
 
-  const create = useMemo(
-    () =>
-      async function (
-        /** @type {string} */ id,
-        /** @type {import("../controllers/users").UserData} */ newData
-      ) {
-        await createUser(id, newData);
-        setData([...data, { ...newData, id }]);
-      },
+  const create = useCallback(
+    async function (
+      /** @type {string} */ id,
+      /** @type {import("../controllers/users").UserData} */ newData
+    ) {
+      await createUser(id, newData);
+      setData([...data, { ...newData, id }]);
+    },
     [data]
   );
 
-  return { data, create };
+  return useMemo(() => ({ data, create }), [data, create]);
 }
 
 /** @param {string} id */
@@ -51,16 +50,15 @@ export function useUser(id) {
     }
   }, [id]);
 
-  const update = useMemo(
-    () =>
-      async function (
-        /** @type {Partial<import("../controllers/users").UserData>} */ newData
-      ) {
-        await updateUser(id, newData);
-        setData({ ...data, ...newData });
-      },
+  const update = useCallback(
+    async function (
+      /** @type {Partial<import("../controllers/users").UserData>} */ newData
+    ) {
+      await updateUser(id, newData);
+      setData({ ...data, ...newData });
+    },
     [id, data]
   );
 
-  return { data, update };
+  return useMemo(() => ({ data, update }), [data, update]);
 }

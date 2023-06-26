@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createTour,
   getTour,
@@ -18,19 +18,18 @@ export function useTours() {
     load();
   }, []);
 
-  const create = useMemo(
-    () =>
-      async function (
-        /** @type {import("../controllers/tours").TourData} */ newData
-      ) {
-        const id = await createTour(newData);
-        setData([...data, { ...newData, id }]);
-        return id;
-      },
+  const create = useCallback(
+    async function (
+      /** @type {import("../controllers/tours").TourData} */ newData
+    ) {
+      const id = await createTour(newData);
+      setData([...data, { ...newData, id }]);
+      return id;
+    },
     [data]
   );
 
-  return { data, create };
+  return useMemo(() => ({ data, create }), [data, create]);
 }
 
 /** @param {string} id */
@@ -46,16 +45,15 @@ export function useTour(id) {
     load();
   }, [id]);
 
-  const update = useMemo(
-    () =>
-      async function (
-        /** @type {Partial<import("../controllers/tours").TourData>} */ newData
-      ) {
-        await updateTour(id, newData);
-        setData({ ...data, ...newData });
-      },
+  const update = useCallback(
+    async function (
+      /** @type {Partial<import("../controllers/tours").TourData>} */ newData
+    ) {
+      await updateTour(id, newData);
+      setData({ ...data, ...newData });
+    },
     [id, data]
   );
 
-  return { data, update };
+  return useMemo(() => ({ data, update }), [data, update]);
 }

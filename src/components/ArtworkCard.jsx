@@ -1,36 +1,35 @@
 import { Link } from "react-router-dom";
+import { useFiles } from "../hooks/storage";
 import styles from "./ArtworkCard.module.scss";
 
 /**
  * @typedef {{
- *   href: string;
- *   title: string;
- *   author: string;
- *   location: string;
- *   image: string;
+ *   data: import("../controllers/artworks").ArtworkData;
  *   size?: "large" | "medium" | "base";
+ *   target?: "details" | "admin";
  * }} ArtworkCardProps
  */
 
 /** @param {ArtworkCardProps} props */
 export default function ArtworkCard({
-  href,
-  title,
-  author,
-  location,
-  image,
+  data: { id, name, author, department, images: imagePaths },
   size = "base",
+  target = "details",
 }) {
+  const images = useFiles(imagePaths);
   return (
-    <Link to={href} className={[styles.card, styles[size]].join(" ")}>
+    <Link
+      to={target === "admin" ? `/admin/obras/${id}` : `/obras/${id}`}
+      className={[styles.card, styles[size]].join(" ")}
+    >
       <div
         className={styles.image}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${images[0]})` }}
       />
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>{name}</div>
       <div className={styles.details}>
         <div className={styles.author}>{author}</div>
-        <div className={styles.location}>{location}</div>
+        <div className={styles.location}>{department}</div>
       </div>
     </Link>
   );

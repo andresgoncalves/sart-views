@@ -1,20 +1,18 @@
 .rating {
-    display: flex;
-    align-items: center;
-    gap: 2%;
-}
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
 
-.label {
-    font-weight: bold;
-    justify-content: center;
-    align-items: center;
-}
-  
-.starArray {
-    padding-left: 2.5%;
-    color: #6247AA;
+  &:not(.fixed) span {
     cursor: pointer;
-    font-size: 1.5em;
-    align-items: center;
-    justify-content: center;
+  }
+
+  .on {
+    color: var(--primary-violet);
+  }
+
+  .off {
+    color: var(--placeholder-color);
+  }
 }
