@@ -6,6 +6,7 @@ import adminImage from "../assets/photoAdminProfile.svg";
 import { useAuth } from "../contexts/AuthContext";
 import Button from "./Button";
 import styles from "./Header.module.scss";
+import Loader from "./Loader";
 
 /**
  * @typedef {{
@@ -76,7 +77,10 @@ export default function Header({ search, isAdmin }) {
             </div>
           )
         ) : (
-          "Cargando"
+          <div className={styles.loaderContainer}>
+            <Loader></Loader>
+          </div>
+          /* "Cargando" */
         )
       ) : (
         <div>
