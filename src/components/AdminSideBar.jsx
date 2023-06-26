@@ -16,16 +16,16 @@ export default function AdminSideBar() {
           <img src={editLapiz}></img>
         </Link>
       </div>
-      <Link to="/" className={styles.option}>
+      <Link to="admin/dashboard" className={styles.option}>
         Dashboard
       </Link>
-      <Link to="/" className={styles.option}>
+      <Link to="admin/obras" className={styles.option}>
         Obras
       </Link>
-      <Link to="/" className={styles.option}>
+      <Link to="admin/tours" className={styles.option}>
         Tours
       </Link>
-      <Link to="/" className={styles.option}>
+      <Link to="admin/usuarios" className={styles.option}>
         Usuarios
       </Link>
       <Link to="/" className={[styles.optionSpe, styles.close].join(" ")}>
