@@ -73,8 +73,11 @@ export default createBrowserRouter(
             }
           />
         </Route>
+      </Route>
+      <Route element={<LayoutAdmin />} errorElement={<ErrorPage />}>
         <Route path="/admin">
           <Route path="/admin/obras" element={<AdminArtworksPage />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
           <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
           <Route path="/admin/tours" element={<AdminToursPage />} />
@@ -82,11 +85,6 @@ export default createBrowserRouter(
           <Route path="/admin/tours/crear" element={<AdminTourPage />} />
           <Route path="/admin/usuarios" element={<BlankPage />} />
           <Route path="/admin/usuarios/:id" element={<BlankPage />} />
-        </Route>
-      </Route>
-      <Route element={<LayoutAdmin />} errorElement={<ErrorPage />}>
-        <Route path="/admin">
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
       </Route>
     </>
