@@ -255,7 +255,7 @@
 
 .socialContainer {
   display: flex;
-  gap: 30px;
+  gap: 45px;
   margin: 20px 0;
 }
 
@@ -320,7 +320,7 @@
 }
 
 .adminForm {
-  width: 40%;
+  width: 30%;
   margin-top: 10px;
   margin-bottom: 15px;
 }
@@ -334,6 +334,11 @@
   padding: 0 50px;
   text-align: center;
   background-color: #ffffff;
+}
+
+.formInterno {
+  display: flex;
+  flex-direction: column;
 }
 
 /* form {

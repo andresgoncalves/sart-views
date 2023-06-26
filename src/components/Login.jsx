@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import facebookIcon from "../assets/FacebookIcon.svg";
 import googleIcon from "../assets/GoogleIcon.svg";
-import instagramIcon from "../assets/InstagramIcon.svg";
 import { useAuth } from "../contexts/AuthContext";
 import {
   loginWithEmailAndPassword,
@@ -63,12 +62,12 @@ export default function Login() {
 
   const handleSingInWithGoogle = async () => {
     await singInWithGoogle();
-    //navigate("/user/dashboard");
+    navigate("/user/dashboard");
   };
 
   const handleSingInWithFacebook = async () => {
     await singInWithFacebook();
-    //navigate("/user/dashboard");
+    navigate("/user/dashboard");
   };
 
   const [loginData, setLoginData] = useState({
@@ -107,9 +106,6 @@ export default function Login() {
             <div className={styles.title}>Crea tu cuenta</div>
             <div className={styles.socialContainer}>
               <div className={styles.iconCursor}>
-                <img src={instagramIcon}></img>
-              </div>
-              <div className={styles.iconCursor}>
                 <img
                   src={facebookIcon}
                   onClick={handleSingInWithFacebook}
@@ -122,7 +118,7 @@ export default function Login() {
             <div className={styles.subtitle}>
               o utiliza un email para registrarte...
             </div>
-            <form onSubmit={onSumbit}>
+            <form onSubmit={onSumbit} className={styles.formInterno}>
               <div className={styles.inputTop}>
                 <InputField
                   type="text"
@@ -166,9 +162,6 @@ export default function Login() {
             <div className={styles.title}>Inicia Sesión</div>
             <div className={styles.socialContainer}>
               <div className={styles.iconCursor}>
-                <img src={instagramIcon}></img>
-              </div>
-              <div className={styles.iconCursor}>
                 <img
                   src={facebookIcon}
                   onClick={handleSingInWithFacebook}
@@ -181,7 +174,7 @@ export default function Login() {
             <div className={styles.subtitle}>
               o accede ingresando tu email...
             </div>
-            <form onSubmit={onSumbitLogin}>
+            <form onSubmit={onSumbitLogin} className={styles.formInterno}>
               <div className={styles.inputTop}>
                 <InputField
                   type="email"
@@ -257,7 +250,7 @@ export default function Login() {
             <div className={styles.title}>
               Bienvenido de vuelta administrador!
             </div>
-            <form className={styles.adminForm}>
+            <form className={[styles.adminForm, styles.formInterno].join(" ")}>
               <div className={styles.inputTop}>
                 <InputField
                   className={styles.letra}

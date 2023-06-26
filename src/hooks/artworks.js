@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   createArtwork,
   getArtwork,
@@ -18,15 +18,14 @@ export function useArtworks() {
     load();
   }, []);
 
-  const create = useMemo(
-    () =>
-      async function (
-        /** @type {import("../controllers/artworks").ArtworkData} */ newData
-      ) {
-        const id = await createArtwork(newData);
-        setData([...data, { ...newData, id }]);
-        return id;
-      },
+  const create = useCallback(
+    async function (
+      /** @type {import("../controllers/artworks").ArtworkData} */ newData
+    ) {
+      const id = await createArtwork(newData);
+      setData([...data, { ...newData, id }]);
+      return id;
+    },
     [data]
   );
 
@@ -46,14 +45,13 @@ export function useArtwork(id) {
     load();
   }, [id]);
 
-  const update = useMemo(
-    () =>
-      async function (
-        /** @type {Partial<import("../controllers/artworks").ArtworkData>} */ newData
-      ) {
-        await updateArtwork(id, newData);
-        setData({ ...data, ...newData });
-      },
+  const update = useCallback(
+    async function (
+      /** @type {Partial<import("../controllers/artworks").ArtworkData>} */ newData
+    ) {
+      await updateArtwork(id, newData);
+      setData({ ...data, ...newData });
+    },
     [id, data]
   );
 

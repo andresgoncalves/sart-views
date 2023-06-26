@@ -4,26 +4,21 @@ import searchImage from "../assets/Search.svg";
 import barIcon from "../assets/openBarIcon.svg";
 import adminImage from "../assets/photoAdminProfile.svg";
 import { useAuth } from "../contexts/AuthContext";
-import { logout } from "../controllers/auth";
 import Button from "./Button";
 import styles from "./Header.module.scss";
+import Loader from "./Loader";
 
 /**
  * @typedef {{
- *   isLogged: boolean;
  *   search: boolean;
  *   isAdmin: boolean;
  * }} HeaderProps
  */
 
 /** @param {HeaderProps} props */
-export default function Header({ isLogged, search, isAdmin }) {
+export default function Header({ search, isAdmin }) {
   const nameAdmin = "Jack Mason";
-  const { user } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-  };
+  const { user, isLogged } = useAuth();
 
   return (
     <div className={styles.header}>
@@ -48,35 +43,44 @@ export default function Header({ isLogged, search, isAdmin }) {
           </Link>
           <Link to="/buscar" className={styles.buscar}>
             Buscar
-            <img src={searchImage} className={styles.searchImg}></img>
+            <img src={searchImage} className={styles.searchImg} alt="" />
           </Link>
         </div>
       )}
-      {user ? (
-        isAdmin ? (
-          <div className={styles.logged}>
-            <Link to="/admin/dashboard" className={styles.loggedUseer}>
-              {nameAdmin}
-            </Link>
-            <Link to="/admin/dashboard">
-              <img src={adminImage} className={styles.userImage}></img>
-            </Link>
-            <Link to="">
-              <img src={barIcon} className={styles.barIcon}></img>
-            </Link>
-          </div>
+      {isLogged ? (
+        user ? (
+          isAdmin ? (
+            <div className={styles.logged}>
+              <Link to="/admin/dashboard" className={styles.loggedUseer}>
+                {nameAdmin}
+              </Link>
+              <Link to="/admin/dashboard">
+                <img src={adminImage} className={styles.userImage} alt="" />
+              </Link>
+              <Link to="">
+                <img src={barIcon} className={styles.barIcon} alt="" />
+              </Link>
+            </div>
+          ) : (
+            <div className={styles.logged}>
+              <Link to="/user/dashboard" className={styles.loggedUser}>
+                {user.name}
+              </Link>
+              <Link to="/user/dashboard">
+                <img
+                  src={user.picture}
+                  className={styles.userImage}
+                  referrerPolicy="no-referrer"
+                  alt=""
+                />
+              </Link>
+            </div>
+          )
         ) : (
-          <div className={styles.logged}>
-            <Link to="/user/dashboard" className={styles.loggedUser}>
-              {user.name}
-            </Link>
-            <Link to="/user/dashboard">
-              <img src={user.picture} className={styles.userImage}></img>
-            </Link>
-            <Button className={styles.button} onClick={handleLogout}>
-              Cerrar sesion
-            </Button>
+          <div className={styles.loaderContainer}>
+            <Loader></Loader>
           </div>
+          /* "Cargando" */
         )
       ) : (
         <div>

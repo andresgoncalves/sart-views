@@ -70,8 +70,6 @@ export const registerWithEmailAndPassword = async (
   }
 };
 
-// este se usa en el register page y se crea la funcion on submit y mandarle la extra data en el register page
-
 export const loginWithEmailAndPassword = async (email, password) => {
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
@@ -85,8 +83,6 @@ export const loginWithEmailAndPassword = async (email, password) => {
     }
   }
 };
-
-// llamo a esa funcion en el estado de login
 
 export const logout = async () => {
   try {
