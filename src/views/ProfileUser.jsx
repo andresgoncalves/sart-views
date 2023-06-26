@@ -6,6 +6,7 @@ import ArtworkCard from "../components/ArtworkCard";
 import Button from "../components/Button";
 import DetailedTourCard from "../components/DetailedTourCard";
 import Divider from "../components/Divider";
+import Loader from "../components/Loader";
 import TourCard from "../components/TourCard";
 import { useAuth } from "../contexts/AuthContext";
 import { logout } from "../controllers/auth";
@@ -32,7 +33,13 @@ export default function ProfileUser() {
           <div className={styles.userBox}>
             <div className={styles.userData}>
               <div className={styles.photo}>
-                {user ? <img src={user.picture}></img> : <div>Loading...</div>}
+                {user ? (
+                  <img src={user.picture}></img>
+                ) : (
+                  <div>
+                    <Loader></Loader>
+                  </div>
+                )}
               </div>
               <Link to="/user/perfil" className={styles.edit}>
                 Editar Perfil
