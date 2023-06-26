@@ -4,29 +4,30 @@ import AdminEditor from "../components/AdminEditor";
 import Button from "../components/Button";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
-import { useArtwork, useArtworks } from "../hooks/artworks";
 import { useFiles, useStorage } from "../hooks/storage";
-import styles from "./AdminArtworkPage.module.scss";
+import { useTour, useTours } from "../hooks/tours";
+import styles from "./AdminTourPage.module.scss";
 
-/** @type {import("../controllers/artworks").ArtworkData} */
+/** @type {import("../controllers/tours").TourData} */
 const initialData = {
   name: "",
-  category: "",
-  author: "",
-  year: 0,
-  location: "",
   department: "",
+  location: "",
+  duration: 0,
   description: "",
+  rating: 0,
+  artworks: [],
   images: [],
-  relatedArtworks: [],
+  pointsOfInterest: [],
+  relatedTours: [],
 };
 
-export default function AdminArtworkPage() {
+export default function AdminTourPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const storage = useStorage();
-  const artworks = useArtworks();
-  const artwork = useArtwork(id);
+  const tours = useTours();
+  const tour = useTour(id);
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
@@ -35,10 +36,10 @@ export default function AdminArtworkPage() {
   const imageInputRef = useRef();
 
   useEffect(() => {
-    if (artwork.data) {
-      setData(artwork.data);
+    if (tour.data) {
+      setData(tour.data);
     }
-  }, [artwork.data]);
+  }, [tour]);
 
   const handleChange = (event) => {
     setData((data) => ({
@@ -48,24 +49,44 @@ export default function AdminArtworkPage() {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (artwork.data) {
-      artwork.update(data);
+    if (tour.data) {
+      tour.update(data);
     } else {
-      const id = await artworks.create(data);
-      navigate(`/admin/obras/${id}`);
+      const id = await tours.create(data);
+      navigate(`/admin/tours/${id}`);
     }
-  }, [navigate, artwork, artworks, data]);
+  }, [navigate, tour, tours, data]);
 
   const handleImageChange = async (event) => {
     if (event.target.files.length > 0) {
-      const image = await storage.upload(event.target.files[0], "artworks");
+      /** @type {string[]} */
+      const images = await Promise.all(
+        Array.from(event.target.files).map((file) =>
+          storage.upload(file, "tours")
+        )
+      );
       setData((data) => ({
         ...data,
-        images: [image],
+        images: [...data.images, ...images],
       }));
-      if (id && artwork.data) {
-        artwork.update({ images: [image] });
+      if (id && tour.data) {
+        tour.update({ images: [...tour.data.images, ...images] });
       }
+    }
+  };
+  const handleImageDelete = async (event) => {
+    const { path } = event.target.dataset;
+    if (path) {
+      setData((data) => ({
+        ...data,
+        images: data.images.filter((image) => image !== path),
+      }));
+      if (id && tour.data) {
+        tour.update({
+          images: tour.data.images.filter((image) => image !== path),
+        });
+      }
+      await storage.delete(path);
     }
   };
 
@@ -75,35 +96,23 @@ export default function AdminArtworkPage() {
 
   return (
     <TabbedPanel
-      name="artwork"
-      tabs={["Datos de la Obra", "Galería de Imágenes", "Obras Relacionadas"]}
+      name="tour"
+      tabs={["Datos del Tour", "Galería de Imágenes", "Tours Relacionadas"]}
     >
       <AdminEditor
-        title="Datos de la Obra"
+        title="Datos del Tour"
         content={
           <div className={styles.form}>
             <InputField
               name="name"
-              labelText="Nombre de la obra"
+              labelText="Nombre del tour"
               value={data.name}
               onChange={handleChange}
             />
             <InputField
-              name="category"
-              labelText="Categoría"
-              value={data.category}
-              onChange={handleChange}
-            />
-            <InputField
-              name="author"
-              labelText="Autor"
-              value={data.author}
-              onChange={handleChange}
-            />
-            <InputField
-              name="year"
-              labelText="Año"
-              value={data.year}
+              name="department"
+              labelText="Departamento"
+              value={data.department}
               onChange={handleChange}
             />
             <InputField
@@ -113,24 +122,24 @@ export default function AdminArtworkPage() {
               onChange={handleChange}
             />
             <InputField
-              name="department"
-              labelText="Departamento asociado"
-              value={data.department}
+              name="duration"
+              labelText="Duración"
+              value={data.duration}
               onChange={handleChange}
             />
             <InputField
               name="description"
               labelText="Descripción"
+              value={data.description}
               onChange={handleChange}
-              value={data?.description}
               className={styles.description}
             />
           </div>
         }
         actions={
           <div className={styles.formButtons}>
-            <Button href="/admin/obras" variant="text">
-              Volver
+            <Button href="/admin/tours" variant="text">
+              Cancelar
             </Button>
             <Button onClick={handleSubmit}>Guardar cambios</Button>
           </div>
@@ -140,10 +149,19 @@ export default function AdminArtworkPage() {
         title="Galería de Imágenes"
         content={
           <div className={styles.images}>
-            {images[0] && <img src={images[0]} alt="" />}
+            {images?.map((image, key) => (
+              <img
+                key={key}
+                src={image}
+                alt=""
+                data-path={data.images[key]}
+                onClick={handleImageDelete}
+              />
+            ))}
             <input
               type="file"
               accept="image/*"
+              multiple={true}
               value=""
               onChange={handleImageChange}
               ref={imageInputRef}
@@ -153,7 +171,7 @@ export default function AdminArtworkPage() {
         actions={
           <div className={styles.imagesButtons}>
             <Button onClick={handleImageUpload} variant="text">
-              Seleccionar imagen
+              Agregar imagen
             </Button>
           </div>
         }

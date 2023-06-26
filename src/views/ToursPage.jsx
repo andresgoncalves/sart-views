@@ -2,51 +2,12 @@ import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
 import Divider from "../components/Divider";
 import TourCard from "../components/TourCard";
+import { useTours } from "../hooks/tours";
 import styles from "./ToursPage.module.scss";
 
 export default function ToursPage() {
-  const tours = [
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-    {
-      title: "Tour Gandhi",
-      description: "Tour que inicia en la estatua de Gandhi",
-      location: "Biblioteca Pedro Grases",
-      id: "#",
-      image:
-        "https://www.unimet.edu.ve/wp-content/uploads/2020/10/gandhi-1-1030x773.jpg",
-    },
-  ];
+  const tours = useTours();
+
   return (
     <>
       <Helmet title="Obras"></Helmet>
@@ -70,9 +31,11 @@ export default function ToursPage() {
           <h2>Próximos Tours</h2>
         </Divider>
         <div className={styles.tours}>
-          {tours.map((data, index) => (
-            <TourCard key={index} size="medium" {...data} />
-          ))}
+          {tours.data
+            ? tours.data.map((data, key) => (
+                <TourCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
       <section>
@@ -80,9 +43,11 @@ export default function ToursPage() {
           <h2>Tour Populares</h2>
         </Divider>
         <div className={styles.tours}>
-          {tours.map((data, index) => (
-            <TourCard key={index} size="medium" {...data} />
-          ))}
+          {tours.data
+            ? tours.data.map((data, key) => (
+                <TourCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
       <section>
@@ -90,9 +55,11 @@ export default function ToursPage() {
           <h2>Tour Nuevos</h2>
         </Divider>
         <div className={styles.tours}>
-          {tours.map((data, index) => (
-            <TourCard key={index} size="medium" {...data} />
-          ))}
+          {tours.data
+            ? tours.data.map((data, key) => (
+                <TourCard key={key} data={data} size="medium" />
+              ))
+            : "Cargando..."}
         </div>
       </section>
     </>

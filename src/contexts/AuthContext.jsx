@@ -14,7 +14,7 @@ export const AuthContext = createContext(null);
 
 export function AuthContextProvider({ children }) {
   const [userId, setUserId] = useState(null);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(null);
   const user = useUser(userId);
 
   useEffect(() => {

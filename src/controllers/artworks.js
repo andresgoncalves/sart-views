@@ -2,9 +2,12 @@ import {
   addDoc,
   collection,
   doc,
+  documentId,
   getDoc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -18,7 +21,7 @@ import { db } from "../firebase";
  *   location: string;
  *   department: string;
  *   description: string;
- *   image: string;
+ *   images: string[];
  *   relatedArtworks: string[];
  * }} ArtworkData
  */
@@ -39,14 +42,17 @@ function mapToArtworkData(snapshot) {
     location: snapshot.get("location"),
     department: snapshot.get("department"),
     description: snapshot.get("description"),
-    image: snapshot.get("image"),
+    images: snapshot.get("images"),
     relatedArtworks: snapshot.get("relatedArtworks"),
   };
 }
 
-export async function getArtworks() {
+/** @param {string[]} ids */
+export async function getArtworks(ids = null) {
   const artworksRef = collection(db, "artworks");
-  const artworkSnapshots = await getDocs(artworksRef);
+  const artworkSnapshots = await getDocs(
+    ids ? query(artworksRef, where(documentId(), "in", ids)) : artworksRef
+  );
   const artworks = artworkSnapshots.docs.map(mapToArtworkData);
   return artworks;
 }
