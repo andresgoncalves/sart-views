@@ -10,10 +10,4 @@
     justify-content: center;
     padding: 32px;
   }
-
-  .artworks {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
-    gap: 16px;
-  }
 }

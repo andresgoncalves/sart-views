@@ -1,4 +1,4 @@
-import ArtworkCard from "../components/ArtworkCard";
+import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import { useArtworks, useCategories } from "../hooks/artworks";
 import styles from "./AdminArtworksPage.module.scss";
@@ -23,18 +23,11 @@ export default function AdminArtworksPage() {
             <section key={category} className={styles.section}>
               <div className={styles.heading}>
                 <h2>{category}</h2>
-                <Button href="/admin/obras/crear">Agregar obra</Button>
+                <Button href={`/admin/obras/crear?categoria=${category}`}>
+                  Agregar obra
+                </Button>
               </div>
-              <div className={styles.artworks}>
-                {artworks.map((data, key) => (
-                  <ArtworkCard
-                    key={key}
-                    data={data}
-                    size="medium"
-                    target="admin"
-                  />
-                ))}
-              </div>
+              <ArtworksGrid artworks={artworks} size="medium" target="admin" />
             </section>
           )
         )}
