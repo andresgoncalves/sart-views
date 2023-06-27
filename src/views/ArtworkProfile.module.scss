@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
     margin: 40px auto;
+    gap: 60px;
 }
 .column2{
     line-height: 2;
@@ -55,4 +56,12 @@
     & > * {
         flex-shrink: 0;
     }
+}
+.column1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image{
+    max-width: 400px;
 }

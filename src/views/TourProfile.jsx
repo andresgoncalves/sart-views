@@ -15,6 +15,7 @@ export default function TourProfile() {
   const tour = useTour(id);
   const artworks = useArtworks();
   const match = useMatch("/tours/:id/reservar");
+  
 
   const data = [
     {
