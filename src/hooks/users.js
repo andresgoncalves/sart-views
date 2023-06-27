@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createUser,
   getUsers,
@@ -29,7 +29,7 @@ export function useUsers() {
     [data]
   );
 
-  return { data, create };
+  return useMemo(() => ({ data, create }), [data, create]);
 }
 
 /** @param {string} id */
@@ -60,5 +60,5 @@ export function useUser(id) {
     [id, data]
   );
 
-  return { data, update };
+  return useMemo(() => ({ data, update }), [data, update]);
 }
