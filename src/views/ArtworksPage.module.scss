@@ -3,15 +3,29 @@
   justify-content: start;
   padding: 150px;
   background-size: cover;
+  position: relative;
+  background: lightgray 50%;
   @media (max-width: 800px) {
     padding: 64px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.199) 0.01%, rgba(255, 255, 255, 0.699) 100%);
   }
 }
 
 .contentTitle {
   box-sizing: border-box;
-  max-width: 600px;
-  color: white;
+  max-width: 480px;
+  color: black;
+  position: relative;
+  z-index: 2;
 }
 
 .description {

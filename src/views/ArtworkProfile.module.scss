@@ -1,0 +1,58 @@
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 300px auto;
+}
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+}
+.column2{
+    line-height: 2;
+}
+.artworkName{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.labelSubtitle{
+    font-weight: bold;
+}
+.textDivider{
+    font-size: 1.8em;
+    font-weight: bold;
+}
+.artworks {
+    display: flex;
+    gap: 32px;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 32px;
+    overflow-x: auto;
+    overflow-y: visible;
+    word-wrap: break-word;
+  
+    & > * {
+      flex-shrink: 0;
+    }
+}
+.tours {
+    display: flex;
+    gap: 32px;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 32px;
+    overflow-x: auto;
+    overflow-y: visible;
+    word-wrap: break-word;
+
+    & > * {
+        flex-shrink: 0;
+    }
+}
