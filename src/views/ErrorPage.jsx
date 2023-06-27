@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { uploadFile } from "../controllers/storage";
 import SearchModal from "../components/SearchModal";
+import PaypalModal from "../components/PaypalModal";
 
 export default function ErrorPage() {
   const [image, setImage] = useState("");
@@ -24,9 +25,6 @@ export default function ErrorPage() {
         }
       />
       <img src={image} />
-
-       <button onClick={openModal}>Open Modal</button>
-    {modalOpen && <SearchModal closeModal={closeModal} />} 
     </>
   );
 }
