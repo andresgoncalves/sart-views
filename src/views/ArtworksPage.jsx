@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
-import bannerImage from "../assets/home-banner.png";
 import ArtworkCard from "../components/ArtworkCard";
 import Divider from "../components/Divider";
 import { useArtworks, useCategories } from "../hooks/artworks";
 import styles from "./ArtworksPage.module.scss";
+import obrasBack from "../assets/obrasBack.jpg";
 
 export default function ArtworksPage() {
   const artworks = useArtworks();
@@ -14,7 +14,7 @@ export default function ArtworksPage() {
       <Helmet title="Obras"></Helmet>
       <header
         className={styles.banner}
-        style={{ backgroundImage: `url(${bannerImage})` }}
+        style={{ backgroundImage: `url(${obrasBack})`}}
       >
         <div className={styles.contentTitle}>
           <h1>Conoce las obras de arte de la Universidad Metropolitana</h1>

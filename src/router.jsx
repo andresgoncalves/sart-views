@@ -15,6 +15,7 @@ import AdminToursPage from "./views/AdminToursPage";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
 import CalendarPage from "./views/CalendarPage";
+import EditUserProfile from "./views/EditUserProfile";
 import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
 import LoginPage from "./views/LoginPage";
@@ -22,6 +23,7 @@ import ProfileUser from "./views/ProfileUser";
 import SearchPage from "./views/SearchPage";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
+import ArtworkProfile from "./views/ArtworkProfile";
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +43,7 @@ export default createBrowserRouter(
         <Route path="/buscar" element={<SearchPage />} />
         <Route path="/obras">
           <Route path="/obras" element={<ArtworksPage />} />
-          <Route path="/obras/:id" element={<BlankPage />} />
+          <Route path="/obras/:id" element={<ArtworkProfile />} />
         </Route>
         <Route path="/tours">
           <Route path="/tours" element={<ToursPage />} />
@@ -68,7 +70,7 @@ export default createBrowserRouter(
             path="/user/perfil"
             element={
               <PrivateRouteUser>
-                <BlankPage />
+                <EditUserProfile />
               </PrivateRouteUser>
             }
           />

@@ -39,7 +39,7 @@ export default function Login() {
     event.preventDefault();
     const { email, password, ...extraData } = signUpData;
     await registerWithEmailAndPassword(email, password, extraData);
-    //navigate("/");
+    navigate("/user/dashboard");
   };
 
   const [signUpData, setSignUpData] = useState({
@@ -87,7 +87,7 @@ export default function Login() {
     event.preventDefault();
     const { email, password } = loginData;
     await loginWithEmailAndPassword(email, password);
-    //navigate("/");
+    navigate("/user/dashboard");
   };
 
   return (

@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
-import bannerImage from "../assets/home-banner.png";
 import Divider from "../components/Divider";
 import TourCard from "../components/TourCard";
 import { useTours } from "../hooks/tours";
 import styles from "./ToursPage.module.scss";
+import unimet from "../assets/unimet.jpg";
 
 export default function ToursPage() {
   const tours = useTours();
@@ -13,7 +13,7 @@ export default function ToursPage() {
       <Helmet title="Obras"></Helmet>
       <header
         className={styles.banner}
-        style={{ backgroundImage: `url(${bannerImage})` }}
+        style={{ backgroundImage: `url(${unimet})`}}
       >
         <div className={styles.contentTitle}>
           <h1>
