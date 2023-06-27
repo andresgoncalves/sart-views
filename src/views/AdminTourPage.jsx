@@ -7,6 +7,7 @@ import InputField from "../components/TextField";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
+import SearchModal from "../components/SearchModal";
 
 /** @type {import("../controllers/tours").TourData} */
 const initialData = {
@@ -93,6 +94,11 @@ export default function AdminTourPage() {
   const handleImageUpload = () => {
     imageInputRef.current?.click();
   };
+//Esto es para el modal
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
     <TabbedPanel
@@ -176,6 +182,10 @@ export default function AdminTourPage() {
           </div>
         }
       />
+
+      {/* Esto es para inicializar el modal, lo comento porque no me quedó claro si aqui quieres el botón y como lo quieres, avísame */}
+      {/* <Button onClick={openModal}>Agregar Obra </Button>
+      {modalOpen && <SearchModal closeModal={closeModal} />} */}
     </TabbedPanel>
   );
 }
