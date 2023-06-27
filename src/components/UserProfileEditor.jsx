@@ -58,8 +58,10 @@ export default function UserProfileEditor() {
   };
 
   const handleSubmit = async (event) => {
-    const fileRef = ref(storage, imageAnterior);
-    await deleteObject(fileRef);
+    if (imageAnterior.includes("UserPictures")) {
+      const fileRef = ref(storage, imageAnterior);
+      await deleteObject(fileRef);
+    }
     updateUser(user.id, data);
     navigate("/user/dashboard");
   };
