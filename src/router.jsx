@@ -15,6 +15,7 @@ import AdminToursPage from "./views/AdminToursPage";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
 import CalendarPage from "./views/CalendarPage";
+import EditUserProfile from "./views/EditUserProfile";
 import ErrorPage from "./views/ErrorPage";
 import HomePage from "./views/HomePage";
 import LoginPage from "./views/LoginPage";
@@ -68,7 +69,7 @@ export default createBrowserRouter(
             path="/user/perfil"
             element={
               <PrivateRouteUser>
-                <BlankPage />
+                <EditUserProfile />
               </PrivateRouteUser>
             }
           />
