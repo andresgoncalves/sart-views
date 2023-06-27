@@ -15,6 +15,7 @@ export default function ArtworkProfile(){
     const artwork = useArtwork(id);
     const artworks=useArtworks();
     const tours= useTours();
+    const image = useFile(artwork.data?.images[0])
 
     if((artwork.data)==null){
         return(
@@ -28,6 +29,7 @@ export default function ArtworkProfile(){
             <section>
                 <div className={styles.content}>
                     <div className={styles.column1}>
+                        <img src={image} className={styles.image}></img>
                     </div>
                     <div className={styles.column2}>
                         <div className={styles.artworkName}>{artwork.data.name}</div>
