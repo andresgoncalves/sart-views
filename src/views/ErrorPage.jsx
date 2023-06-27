@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { uploadFile } from "../controllers/storage";
+import SearchModal from "../components/SearchModal";
+import PaypalModal from "../components/PaypalModal";
 
 export default function ErrorPage() {
   const [image, setImage] = useState("");
+
+
   return (
     <>
       <Helmet title="Error 404" />
