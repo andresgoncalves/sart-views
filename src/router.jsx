@@ -43,7 +43,7 @@ export default createBrowserRouter(
         <Route path="/buscar" element={<SearchPage />} />
         <Route path="/obras">
           <Route path="/obras" element={<ArtworksPage />} />
-          <Route path="/obras/:id" element={<BlankPage />} />
+          <Route path="/obras/:id" element={<ArtworkProfile />} />
         </Route>
         <Route path="/tours">
           <Route path="/tours" element={<ToursPage />} />
