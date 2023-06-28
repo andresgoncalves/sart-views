@@ -118,19 +118,9 @@
 .column2 {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   width: 50%;
-}
-
-.tours,
-.artworks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  margin: auto;
+  text-align: center;
 }
 
 .nextTours {

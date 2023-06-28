@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import AdminEditor from "../components/AdminEditor";
 import Button from "../components/Button";
 import TabbedPanel from "../components/TabbedPanel";
@@ -8,26 +9,26 @@ import { useArtwork, useArtworks } from "../hooks/artworks";
 import { useFiles, useStorage } from "../hooks/storage";
 import styles from "./AdminArtworkPage.module.scss";
 
-/** @type {import("../controllers/artworks").ArtworkData} */
-const initialData = {
-  name: "",
-  category: "",
-  author: "",
-  year: 0,
-  location: "",
-  department: "",
-  description: "",
-  images: [],
-  relatedArtworks: [],
-};
-
 export default function AdminArtworkPage() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [searchParams] = useSearchParams({ categoria: "" });
   const storage = useStorage();
   const artworks = useArtworks();
   const artwork = useArtwork(id);
 
+  /** @type {import("../controllers/artworks").ArtworkData} */
+  const initialData = {
+    name: "",
+    category: searchParams.get("categoria"),
+    author: "",
+    year: "",
+    location: "",
+    department: "",
+    description: "",
+    images: [],
+    relatedArtworks: [],
+  };
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
 

@@ -17,7 +17,7 @@ import { db } from "../firebase";
  *   name: string;
  *   category: string;
  *   author: string;
- *   year: number;
+ *   year: string;
  *   location: string;
  *   department: string;
  *   description: string;

@@ -2,12 +2,12 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import editLapiz from "../assets/EditLapiz.svg";
 import exitIcon from "../assets/exitIcon.svg";
-import ArtworkCard from "../components/ArtworkCard";
+import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
-import DetailedTourCard from "../components/DetailedTourCard";
+import DetailedToursGrid from "../components/DetailedToursGrid";
 import Divider from "../components/Divider";
 import Loader from "../components/Loader";
-import TourCard from "../components/TourCard";
+import ToursGrid from "../components/ToursGrid";
 import { useAuth } from "../contexts/AuthContext";
 import { logout } from "../controllers/auth";
 import { useArtworks } from "../hooks/artworks";
@@ -73,53 +73,23 @@ export default function ProfileUser() {
         <Divider>
           <h2>Tus próximos eventos</h2>
         </Divider>
-        <div className={styles.nextTours}>
-          {tours.data ? (
-            tours.data.length > 0 ? (
-              tours.data.map((data, key) => (
-                <DetailedTourCard key={key} data={data} />
-              ))
-            ) : (
-              <p>No hay eventos próximos</p>
-            )
-          ) : (
-            "Cargando..."
-          )}
-        </div>
+        <DetailedToursGrid
+          tours={tours.data}
+          fallback="No hay eventos próximos"
+        />
       </section>
       <section>
         <div className={styles.infoUser}>
           <div className={styles.column1}>
             <div className={styles.titleColumn}>Tours Visitados</div>
-            <div className={styles.tours}>
-              {tours.data ? (
-                tours.data.length > 0 ? (
-                  tours.data.map((data, key) => (
-                    <TourCard key={key} size="medium" data={data} />
-                  ))
-                ) : (
-                  <p>No hay tours visitados</p>
-                )
-              ) : (
-                "Cargando..."
-              )}
-            </div>
+            <ToursGrid tours={tours.data} fallback="No hay tours visitados" />
           </div>
           <div className={styles.column2}>
             <div className={styles.titleColumn}>Obras Favoritas</div>
-            <div className={styles.artworks}>
-              {artworks.data ? (
-                artworks.data.length > 0 ? (
-                  artworks.data.map((data, key) => (
-                    <ArtworkCard key={key} size="medium" data={data} />
-                  ))
-                ) : (
-                  <p>No hay obras destacadas</p>
-                )
-              ) : (
-                "Cargando..."
-              )}
-            </div>
+            <ArtworksGrid
+              artworks={artworks.data}
+              fallback="No hay obras destacadas"
+            />
           </div>
         </div>
       </section>
