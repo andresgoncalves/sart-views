@@ -28,10 +28,6 @@ function Calendario(){
                 }
             }}
             />
-            <p className='text-center'>
-        <span className='bold'></span>{' '}
-        {date.toDateString()}
-      </p>
         </div>
     )
 }
