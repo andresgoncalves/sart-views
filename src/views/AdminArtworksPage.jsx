@@ -33,7 +33,7 @@ export default function AdminArtworksPage() {
         )}
       </div>
     ) : (
-      <div>
+      <div className={styles.empty}>
         <div>No hay obras registradas</div>
         <Button href="/admin/obras/crear">Agregar obra</Button>
       </div>

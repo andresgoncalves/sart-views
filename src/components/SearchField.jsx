@@ -1,37 +1,28 @@
-import { useState } from "react";
 import styles from "./SearchField.module.scss";
 
 /**
  * @typedef {React.InputHTMLAttributes<HTMLInputElement> &
  *   React.ButtonHTMLAttributes<HTMLInputElement> & {
+ *     action?: React.MouseEventHandler<HTMLButtonElement>;
  *     negative?: boolean;
- *     placeholder?: string;
- *     value?: string;
- *     onChange?: function;
  *   }} SearchFieldProps
  */
 
 /** @param {SearchFieldProps} props */
-export default function SearchField({
-  placeholder,
-  value,
-  negative = false,
-  ...props
-}) {
-  const [searchValue, setSearchValue] = useState("");
-
+export default function SearchField({ action, negative = false, ...props }) {
   return (
     <div
       className={[styles.container, negative ? styles.negative : ""].join(" ")}
     >
       <input
-        type="text"
+        type="search"
         className={styles.input}
         placeholder="Buscar"
-        value={searchValue}
-        onChange={(ev) => setSearchValue(ev.target.value)}
+        {...props}
       />
-      <button className={styles.button}>Buscar</button>
+      <button className={styles.button} onClick={action}>
+        Buscar
+      </button>
     </div>
   );
 }

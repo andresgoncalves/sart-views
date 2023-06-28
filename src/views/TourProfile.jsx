@@ -1,21 +1,21 @@
-import { useMatch, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import bannerImage from "../assets/home-banner.png";
-import ArtworkCard from "../components/ArtworkCard";
+import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import InterestPoint from "../components/InterestPoint";
+import Loader from "../components/Loader";
 import StarRating from "../components/StarRating";
 import { useArtworks } from "../hooks/artworks";
 import { useTour } from "../hooks/tours";
 import styles from "./TourProfile.module.scss";
-import Loader from "../components/Loader";
 
 export default function TourProfile() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const tour = useTour(id);
   const artworks = useArtworks();
   const match = useMatch("/tours/:id/reservar");
-  
 
   const data = [
     {
@@ -44,13 +44,15 @@ export default function TourProfile() {
     },
   ];
 
-  if(tour.data==null){
-    return(
+  if (tour.data == null) {
+    return (
       <>
-        <div className={styles.loading}><Loader></Loader></div>
+        <div className={styles.loading}>
+          <Loader></Loader>
+        </div>
       </>
     );
-  } else{
+  } else {
     return (
       <>
         <header
@@ -63,7 +65,9 @@ export default function TourProfile() {
         </header>
         <section>
           <div className={styles.frame}>
-            <div className={styles.rating}>Calificación: <StarRating value={tour.data.rating} /></div>
+            <div className={styles.rating}>
+              Calificación: <StarRating value={tour.data.rating} />
+            </div>
             <Button href={`/tours/${id}/reservar`}>Reservar</Button>
           </div>
           <div className={styles.text}>
@@ -95,14 +99,7 @@ export default function TourProfile() {
           <Divider>
             <h2>OBRAS INTEGRADAS EN EL TOUR</h2>
           </Divider>
-  
-          <div className={styles.artworks}>
-            {artworks.data
-              ? artworks.data.map((data, key) => (
-                  <ArtworkCard key={key} data={data} size="medium" />
-                ))
-              : "Cargando..."}
-          </div>
+          <ArtworksGrid artworks={artworks.data} size="medium" />
         </section>
       </>
     );
