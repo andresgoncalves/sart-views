@@ -22,7 +22,6 @@ export default function ErrorPage() {
         }
       />
       <img src={image} />
-      <TextField negative placeholder="Hola" labelText="QUELOQE"></TextField>
     </>
   );
 }
