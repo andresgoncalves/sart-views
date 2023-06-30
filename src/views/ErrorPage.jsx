@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { uploadFile } from "../controllers/storage";
 import SearchModal from "../components/SearchModal";
 import PaypalModal from "../components/PaypalModal";
+import TextField from "../components/TextField";
 
 export default function ErrorPage() {
   const [image, setImage] = useState("");
@@ -21,6 +22,7 @@ export default function ErrorPage() {
         }
       />
       <img src={image} />
+      <TextField negative placeholder="Hola" labelText="QUELOQE"></TextField>
     </>
   );
 }
