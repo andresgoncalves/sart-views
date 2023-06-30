@@ -7,8 +7,7 @@ import styles from "./Header.module.scss";
 import Loader from "./Loader";
 
 export default function Header() {
-  const nameAdmin = "Jack Mason";
-  const { user, isLogged } = useAuth();
+  const { user, isLogged, isAdmin } = useAuth();
 
   return (
     <div className={styles.header}>
@@ -36,14 +35,28 @@ export default function Header() {
       {isLogged ? (
         user ? (
           <div className={styles.logged}>
-            <Link to="/user/dashboard" className={styles.loggedUser}>
-              {user.name}
-            </Link>
-            <Link to="/user/dashboard">
-              <div className={styles.photo}>
-                <img className={styles.img} src={user.picture}></img>
-              </div>
-            </Link>
+            {!isAdmin ? (
+              <Link to="/user/dashboard" className={styles.loggedUser}>
+                {user.name}
+              </Link>
+            ) : (
+              <Link to="/admin/dashboard" className={styles.loggedUser}>
+                {user.name}
+              </Link>
+            )}
+            {!isAdmin ? (
+              <Link to="/user/dashboard">
+                <div className={styles.photo}>
+                  <img className={styles.img} src={user.picture}></img>
+                </div>
+              </Link>
+            ) : (
+              <Link to="/admin/dashboard">
+                <div className={styles.photo}>
+                  <img className={styles.img} src={user.picture}></img>
+                </div>
+              </Link>
+            )}
           </div>
         ) : (
           <div className={styles.loaderContainer}>

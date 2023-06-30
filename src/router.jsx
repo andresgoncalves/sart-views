@@ -74,7 +74,6 @@ export default createBrowserRouter(
           </PrivateRoute>
         }
       >
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/obras" element={<AdminArtworksPage />} />
         <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
         <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
@@ -89,6 +88,14 @@ export default createBrowserRouter(
         element={
           <PrivateRoute role="admin">
             <AdminProfile />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <PrivateRoute role="admin">
+            <AdminDashboard />
           </PrivateRoute>
         }
       />
