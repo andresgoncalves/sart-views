@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
 import missionImage from "../assets/home-mission.png";
-import ArtworkCard from "../components/ArtworkCard";
+import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
-import TourCard from "../components/TourCard";
+import ToursGrid from "../components/ToursGrid";
 import { useArtworks } from "../hooks/artworks";
 import { useTours } from "../hooks/tours";
 import styles from "./HomePage.module.scss";
@@ -81,25 +81,13 @@ export default function HomePage() {
         <Divider>
           <h2>DESCUBRE NUESTROS TOURS</h2>
         </Divider>
-        <div className={styles.tours}>
-          {tours.data
-            ? tours.data.map((data, key) => (
-                <TourCard key={key} data={data} size="medium" />
-              ))
-            : "Cargando..."}
-        </div>
+        <ToursGrid tours={tours.data} size="medium" />
       </section>
       <section>
         <Divider>
           <h2>CONOCE NUESTRAS OBRAS</h2>
         </Divider>
-        <div className={styles.artworks}>
-          {artworks.data
-            ? artworks.data.map((data, key) => (
-                <ArtworkCard key={key} data={data} size="medium" />
-              ))
-            : "Cargando..."}
-        </div>
+        <ArtworksGrid artworks={artworks.data} size="medium" />
       </section>
     </>
   );

@@ -4,8 +4,10 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -18,6 +20,7 @@ import { db } from "../firebase";
  *   association: string;
  *   sex: string;
  *   picture: string;
+ *   admin: boolean;
  * }} UserData
  */
 
@@ -36,6 +39,7 @@ function mapToUserData(snapshot) {
     association: snapshot.get("association"),
     sex: snapshot.get("sex"),
     picture: snapshot.get("picture"),
+    admin: snapshot.get("admin"),
   };
 }
 
@@ -52,6 +56,27 @@ export async function getUser(id) {
   const userSnapshot = await getDoc(doc(usersRef, id));
   const user = mapToUserData(userSnapshot);
   return user;
+}
+
+/** @param {string} email */
+export async function getUserByEmail(email) {
+  const userQuery = query(collection(db, "users"), where("email", "==", email));
+  const results = await getDocs(userQuery);
+
+  if (results.size > 0) {
+    const usuarios = results.docs.map((item) => ({
+      ...item.data(),
+      id: item.id,
+    }));
+
+    const usersRef = collection(db, "users");
+    const userSnapshot = await getDoc(doc(usersRef, usuarios[0].id));
+    const user = mapToUserData(userSnapshot);
+
+    return user;
+  } else {
+    return null;
+  }
 }
 
 /**

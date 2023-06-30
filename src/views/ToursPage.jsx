@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
+import unimet from "../assets/unimet.jpg";
 import Divider from "../components/Divider";
-import TourCard from "../components/TourCard";
+import ToursGrid from "../components/ToursGrid";
 import { useTours } from "../hooks/tours";
 import styles from "./ToursPage.module.scss";
-import unimet from "../assets/unimet.jpg";
 
 export default function ToursPage() {
   const tours = useTours();
@@ -13,7 +13,7 @@ export default function ToursPage() {
       <Helmet title="Obras"></Helmet>
       <header
         className={styles.banner}
-        style={{ backgroundImage: `url(${unimet})`}}
+        style={{ backgroundImage: `url(${unimet})` }}
       >
         <div className={styles.contentTitle}>
           <h1>
@@ -30,37 +30,27 @@ export default function ToursPage() {
         <Divider>
           <h2>Próximos Tours</h2>
         </Divider>
-        <div className={styles.tours}>
-          {tours.data
-            ? tours.data.map((data, key) => (
-                <TourCard key={key} data={data} size="medium" />
-              ))
-            : "Cargando..."}
-        </div>
+        <ToursGrid
+          tours={tours.data}
+          size="medium"
+          fallback="No hay eventos próximos"
+        />
       </section>
       <section>
         <Divider>
           <h2>Tour Populares</h2>
         </Divider>
-        <div className={styles.tours}>
-          {tours.data
-            ? tours.data.map((data, key) => (
-                <TourCard key={key} data={data} size="medium" />
-              ))
-            : "Cargando..."}
-        </div>
+        <ToursGrid tours={tours.data} size="medium" />
       </section>
       <section>
         <Divider>
           <h2>Tour Nuevos</h2>
         </Divider>
-        <div className={styles.tours}>
-          {tours.data
-            ? tours.data.map((data, key) => (
-                <TourCard key={key} data={data} size="medium" />
-              ))
-            : "Cargando..."}
-        </div>
+        <ToursGrid
+          tours={tours.data}
+          size="medium"
+          fallback="No hay tours nuevos"
+        />
       </section>
     </>
   );

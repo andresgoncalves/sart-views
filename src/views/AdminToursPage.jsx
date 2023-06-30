@@ -1,5 +1,6 @@
 import Button from "../components/Button";
-import TourCard from "../components/TourCard";
+import Loader from "../components/Loader";
+import ToursGrid from "../components/ToursGrid";
 import { useTours } from "../hooks/tours";
 import styles from "./AdminToursPage.module.scss";
 
@@ -14,11 +15,7 @@ export default function AdminToursPage() {
             <h2>Tours</h2>
             <Button href="/admin/tours/crear">Agregar tour</Button>
           </div>
-          <div className={styles.tours}>
-            {tours.data.map((data, key) => (
-              <TourCard key={key} data={data} size="medium" target="admin" />
-            ))}
-          </div>
+          <ToursGrid tours={tours.data} size="medium" target="admin" />
         </section>
       </div>
     ) : (
@@ -28,6 +25,8 @@ export default function AdminToursPage() {
       </div>
     )
   ) : (
-    "Cargando"
+    <div className={styles.loaderContainer}>
+      <Loader></Loader>
+    </div>
   );
 }

@@ -3,16 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadPhoto from "../assets/UploadPhoto.svg";
 import { useAuth } from "../contexts/AuthContext";
-import { deleteFile, getFileUrl } from "../controllers/storage";
+import { getFileUrl } from "../controllers/storage";
 import { updateUser } from "../controllers/users";
 import { storage } from "../firebase";
 import { useStorage } from "../hooks/storage";
 import Button from "./Button";
+import DropDownList from "./DropDownList";
 import Loader from "./Loader";
 import TextField from "./TextField";
 import styles from "./UserProfileEditor.module.scss";
 
 const initialData = {
+  admin: false,
   name: "",
   email: "",
   phone: "",
@@ -38,6 +40,7 @@ export default function UserProfileEditor() {
   useEffect(() => {
     if (user) {
       setData({
+        admin: false,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -58,8 +61,10 @@ export default function UserProfileEditor() {
   };
 
   const handleSubmit = async (event) => {
-    const fileRef = ref(storage, imageAnterior);
-    await deleteObject(fileRef);
+    if (imageAnterior.includes("UserPictures")) {
+      const fileRef = ref(storage, imageAnterior);
+      await deleteObject(fileRef);
+    }
     updateUser(user.id, data);
     navigate("/user/dashboard");
   };
@@ -87,10 +92,6 @@ export default function UserProfileEditor() {
 
   const handleImageUpload = () => {
     imageInputRef.current?.click();
-  };
-
-  const cancelAction = async () => {
-    await deleteFile(imagePath);
   };
 
   return (
@@ -140,82 +141,51 @@ export default function UserProfileEditor() {
         </div>
         <form className={styles.formContainer}>
           <div className={styles.input}>
-            {user ? (
-              <TextField
-                type="text"
-                name="name"
-                value={data.name}
-                onChange={handleChange}
-                className={styles.letra}
-                labelText="Nombre y Apellido"
-                placeholder="Jhon Doe..."
-              />
-            ) : (
-              <div>
-                <Loader></Loader>
-              </div>
-            )}
+            <TextField
+              type="text"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              className={styles.letra}
+              labelText="Nombre y Apellido"
+              placeholder="Jhon Doe..."
+            />
           </div>
           <div className={styles.input}>
-            {user ? (
-              <TextField
-                type="text"
-                name="phone"
-                value={data.phone}
-                onChange={handleChange}
-                className={styles.letra}
-                labelText="Telefono"
-                placeholder="0414-22222222"
-              />
-            ) : (
-              <div>
-                <Loader></Loader>
-              </div>
-            )}
+            <TextField
+              type="text"
+              name="phone"
+              value={data.phone}
+              onChange={handleChange}
+              className={styles.letra}
+              labelText="Telefono"
+              placeholder="0414-22222222"
+            />
           </div>
           <div className={styles.input}>
-            {user ? (
-              <TextField
-                type="text"
-                value={data.association}
-                name="association"
-                onChange={handleChange}
-                className={styles.letra}
-                labelText="Relacion con la universidad"
-                placeholder="Estudiante/Profesor/Visitante..."
-              />
-            ) : (
-              <div>
-                <Loader></Loader>
-              </div>
-            )}
+            <DropDownList
+              name="association"
+              labelText="Relacion con la universidad"
+              value={data.association}
+              options={["Estudiante", "Profesor", "Visitante", "Autoridad"]}
+              onChange={handleChange}
+              placeholder="Seleccione..."
+            ></DropDownList>
           </div>
           <div className={styles.input}>
-            {user ? (
-              <TextField
-                type="text"
-                name="sex"
-                value={data.sex}
-                onChange={handleChange}
-                className={styles.letra}
-                labelText="Sexo"
-                placeholder="Seleccione..."
-              />
-            ) : (
-              <div>
-                <Loader></Loader>
-              </div>
-            )}
+            <DropDownList
+              name="sex"
+              labelText="Sexo"
+              value={data.sex}
+              options={["Masculino", "Femenino", "Otro"]}
+              onChange={handleChange}
+              placeholder="Seleccione..."
+            ></DropDownList>
           </div>
         </form>
       </div>
       <div className={styles.buttonContainer}>
-        <Button
-          onClick={cancelAction}
-          href="/user/dashboard"
-          variant="text"
-          size="medium"
-        >
+        <Button href="/user/dashboard" variant="text" size="medium">
           Cancelar
         </Button>
         <Button size="medium" onClick={handleSubmit}>

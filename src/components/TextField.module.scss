@@ -3,10 +3,26 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
+
+  --text-color: black;
+  --place-color: var(--placeholder-color);
+  --focus-color: var(--primary-violet);
+
+  &.negative {
+    --text-color: white;
+    --place-color: var(--place-color);
+    --focus-color: white;
+
+    &:focus {
+      border-color: var(--focus-color);
+      outline: none;
+    }
+  }
 }
 
 .label {
   padding: 0 8px;
+  color: var(--text-color);
 }
 
 .input {
@@ -18,8 +34,13 @@
   border: 1px solid var(--placeholder-color);
   border-radius: 8px;
 
+  &.negative {
+    color: white;
+    background: none;
+  }
+
   &:focus {
-    border-color: var(--primary-violet);
+    border-color: var(--focus-color);
     outline: none;
   }
 }

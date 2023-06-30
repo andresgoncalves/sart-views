@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  gap: 16px;
+  justify-content: center;
+
+  &.large {
+    grid-template-columns: repeat(auto-fit, 260px);
+  }
+
+  &.medium {
+    grid-template-columns: repeat(auto-fit, 200px);
+  }
+
+  &.base {
+    grid-template-columns: repeat(auto-fit, 160px);
+  }
+}

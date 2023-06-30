@@ -5,13 +5,16 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import LayoutAdmin from "./components/LayoutAdmin";
+import { PrivateRouteAdmin } from "./components/PrivateRouteAdmin";
 import { PrivateRoutePublic } from "./components/PrivateRoutePublic";
 import { PrivateRouteUser } from "./components/PrivateRouteUser";
 import AdminArtworkPage from "./views/AdminArtworkPage";
 import AdminArtworksPage from "./views/AdminArtworksPage";
 import AdminDashboard from "./views/AdminDashboard";
+import AdminProfile from "./views/AdminProfile";
 import AdminTourPage from "./views/AdminTourPage";
 import AdminToursPage from "./views/AdminToursPage";
+import ArtworkProfile from "./views/ArtworkProfile";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
 import CalendarPage from "./views/CalendarPage";
@@ -23,7 +26,6 @@ import ProfileUser from "./views/ProfileUser";
 import SearchPage from "./views/SearchPage";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
-import ArtworkProfile from "./views/ArtworkProfile";
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -78,16 +80,89 @@ export default createBrowserRouter(
       </Route>
       <Route element={<LayoutAdmin />} errorElement={<ErrorPage />}>
         <Route path="/admin">
-          <Route path="/admin/obras" element={<AdminArtworksPage />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/obras/:id" element={<AdminArtworkPage />} />
-          <Route path="/admin/obras/crear" element={<AdminArtworkPage />} />
-          <Route path="/admin/tours" element={<AdminToursPage />} />
-          <Route path="/admin/tours/:id" element={<AdminTourPage />} />
-          <Route path="/admin/tours/crear" element={<AdminTourPage />} />
-          <Route path="/admin/usuarios" element={<BlankPage />} />
-          <Route path="/admin/usuarios/:id" element={<BlankPage />} />
+          <Route
+            path="/admin/obras"
+            element={
+              <PrivateRouteAdmin>
+                <AdminArtworksPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <PrivateRouteAdmin>
+                <AdminDashboard />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/obras/:id"
+            element={
+              <PrivateRouteAdmin>
+                <AdminArtworkPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/obras/crear"
+            element={
+              <PrivateRouteAdmin>
+                <AdminArtworkPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/tours"
+            element={
+              <PrivateRouteAdmin>
+                <AdminToursPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/tours/:id"
+            element={
+              <PrivateRouteAdmin>
+                <AdminTourPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/tours/crear"
+            element={
+              <PrivateRouteAdmin>
+                <AdminTourPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/usuarios"
+            element={
+              <PrivateRouteAdmin>
+                <BlankPage />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/admin/usuarios/:id"
+            element={
+              <PrivateRouteAdmin>
+                <BlankPage />
+              </PrivateRouteAdmin>
+            }
+          />
         </Route>
+      </Route>
+      <Route path="/admin">
+        <Route
+          path="/admin/perfil/"
+          element={
+            <PrivateRouteAdmin>
+              <AdminProfile />
+            </PrivateRouteAdmin>
+          }
+        />
       </Route>
     </>
   )
