@@ -3,10 +3,25 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
+
+  &.negative {
+    --text-color: white;
+    --place-color: var(--place-color);
+    --focus-color: white;
+
+    &:focus {
+      border-color: var(--focus-color);
+      outline: none;
+    }
+  }
 }
 
 .label {
   padding: 0 8px;
+
+  &.negative {
+    color: white;
+  }
 }
 
 .input {
@@ -17,6 +32,16 @@
   font-size: var(--text-base);
   border: 1px solid var(--placeholder-color);
   border-radius: 8px;
+
+  &.negative {
+    color: white;
+    background: none;
+
+    &:focus {
+      border-color: white;
+      outline: none;
+    }
+  }
 
   &:focus {
     border-color: var(--primary-violet);

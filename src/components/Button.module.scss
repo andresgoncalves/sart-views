@@ -53,6 +53,16 @@
 
   &.text {
     color: var(--main-color);
+
+    &.negative {
+      --main-color: white;
+      --text-color: var(--primary-violet);
+
+      &:hover {
+        --main-color: rgb(227, 227, 227);
+        --text-color: var(--primary-highlight);
+      }
+    }
   }
 
   /* Button size */

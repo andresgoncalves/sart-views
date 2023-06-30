@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export function PrivateRoutePublic({ children }) {
-  const { isLogged } = useAuth();
+  const { user, isLogged } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (user) {
+      if (user.admin) {
+        navigate("/");
+      }
+    }
     if (isLogged === true) {
       navigate("/");
     }

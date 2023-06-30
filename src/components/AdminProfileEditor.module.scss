@@ -1,0 +1,90 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 32px;
+  background: #a191cc;
+  border-radius: 16px;
+
+  /* Modal */
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.25);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.UserInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.formContainer {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-bottom: 8px;
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  border: 2px solid #cdd4d4;
+  border-radius: 50%;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit {
+  display: flex;
+  gap: 7px;
+  color: #ffffff;
+
+  /* Large */
+  font-size: 24px;
+  font-family: Quicksand;
+  text-align: center;
+  text-decoration: none;
+}

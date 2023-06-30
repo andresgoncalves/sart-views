@@ -24,6 +24,7 @@ export const singInWithGoogle = async () => {
         association: "",
         sex: "",
         picture: result.user.photoURL,
+        admin: false,
       });
     }
   } catch (error) {
@@ -46,6 +47,7 @@ export const singInWithFacebook = async () => {
         association: "",
         sex: "",
         picture: result.user.photoURL,
+        admin: false,
       });
     }
   } catch (error) {
@@ -65,8 +67,12 @@ export const registerWithEmailAndPassword = async (
       email: email,
       ...extraData,
     });
-  } catch (error) {
-    console.error(error);
+  } catch ({ name, message }) {
+    if (message.includes("auth/email-already-in-use")) {
+      alert("Vaya! Parece que el correo que ha ingresado ya posee una cuenta");
+    } else {
+      alert(`${name} ${message}`);
+    }
   }
 };
 

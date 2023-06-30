@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import Loader from "../components/Loader";
 import ToursGrid from "../components/ToursGrid";
 import { useTours } from "../hooks/tours";
 import styles from "./AdminToursPage.module.scss";
@@ -24,6 +25,8 @@ export default function AdminToursPage() {
       </div>
     )
   ) : (
-    "Cargando"
+    <div className={styles.loaderContainer}>
+      <Loader></Loader>
+    </div>
   );
 }
