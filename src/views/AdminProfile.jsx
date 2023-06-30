@@ -11,17 +11,15 @@ export default function AdminProfile() {
       <div className={styles.header}>
         <AdminHeader></AdminHeader>
       </div>
-      <main>
-        {user ? (
-          <div className={styles.mainContainer}>
-            <AdminProfileEditor></AdminProfileEditor>
-          </div>
-        ) : (
-          <div className={styles.loaderContainer}>
-            <Loader></Loader>
-          </div>
-        )}
-      </main>
+      {user ? (
+        <div className={styles.mainContainer}>
+          <AdminProfileEditor></AdminProfileEditor>
+        </div>
+      ) : (
+        <div className={styles.loaderContainer}>
+          <Loader></Loader>
+        </div>
+      )}
     </>
   );
 }
