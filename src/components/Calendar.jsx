@@ -3,15 +3,14 @@ import Calendar from "react-calendar";
 import {useState} from 'react';
 import moment from "moment";
 
-function Calendario(){
-    const mark=[
-        '04-03-2023',
-        '03-03-2023',
-        '05-03-2023'
+
+function Calendario({dates, date ,setDate}){
+    
+    const ex=[
+        "04-07-2023",
+        "05-07-2023"
     ]
 
-    const [date, setDate] = useState(new Date());
-    
     return(
         <div className="calendarContainer">            
             <Calendar 
@@ -23,11 +22,15 @@ function Calendario(){
             maxDetail="month"
             minDetail="month"
             tileClassName={({ date, view }) => {
-                if(mark.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+                if(ex.find(x=>x===moment(date).format("DD-MM-YYYY"))){
                  return  'highlight'
                 }
             }}
             />
+            <p>
+            <span className='bold'></span>{' '}
+                {moment(date).format("DD-MM-YYYY")}
+            </p>
         </div>
     )
 }

@@ -1,8 +1,7 @@
 import styles from './HourSelector.module.scss'
 import { useState } from 'react'
 
-function HourSelector(){
-    const [hour, setHour] = useState("10:00am")
+function HourSelector({setHour}){
 
     const onOptionChange = e =>{
         setHour(e.target.value)

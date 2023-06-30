@@ -1,4 +1,5 @@
 import { useMatch, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import bannerImage from "../assets/home-banner.png";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
@@ -9,6 +10,8 @@ import StarRating from "../components/StarRating";
 import { useArtworks } from "../hooks/artworks";
 import { useTour } from "../hooks/tours";
 import styles from "./TourProfile.module.scss";
+import HourModal from "../components/HourModal";
+import ReserveModal from "../components/ReserveModal";
 
 export default function TourProfile() {
   const { id } = useParams();
@@ -16,6 +19,11 @@ export default function TourProfile() {
   const tour = useTour(id);
   const artworks = useArtworks();
   const match = useMatch("/tours/:id/reservar");
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const data = [
     {
@@ -68,7 +76,8 @@ export default function TourProfile() {
             <div className={styles.rating}>
               Calificación: <StarRating value={tour.data.rating} />
             </div>
-            <Button href={`/tours/${id}/reservar`}>Reservar</Button>
+            <Button href={`/tours/${id}/reservar`} onClick={openModal}>Reservar</Button>
+            {modalOpen && <HourModal tour={tour} closeModal={closeModal} />}
           </div>
           <div className={styles.text}>
             <div className={styles.columna}>
