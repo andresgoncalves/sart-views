@@ -18,6 +18,7 @@ const initialData = {
   description: "",
   rating: 0,
   artworks: [],
+  dates: [],
   images: [],
   pointsOfInterest: [],
   relatedTours: [],

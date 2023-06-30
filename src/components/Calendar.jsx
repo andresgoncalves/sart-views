@@ -22,7 +22,7 @@ function Calendario({dates, date ,setDate}){
             maxDetail="month"
             minDetail="month"
             tileClassName={({ date, view }) => {
-                if(ex.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+                if(dates.find(x=>x===moment(date).format("DD-MM-YYYY"))){
                  return  'highlight'
                 }
             }}
