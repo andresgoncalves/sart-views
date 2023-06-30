@@ -1,5 +1,6 @@
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
+import Loader from "../components/Loader";
 import { useArtworks, useCategories } from "../hooks/artworks";
 import styles from "./AdminArtworksPage.module.scss";
 
@@ -39,6 +40,8 @@ export default function AdminArtworksPage() {
       </div>
     )
   ) : (
-    "Cargando"
+    <div className={styles.loaderContainer}>
+      <Loader></Loader>
+    </div>
   );
 }

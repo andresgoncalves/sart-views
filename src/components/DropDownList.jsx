@@ -5,15 +5,30 @@ import styles from "./DropDownList.module.scss";
  *   options?: array;
  *   labelText?: string;
  *   value?: string;
+ *   negative?: boolean;
  * }} DropDownList
  */
 
 /** @param {DropDownList} props */
-export default function DropDownList({ labelText, options = [], ...props }) {
+export default function DropDownList({
+  negative = false,
+  labelText,
+  options = [],
+  ...props
+}) {
   return (
-    <label className={styles.container}>
-      <div className={styles.label}>{labelText}</div>
-      <select className={styles.input} {...props}>
+    <label
+      className={[styles.container, negative ? styles.negative : ""].join(" ")}
+    >
+      <div
+        className={[styles.label, negative ? styles.negative : ""].join(" ")}
+      >
+        {labelText}
+      </div>
+      <select
+        className={[styles.input, negative ? styles.negative : ""].join(" ")}
+        {...props}
+      >
         <option value="" disabled>
           Seleccione...
         </option>

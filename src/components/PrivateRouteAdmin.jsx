@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-export function PrivateRouteUser({ children }) {
+export function PrivateRouteAdmin({ children }) {
   const { user, isLogged } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      if (user.admin) {
-        navigate("/admin/dashboard");
+      if (!user.admin) {
+        navigate("/user/dashboard");
       }
     }
     if (isLogged === false) {

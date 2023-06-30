@@ -9,6 +9,7 @@ import {
   singInWithFacebook,
   singInWithGoogle,
 } from "../controllers/auth";
+import { getUserByEmail } from "../controllers/users";
 import Button from "./Button";
 import styles from "./Login.module.scss";
 import InputField from "./TextField";
@@ -50,6 +51,7 @@ export default function Login() {
     sex: "",
     picture: "",
     password: "",
+    admin: false,
   });
 
   const handleSignUpChange = (event) => {
@@ -86,8 +88,29 @@ export default function Login() {
   const onSumbitLogin = async (event) => {
     event.preventDefault();
     const { email, password } = loginData;
-    await loginWithEmailAndPassword(email, password);
-    navigate("/user/dashboard");
+    const usuario = await getUserByEmail(email);
+    if (!usuario.admin) {
+      await loginWithEmailAndPassword(email, password);
+      navigate("/admin/dashboard");
+    } else {
+      alert(
+        "Ups! parece que la cuenta que ha ingresado es una cuenta de administrador"
+      );
+    }
+  };
+
+  const onSumbitLoginAdmin = async (event) => {
+    event.preventDefault();
+    const { email, password } = loginData;
+    const usuario = await getUserByEmail(email);
+    if (usuario.admin) {
+      await loginWithEmailAndPassword(email, password);
+      navigate("/admin/dashboard");
+    } else {
+      alert(
+        "Ups! parece que la cuenta que ha ingresado no es una cuenta de administrador"
+      );
+    }
   };
 
   return (
@@ -250,9 +273,15 @@ export default function Login() {
             <div className={styles.title}>
               Bienvenido de vuelta administrador!
             </div>
-            <form className={[styles.adminForm, styles.formInterno].join(" ")}>
+            <form
+              onSubmit={onSumbitLoginAdmin}
+              className={[styles.adminForm, styles.formInterno].join(" ")}
+            >
               <div className={styles.inputTop}>
                 <InputField
+                  type="email"
+                  name="email"
+                  onChange={handleLoginChange}
                   className={styles.letra}
                   labelText="Correo electrónico"
                   placeholder="Email"
@@ -260,6 +289,9 @@ export default function Login() {
               </div>
               <div className={styles.input}>
                 <InputField
+                  type="password"
+                  name="password"
+                  onChange={handleLoginChange}
                   className={styles.letra}
                   labelText="Contraseña"
                   placeholder="Contraseña"

@@ -1,20 +1,20 @@
 import { deleteObject, ref } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UploadPhoto from "../assets/UploadPhoto.svg";
+import UploadPhoto from "../assets/UploadPhotoNegative.svg";
 import { useAuth } from "../contexts/AuthContext";
 import { getFileUrl } from "../controllers/storage";
 import { updateUser } from "../controllers/users";
 import { storage } from "../firebase";
 import { useStorage } from "../hooks/storage";
+import styles from "./AdminProfileEditor.module.scss";
 import Button from "./Button";
 import DropDownList from "./DropDownList";
 import Loader from "./Loader";
 import TextField from "./TextField";
-import styles from "./UserProfileEditor.module.scss";
 
 const initialData = {
-  admin: false,
+  admin: true,
   name: "",
   email: "",
   phone: "",
@@ -24,7 +24,7 @@ const initialData = {
   id: "",
 };
 
-export default function UserProfileEditor() {
+export default function AdminProfileEditor() {
   const { user } = useAuth();
   const [data, setData] = useState(initialData);
   const [Loaded, setLoaded] = useState(null);
@@ -40,7 +40,7 @@ export default function UserProfileEditor() {
   useEffect(() => {
     if (user) {
       setData({
-        admin: false,
+        admin: true,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -66,7 +66,7 @@ export default function UserProfileEditor() {
       await deleteObject(fileRef);
     }
     updateUser(user.id, data);
-    navigate("/user/dashboard");
+    navigate("/admin/dashboard");
   };
 
   const handleImageChange = async (event) => {
@@ -83,9 +83,6 @@ export default function UserProfileEditor() {
         ...data,
         picture: url,
       }));
-      /* if (user) {
-        updateUser(user.id, { picture: url });
-      } */
       setLoaded(true);
     }
   };
@@ -132,7 +129,11 @@ export default function UserProfileEditor() {
               style={{ display: "none" }}
             />
             <div className={styles.photoUpload}>
-              <Button variant="text" onClick={handleImageUpload}>
+              <Button
+                negative={true}
+                variant="text"
+                onClick={handleImageUpload}
+              >
                 Cambiar Foto
                 <img src={UploadPhoto}></img>
               </Button>
@@ -142,6 +143,7 @@ export default function UserProfileEditor() {
         <form className={styles.formContainer}>
           <div className={styles.input}>
             <TextField
+              negative={true}
               type="text"
               name="name"
               value={data.name}
@@ -153,27 +155,30 @@ export default function UserProfileEditor() {
           </div>
           <div className={styles.input}>
             <TextField
+              negative={true}
               type="text"
               name="phone"
               value={data.phone}
               onChange={handleChange}
               className={styles.letra}
-              labelText="Telefono"
+              labelText="Teléfono"
               placeholder="0414-22222222"
             />
           </div>
           <div className={styles.input}>
             <DropDownList
+              negative={true}
               name="association"
-              labelText="Relacion con la universidad"
+              labelText="Departamento Asociado"
               value={data.association}
-              options={["Estudiante", "Profesor", "Visitante", "Autoridad"]}
+              options={["Biblioteca", "Cultura", "Sala Mendoza"]}
               onChange={handleChange}
               placeholder="Seleccione..."
             ></DropDownList>
           </div>
           <div className={styles.input}>
             <DropDownList
+              negative={true}
               name="sex"
               labelText="Sexo"
               value={data.sex}
@@ -185,10 +190,15 @@ export default function UserProfileEditor() {
         </form>
       </div>
       <div className={styles.buttonContainer}>
-        <Button href="/user/dashboard" variant="text" size="medium">
+        <Button
+          href="/admin/dashboard"
+          negative={true}
+          variant="text"
+          size="medium"
+        >
           Cancelar
         </Button>
-        <Button size="medium" onClick={handleSubmit}>
+        <Button negative={true} size="medium" onClick={handleSubmit}>
           Guardar Cambios
         </Button>
       </div>
