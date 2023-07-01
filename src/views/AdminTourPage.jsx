@@ -7,7 +7,6 @@ import InputField from "../components/TextField";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
-import SearchModal from "../components/SearchModal";
 
 /** @type {import("../controllers/tours").TourData} */
 const initialData = {
@@ -18,7 +17,6 @@ const initialData = {
   description: "",
   rating: 0,
   artworks: [],
-  dates: [],
   images: [],
   pointsOfInterest: [],
   relatedTours: [],
@@ -95,7 +93,7 @@ export default function AdminTourPage() {
   const handleImageUpload = () => {
     imageInputRef.current?.click();
   };
-//Esto es para el modal
+  //Esto es para el modal
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
