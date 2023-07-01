@@ -17,7 +17,7 @@ import styles from "./ProfileUser.module.scss";
 export default function ProfileUser() {
   const { user } = useAuth();
   const tours = useTours();
-  const artworks = useArtworks();
+  const artworks = useArtworks(user.favoritesArtworks);
 
   const image1 = "https://masdearte.com/media/g_SalaMendoza.jpg";
 
@@ -86,10 +86,14 @@ export default function ProfileUser() {
           </div>
           <div className={styles.column2}>
             <div className={styles.titleColumn}>Obras Favoritas</div>
-            <ArtworksGrid
-              artworks={artworks.data}
-              fallback="No hay obras destacadas"
-            />
+            {artworks.data ? (
+              <ArtworksGrid
+                artworks={artworks.data}
+                fallback="No hay obras destacadas"
+              />
+            ) : (
+              <div>hola</div>
+            )}
           </div>
         </div>
       </section>
