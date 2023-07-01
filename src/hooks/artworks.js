@@ -6,13 +6,13 @@ import {
   updateArtwork,
 } from "../controllers/artworks";
 
-export function useArtworks() {
+export function useArtworks(ids) {
   /** @type {[import("../controllers/artworks").ArtworkData[] | null, any]} */
   const [data, setData] = useState(null);
 
   useEffect(() => {
     async function load() {
-      const artworks = await getArtworks();
+      const artworks = await getArtworks(ids);
       setData(artworks);
     }
     load();

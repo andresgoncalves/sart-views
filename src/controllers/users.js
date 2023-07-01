@@ -21,6 +21,7 @@ import { db } from "../firebase";
  *   sex: string;
  *   picture: string;
  *   admin: boolean;
+ *   favoritesArtworks: Array;
  * }} UserData
  */
 
@@ -40,6 +41,7 @@ function mapToUserData(snapshot) {
     sex: snapshot.get("sex"),
     picture: snapshot.get("picture"),
     admin: snapshot.get("admin"),
+    favoritesArtworks: snapshot.get("favoritesArtworks"),
   };
 }
 

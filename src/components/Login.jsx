@@ -52,6 +52,7 @@ export default function Login() {
     picture: "",
     password: "",
     admin: false,
+    favoritesArtworks: [],
   });
 
   const handleSignUpChange = (event) => {
