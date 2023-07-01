@@ -13,7 +13,7 @@ export function useArtworks(ids = null) {
 
   useEffect(() => {
     async function load() {
-      const artworks = await getArtworks();
+      const artworks = await getArtworks(ids);
       setData(artworks);
     }
     load();
