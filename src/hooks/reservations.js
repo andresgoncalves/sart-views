@@ -58,7 +58,30 @@ export function useTourReservations(tourId) {
     load();
   }, [tourId]);
 
-  return useMemo(() => ({ data }), [data]);
+  const reserve = useCallback(
+    async function (
+      /** @type {string} */ reservationId,
+      /** @type {string} */ userId
+    ) {
+      const reservation = data.find(
+        (reservation) => reservation.id === reservationId
+      );
+      if (reservation) {
+        const newData = { users: [...reservation.users, userId] };
+        await updateReservation(reservationId, newData);
+        setData(
+          data.map((reservation) =>
+            reservation.id === reservationId
+              ? { ...reservation, ...newData }
+              : reservation
+          )
+        );
+      }
+    },
+    [data]
+  );
+
+  return useMemo(() => ({ data, reserve }), [data, reserve]);
 }
 
 /** @param {string} userId */

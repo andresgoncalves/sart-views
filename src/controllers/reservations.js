@@ -9,6 +9,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import moment from "moment";
 import { db } from "../firebase";
 
 /**
@@ -40,7 +41,7 @@ function mapToReservationData(snapshot) {
     limit: snapshot.get("limit"),
   };
   data.status =
-    Date.now() < new Date(data.date).getTime()
+    moment(data.date, "DD-MM-YYYY").diff(new Date()) > 0
       ? data.users.length < data.limit
         ? "available"
         : "sold-out"
