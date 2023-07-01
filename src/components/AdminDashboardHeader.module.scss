@@ -1,0 +1,94 @@
+.sideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 225px;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+}
+
+.sideBarOpen {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.container {
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  padding: 0px 32px 0px 32px;
+  border-radius: 0px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
+
+  .logged {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    padding: 0px;
+
+    .labelName {
+      position: relative;
+      display: inline-block;
+      color: black;
+      font-size: var(--text-md);
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--violet-5);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+
+    /* Admmin Variant */
+
+    .barIcon {
+      top: 22px;
+      left: 208px;
+      width: 27.826086044311523px;
+      height: 20px;
+      border-radius: 0px;
+    }
+  }
+}
+
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -5,12 +5,10 @@ import Header from "./Header";
 import styles from "./Layout.module.scss";
 
 export default function Layout() {
-  const search = false;
-  const isAdmin = false;
   return (
     <div className={styles.layout}>
       <AuthContextProvider>
-        <Header search={search} isAdmin={isAdmin} />
+        <Header />
         <main className={styles.main}>
           <Outlet />
         </main>

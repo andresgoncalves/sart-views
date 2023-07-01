@@ -132,12 +132,20 @@
       }
     }
 
-    .userImage {
-      top: 0px;
-      left: 106px;
-      width: 64px;
-      height: 64px;
-      border-radius: 100px;
+    .photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 75px;
+      height: 75px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* Admmin Variant */
