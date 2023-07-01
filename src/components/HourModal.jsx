@@ -1,13 +1,21 @@
 import Calendario from './Calendar';
 import HourSelector from './HourSelector';
 import styles from './HourModal.module.scss';
-import {useState} from 'react';
+import { useCallback, useState, useEffect} from 'react';
+import {  useReservation, useReservations } from "../hooks/reservations";
+import { useNavigate, useParams } from "react-router";
 import moment from "moment";
 
 export default function HourModal({tour, closeModal}){
-    
 
-
+    /** @type {import("../controllers/reservations").ReservationData} */
+    const initialData = {
+        date: "",
+        hour: "",
+        tourID: "",
+        userID: ""
+    };
+    const [data, setData] = useState(initialData);
     const [date, setDate] = useState(new Date());
     const [hour, setHour] = useState()
 
@@ -15,6 +23,21 @@ export default function HourModal({tour, closeModal}){
         hora: hour,
         fecha: moment(date).format("DD-MM-YYYY")
     }
+
+    useEffect(() => {
+        if (reservation.data) {
+          setData(reservation.data);
+        }
+    }, [reservation.data]);
+
+    const handleChange = (event) => {
+        setData((data) => ({
+          ...data,
+          [event.target.name]: event.target.value,
+        }));
+    };
+
+    
 
     console.log("hOla")
     console.log(reservation)
