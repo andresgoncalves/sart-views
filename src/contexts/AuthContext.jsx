@@ -19,7 +19,7 @@ export function AuthContextProvider({ children }) {
   const user = useUser(userId);
 
   const isAdmin = useMemo(
-    () => (isLogged !== false ? (user.data ? user.data.admin : null) : false),
+    () => (isLogged !== false ? (user.data ? !!user.data.admin : null) : false),
     [user.data, isLogged]
   );
 
