@@ -74,19 +74,15 @@
         height: 40px;
       }
 
+      &__days,
       &__weekdays {
         display: grid !important;
-        grid-template-columns: repeat(7, auto);
-        grid-template-columns: repeat(7, auto);
+        grid-template-columns: repeat(7, 1fr);
         gap: 8px;
-        margin-bottom: 8px;
       }
 
       &__days {
-        display: grid !important;
-        grid-template-rows: repeat(7, auto);
-        grid-template-columns: repeat(7, auto);
-        gap: 8px;
+        margin-top: 8px;
 
         .react-calendar__tile {
           border: 1px solid transparent;
