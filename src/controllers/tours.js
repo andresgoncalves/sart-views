@@ -7,7 +7,7 @@ import {
   getDocs,
   query,
   updateDoc,
-  where
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -21,7 +21,6 @@ import { db } from "../firebase";
  *   description: string;
  *   rating: number;
  *   artworks: string[];
- *   dates: { date: string,  hours: string[]}[]
  *   images: string[];
  *   pointsOfInterest: string[];
  *   relatedTours: string[];
@@ -44,7 +43,6 @@ function mapToTourData(snapshot) {
     description: snapshot.get("description"),
     rating: snapshot.get("rating"),
     artworks: snapshot.get("artworks"),
-    dates: snapshot.get("dates"),
     images: snapshot.get("images"),
     pointsOfInterest: snapshot.get("pointsOfInterest"),
     relatedTours: snapshot.get("relatedTours"),
@@ -52,6 +50,9 @@ function mapToTourData(snapshot) {
 }
 
 export async function getTours(ids = null) {
+  if (ids && ids.length == 0) {
+    return [];
+  }
   const toursRef = collection(db, "tours");
   const tourSnapshots = await getDocs(
     ids ? query(toursRef, where(documentId(), "in", ids)) : toursRef

@@ -1,43 +1,43 @@
-import styles from "./Calendar.css"
-import Calendar from "react-calendar";
-import {useState} from 'react';
 import moment from "moment";
+import { useCallback } from "react";
+import ReactCalendar from "react-calendar";
+import styles from "./Calendar.module.scss";
 
+/**
+ * @typedef {{
+ *   availableDates?: string[];
+ *   date?: string;
+ *   onChange?: (date: string) => void;
+ * }} CalendarProps
+ */
 
-function Calendario({dates, date ,setDate}){
-    
+/** @param {CalendarProps} props */
+export default function Calendar({ availableDates, date, onChange }) {
+  const handleChange = useCallback(
+    (/** @type {Date} */ date) => {
+      const dateText = moment(date).format("DD-MM-YYYY");
+      if (onChange && (!availableDates || availableDates.includes(dateText))) {
+        onChange(dateText);
+      }
+    },
+    [availableDates, onChange]
+  );
 
-    var ex = dates.map((date) => {
-        return date.date
-    })
-
-    /*const ex=[
-        "04-07-2023",
-        "05-07-2023"
-    ]*/
-
-    return(
-        <div className="calendarContainer">            
-            <Calendar 
-            // @ts-ignore 
-            
-            onChange={setDate} 
-            value={date}
-            defaultView='month'
-            maxDetail="month"
-            minDetail="month"
-            tileClassName={({ date, view }) => {
-                if(ex.find(x=>x===moment(date).format("DD-MM-YYYY"))){
-                 return  'highlight'
-                }
-            }}
-            />
-            <p>
-            <span className='bold'></span>{' '}
-                {moment(date).format("DD-MM-YYYY")}
-            </p>
-        </div>
-    )
+  return (
+    <div className={styles.calendarContainer}>
+      <ReactCalendar
+        onChange={handleChange}
+        value={moment(date, "DD-MM-YYYY").toDate()}
+        defaultView="month"
+        maxDetail="month"
+        minDetail="month"
+        tileDisabled={({ date }) =>
+          !availableDates?.includes(moment(date).format("DD-MM-YYYY"))
+        }
+        formatShortWeekday={(_, date) =>
+          ["D", "L", "M", "X", "J", "V", "S"][date.getDay()]
+        }
+      />
+    </div>
+  );
 }
-
-export default Calendario;
