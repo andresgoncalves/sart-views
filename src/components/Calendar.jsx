@@ -6,10 +6,15 @@ import moment from "moment";
 
 function Calendario({dates, date ,setDate}){
     
-    const ex=[
+
+    var ex = dates.map((date) => {
+        return date.date
+    })
+
+    /*const ex=[
         "04-07-2023",
         "05-07-2023"
-    ]
+    ]*/
 
     return(
         <div className="calendarContainer">            
@@ -22,7 +27,7 @@ function Calendario({dates, date ,setDate}){
             maxDetail="month"
             minDetail="month"
             tileClassName={({ date, view }) => {
-                if(dates.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+                if(ex.find(x=>x===moment(date).format("DD-MM-YYYY"))){
                  return  'highlight'
                 }
             }}

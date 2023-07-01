@@ -6,20 +6,29 @@ import moment from "moment";
 
 export default function HourModal({tour, closeModal}){
     
-    console.log(tour)
 
 
     const [date, setDate] = useState(new Date());
-    const [hour, setHour] = useState("10:00am")
-    console.log(moment(date).format("DD-MM-YYYY").toString())
-    console.log(hour)
+    const [hour, setHour] = useState()
 
     var reservation = {
         hora: hour,
         fecha: moment(date).format("DD-MM-YYYY")
     }
 
+    console.log("hOla")
     console.log(reservation)
+
+
+    var hours = []
+    for (let index = 0; index < tour.data.dates.length; index++) {
+        if(moment(date).format("DD-MM-YYYY") == tour.data.dates[index].date){
+            hours = tour.data.dates[index].hours.map((hour) =>{
+                return hour;
+            })
+        }
+    }
+
     return(
         <>
         <div className={styles.wrapper}>
@@ -28,11 +37,11 @@ export default function HourModal({tour, closeModal}){
             <div className={styles.content}>
                 <div className={styles.content2}>
                     <p>Selecciona una de las fechas Disponibles:</p>
-                    <Calendario dates={tour.data.availableHours} date={date} setDate={setDate}/>
+                    <Calendario dates={tour.data.dates} date={date} setDate={setDate}/>
                 </div>
                 <div className={styles.content2}>                    
                     <p>Selecciona una Hora:</p>
-                    <HourSelector setHour={setHour}/>
+                    <HourSelector hours= {hours} setHour={setHour}/>
                 </div>
                 <div className={styles.content2}>
                     <p className={styles.subtitle}><strong>Detalles del Evento:</strong></p>
