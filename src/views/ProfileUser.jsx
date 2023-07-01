@@ -17,7 +17,7 @@ import styles from "./ProfileUser.module.scss";
 export default function ProfileUser() {
   const { user } = useAuth();
   const tours = useTours();
-  const artworks = useArtworks(user.favoritesArtworks);
+  const artworks = useArtworks(user?.favoritesArtworks || []);
 
   const image1 = "https://masdearte.com/media/g_SalaMendoza.jpg";
 

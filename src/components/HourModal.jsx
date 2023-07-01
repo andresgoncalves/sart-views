@@ -1,5 +1,6 @@
 import moment from "moment";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { useTourReservations } from "../hooks/reservations";
 import Calendario from "./Calendar";
 import styles from "./HourModal.module.scss";
@@ -15,6 +16,7 @@ import Loader from "./Loader";
 
 /** @param {HourModalProps} props */
 export default function HourModal({ tour, closeModal }) {
+  const { user } = useAuth();
   const reservations = useTourReservations(tour.id);
   const [date, setDate] = useState(moment(new Date()).format("DD-MM-YYYY"));
   const [hour, setHour] = useState("");
@@ -23,7 +25,7 @@ export default function HourModal({ tour, closeModal }) {
     () =>
       reservations.data
         ?.filter((reservation) => reservation.status == "available")
-        ?.map((reservation) => reservation.date),
+        .map((reservation) => reservation.date),
     [reservations.data]
   );
 
@@ -35,6 +37,17 @@ export default function HourModal({ tour, closeModal }) {
         .map((reservation) => reservation.hour),
     [date, reservations.data]
   );
+
+  console.log(reservations.data, availableDates, availableHours);
+
+  const handleReserve = useCallback(async () => {
+    const reservation = reservations.data?.find(
+      (reservation) => reservation.date === date && reservation.hour === hour
+    );
+    if (user && reservation) {
+      await reservations.reserve(reservation.id, user.id);
+    }
+  }, [date, hour, reservations, user]);
 
   return (
     <div className={styles.wrapper}>
@@ -86,7 +99,7 @@ export default function HourModal({ tour, closeModal }) {
                 </button>
                 <button
                   className={styles.bookButton}
-                  onClick={() => closeModal()}
+                  onClick={() => handleReserve()}
                 >
                   Reservar
                 </button>
