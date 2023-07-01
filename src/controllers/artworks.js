@@ -49,6 +49,9 @@ function mapToArtworkData(snapshot) {
 
 /** @param {string[]} ids */
 export async function getArtworks(ids = null) {
+  if (ids && ids.length == 0) {
+    return [];
+  }
   const artworksRef = collection(db, "artworks");
   const artworkSnapshots = await getDocs(
     ids ? query(artworksRef, where(documentId(), "in", ids)) : artworksRef

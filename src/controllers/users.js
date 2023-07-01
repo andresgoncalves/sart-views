@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  documentId,
   getDoc,
   getDocs,
   onSnapshot,
@@ -45,9 +46,15 @@ function mapToUserData(snapshot) {
   };
 }
 
-export async function getUsers() {
+/** @param {string[]} ids */
+export async function getUsers(ids = null) {
+  if (ids && ids.length == 0) {
+    return [];
+  }
   const usersRef = collection(db, "users");
-  const userSnapshots = await getDocs(usersRef);
+  const userSnapshots = await getDocs(
+    ids ? query(usersRef, where(documentId(), "in", ids)) : usersRef
+  );
   const users = userSnapshots.docs.map(mapToUserData);
   return users;
 }

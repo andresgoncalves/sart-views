@@ -1,35 +1,47 @@
-import styles from './HourSelector.module.scss'
-import { useState } from 'react'
+import styles from "./HourSelector.module.scss";
 
-function HourSelector(){
-    const [hour, setHour] = useState("10:00am")
+/**
+ * @typedef {{
+ *   availableHours?: string[];
+ *   hour?: string;
+ *   onChange?: (hour: string) => void;
+ * }} HourSelectorProps
+ */
 
-    const onOptionChange = e =>{
-        setHour(e.target.value)
-    }
+/** @param {HourSelectorProps} props */
+export default function HourSelector({
+  availableHours,
+  hour: selectedHour,
+  onChange,
+}) {
+  const handleChange = (event) => {
+    onChange(event.target.value);
+  };
 
-    return(
-        <>
-            <div className={styles.selectorBox}>
-                <label className={styles.button}>                
-                    <input type="radio" value="10:00am" name="hour" className={styles.radio} onChange={onOptionChange}/>
-                    <span>10:00am</span>
-                </label>
-                <label className={styles.button}>                
-                    <input type="radio" value="12:00am" name="hour" className={styles.radio} onChange={onOptionChange}/>
-                    <span>12:00am</span>
-                </label>
-                <label className={styles.button}>                
-                    <input type="radio" value="2:00pm" name="hour" className={styles.radio} onChange={onOptionChange}/>
-                    <span>2:00pm</span>
-                </label>
-                <label className={styles.button}>                
-                    <input type="radio" value="4:00pm" name="hour" className={styles.radio} onChange={onOptionChange}/>
-                    <span>4:00pm</span>
-                </label>            
-            </div>
-        </>
-    )
+  return (
+    <>
+      {availableHours.length > 0 ? (
+        <div className={styles.selectorBox}>
+          {availableHours.map((hour, key) => (
+            <label key={key} className={styles.button}>
+              <input
+                type="radio"
+                name="hour"
+                value={hour}
+                checked={hour == selectedHour}
+                className={styles.radio}
+                onChange={handleChange}
+              />
+              <span>{hour}</span>
+            </label>
+          ))}
+        </div>
+      ) : (
+        <div>
+          No Hay horas Disponibles para la fecha seleccionada, por favor,
+          seleccione otra
+        </div>
+      )}
+    </>
+  );
 }
-
-export default HourSelector
