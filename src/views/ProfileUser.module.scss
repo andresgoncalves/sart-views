@@ -133,12 +133,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .userBox {
-    height: 200px;
-  }
   .photo {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
   .text {
@@ -147,6 +144,7 @@
 
   .infoUser {
     flex-direction: column;
+    gap: 50px;
     margin-top: 50px;
     margin-bottom: 50px;
   }
@@ -166,5 +164,15 @@
   .column1,
   .column2 {
     width: 100%;
+  }
+
+  .userData {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
   }
 }

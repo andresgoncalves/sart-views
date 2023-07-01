@@ -3,6 +3,7 @@ import bannerImage from "../assets/home-banner.png";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
+import HourModal from "../components/HourModal";
 import InterestPoint from "../components/InterestPoint";
 import Loader from "../components/Loader";
 import StarRating from "../components/StarRating";
@@ -101,6 +102,12 @@ export default function TourProfile() {
           </Divider>
           <ArtworksGrid artworks={artworks.data} size="medium" />
         </section>
+        {match && (
+          <HourModal
+            tour={tour.data}
+            closeModal={() => navigate(`/tours/${id}`)}
+          />
+        )}
       </>
     );
   }

@@ -24,8 +24,8 @@ export default function ToursGrid({
     <div className={[styles.grid, styles[size]].join(" ")}>
       {tours
         ? tours.length > 0
-          ? tours.map((data, key) => (
-              <TourCard key={key} data={data} size={size} target={target} />
+          ? tours.map((data) => (
+              <TourCard key={data.id} data={data} size={size} target={target} />
             ))
           : fallback
         : loader}

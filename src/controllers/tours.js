@@ -2,9 +2,12 @@ import {
   addDoc,
   collection,
   doc,
+  documentId,
   getDoc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -46,10 +49,16 @@ function mapToTourData(snapshot) {
   };
 }
 
-export async function getTours() {
+export async function getTours(ids = null) {
+  if (ids && ids.length == 0) {
+    return [];
+  }
   const toursRef = collection(db, "tours");
-  const tourSnapshots = await getDocs(toursRef);
-  const tours = tourSnapshots.docs.map((tour) => tour.data());
+  const tourSnapshots = await getDocs(
+    ids ? query(toursRef, where(documentId(), "in", ids)) : toursRef
+  );
+  // await getDocs(toursRef);
+  const tours = tourSnapshots.docs.map(mapToTourData);
   return tours;
 }
 

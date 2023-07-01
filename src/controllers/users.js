@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  documentId,
   getDoc,
   getDocs,
   onSnapshot,
@@ -21,6 +22,7 @@ import { db } from "../firebase";
  *   sex: string;
  *   picture: string;
  *   admin: boolean;
+ *   favoritesArtworks: Array;
  * }} UserData
  */
 
@@ -40,12 +42,19 @@ function mapToUserData(snapshot) {
     sex: snapshot.get("sex"),
     picture: snapshot.get("picture"),
     admin: snapshot.get("admin"),
+    favoritesArtworks: snapshot.get("favoritesArtworks"),
   };
 }
 
-export async function getUsers() {
+/** @param {string[]} ids */
+export async function getUsers(ids = null) {
+  if (ids && ids.length == 0) {
+    return [];
+  }
   const usersRef = collection(db, "users");
-  const userSnapshots = await getDocs(usersRef);
+  const userSnapshots = await getDocs(
+    ids ? query(usersRef, where(documentId(), "in", ids)) : usersRef
+  );
   const users = userSnapshots.docs.map(mapToUserData);
   return users;
 }

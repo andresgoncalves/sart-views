@@ -1,35 +1,43 @@
-import styles from "./Calendar.css"
-import Calendar from "react-calendar";
-import {useState} from 'react';
 import moment from "moment";
+import { useCallback } from "react";
+import ReactCalendar from "react-calendar";
+import styles from "./Calendar.module.scss";
 
-function Calendario(){
-    const mark=[
-        '04-03-2023',
-        '03-03-2023',
-        '05-03-2023'
-    ]
+/**
+ * @typedef {{
+ *   availableDates?: string[];
+ *   date?: string;
+ *   onChange?: (date: string) => void;
+ * }} CalendarProps
+ */
 
-    const [date, setDate] = useState(new Date());
-    
-    return(
-        <div className="calendarContainer">            
-            <Calendar 
-            // @ts-ignore 
-            
-            onChange={setDate} 
-            value={date}
-            defaultView='month'
-            maxDetail="month"
-            minDetail="month"
-            tileClassName={({ date, view }) => {
-                if(mark.find(x=>x===moment(date).format("DD-MM-YYYY"))){
-                 return  'highlight'
-                }
-            }}
-            />
-        </div>
-    )
+/** @param {CalendarProps} props */
+export default function Calendar({ availableDates, date, onChange }) {
+  const handleChange = useCallback(
+    (/** @type {Date} */ date) => {
+      const dateText = moment(date).format("DD-MM-YYYY");
+      if (onChange && (!availableDates || availableDates.includes(dateText))) {
+        onChange(dateText);
+      }
+    },
+    [availableDates, onChange]
+  );
+
+  return (
+    <div className={styles.calendarContainer}>
+      <ReactCalendar
+        onChange={handleChange}
+        value={moment(date, "DD-MM-YYYY").toDate()}
+        defaultView="month"
+        maxDetail="month"
+        minDetail="month"
+        tileDisabled={({ date }) =>
+          !availableDates?.includes(moment(date).format("DD-MM-YYYY"))
+        }
+        formatShortWeekday={(_, date) =>
+          ["D", "L", "M", "X", "J", "V", "S"][date.getDay()]
+        }
+      />
+    </div>
+  );
 }
-
-export default Calendario;

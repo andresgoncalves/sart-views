@@ -1,11 +1,26 @@
+import { useMemo, useState } from "react";
 import CalendarImage from "../assets/CalendarImage.jpeg";
-import Calendario from "../components/Calendar";
+import Calendar from "../components/Calendar";
+import Loader from "../components/Loader";
 import TourCard from "../components/TourCard";
+import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import styles from "./CalendarPage.module.scss";
 
 export default function CalendarPage() {
-  const tours = useTours();
+  const [date, setDate] = useState("01-07-2023");
+  const reservations = useReservations();
+  const tourIds = useMemo(
+    () =>
+      reservations.data
+        ?.filter((reservation) => reservation.date == date)
+        .map((reservation) => reservation.tour),
+    [date, reservations.data]
+  );
+  const tours = useTours(tourIds);
+
+  console.log(date, reservations.data, tours.data);
+
   return (
     <>
       <header
@@ -22,20 +37,30 @@ export default function CalendarPage() {
           </div>
         </div>
       </header>
-      <section className={styles.content}>
-        <div className={styles.column1}>
-          <div className={styles.label}>Seleccionar fecha:</div>
-          <Calendario></Calendario>
-        </div>
-        <div className={styles.column2}>
-          <div className={styles.label}>Tours recomendados</div>
-          <div className={styles.tours}>
-            {tours.data?.map((data, index) => (
-              <TourCard key={index} size="medium" data={data} />
-            ))}
+      {reservations.data ? (
+        <section className={styles.content}>
+          <div className={styles.column1}>
+            <div className={styles.label}>Seleccionar fecha:</div>
+            <Calendar
+              availableDates={reservations.data.map(
+                (reservation) => reservation.date
+              )}
+              date={date}
+              onChange={(date) => setDate(date)}
+            />
           </div>
-        </div>
-      </section>
+          <div className={styles.column2}>
+            <div className={styles.label}>Tours recomendados</div>
+            <div className={styles.tours}>
+              {tours.data?.map((data, index) => (
+                <TourCard key={index} size="medium" data={data} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 }

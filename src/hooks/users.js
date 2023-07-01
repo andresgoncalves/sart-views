@@ -6,17 +6,18 @@ import {
   updateUser,
 } from "../controllers/users";
 
-export function useUsers() {
+/** @param {string[]} ids */
+export function useUsers(ids) {
   /** @type {[import("../controllers/users").UserData[] | null, any]} */
   const [data, setData] = useState(null);
 
   useEffect(() => {
     async function load() {
-      const users = await getUsers();
+      const users = await getUsers(ids);
       setData(users);
     }
     load();
-  }, []);
+  }, [ids]);
 
   const create = useCallback(
     async function (

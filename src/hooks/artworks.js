@@ -6,17 +6,18 @@ import {
   updateArtwork,
 } from "../controllers/artworks";
 
-export function useArtworks() {
+/** @param {string[]} ids */
+export function useArtworks(ids = null) {
   /** @type {[import("../controllers/artworks").ArtworkData[] | null, any]} */
   const [data, setData] = useState(null);
 
   useEffect(() => {
     async function load() {
-      const artworks = await getArtworks();
+      const artworks = await getArtworks(ids);
       setData(artworks);
     }
     load();
-  }, []);
+  }, [ids]);
 
   const create = useCallback(async function (
     /** @type {import("../controllers/artworks").ArtworkData} */ newData
