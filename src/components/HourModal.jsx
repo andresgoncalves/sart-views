@@ -6,6 +6,7 @@ import Calendario from "./Calendar";
 import styles from "./HourModal.module.scss";
 import HourSelector from "./HourSelector";
 import Loader from "./Loader";
+import bannerImage from "../assets/home-banner.png";
 import ReserveModal from "./ReserveModal";
 
 /**
@@ -73,8 +74,10 @@ export default function HourModal({ tour, closeModal }) {
           <div className={styles.modalBox}>
             <div
               className={styles.imageContainer}
-              style={{ backgroundImage: `url(${tour.images[0]})` }}
-            ></div>
+              style={{ backgroundImage: `url(${bannerImage})` }}
+            >
+              <h1 className={styles.modaltitle2}><strong>{tour.name}</strong></h1>
+            </div>
             {reservations.data ? (
               <>
                 <div className={styles.content}>
