@@ -7,6 +7,9 @@ import { useUser } from "../hooks/users";
 /**
  * @type {React.Context<{
  *   user: import("../controllers/users").UserData;
+ *   update: (
+ *     data: Partial<import("../controllers/users").UserData>
+ *   ) => Promise<void>;
  *   isLogged: boolean;
  *   isAdmin: boolean;
  * }>}
@@ -39,7 +42,9 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: user.data, isLogged, isAdmin }}>
+    <AuthContext.Provider
+      value={{ user: user.data, update: user.update, isLogged, isAdmin }}
+    >
       {children}
     </AuthContext.Provider>
   );

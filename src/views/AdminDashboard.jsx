@@ -7,6 +7,7 @@ import Divider from "../components/Divider";
 import Loader from "../components/Loader";
 import ToursGrid from "../components/ToursGrid";
 import { useArtworks } from "../hooks/artworks";
+import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import { useUsers } from "../hooks/users";
 import styles from "./AdminDashboard.module.scss";

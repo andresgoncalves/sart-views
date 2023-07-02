@@ -1,11 +1,7 @@
-import { deleteObject, ref } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadPhoto from "../assets/UploadPhoto.svg";
-import { useAuth } from "../contexts/AuthContext";
 import { getFileUrl } from "../controllers/storage";
-import { updateUser } from "../controllers/users";
-import { storage } from "../firebase";
 import { useStorage } from "../hooks/storage";
 import Button from "./Button";
 import DropDownList from "./DropDownList";
@@ -14,7 +10,6 @@ import TextField from "./TextField";
 import styles from "./UserProfileEditor.module.scss";
 
 const initialData = {
-  admin: false,
   name: "",
   email: "",
   phone: "",
@@ -24,15 +19,20 @@ const initialData = {
   id: "",
 };
 
-export default function UserProfileEditor({userParam}) {
-  const { user } = userParam;
+/**
+ * @typedef {{
+ *   user: import("../controllers/users").UserData;
+ *   update: (
+ *     data: Partial<import("../controllers/users").UserData>
+ *   ) => Promise<void>;
+ * }} UserProfileEditorProps
+ */
+
+/** @param {UserProfileEditorProps} props */
+export default function UserProfileEditor({ user, update }) {
   const [data, setData] = useState(initialData);
-  const [Loaded, setLoaded] = useState(null);
-  const [urlPhoto, setUrlPhoto] = useState(null);
-  const [imagePath, setImagePath] = useState(null);
-  const [imageAnterior, setImageAnterior] = useState(null);
   const navigate = useNavigate();
-  const storage1 = useStorage();
+  const storage = useStorage();
 
   /** @type {React.MutableRefObject<HTMLInputElement>} */
   const imageInputRef = useRef();
@@ -40,7 +40,6 @@ export default function UserProfileEditor({userParam}) {
   useEffect(() => {
     if (user) {
       setData({
-        admin: false,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -49,7 +48,6 @@ export default function UserProfileEditor({userParam}) {
         picture: user.picture,
         id: user.id,
       });
-      setImageAnterior(user.picture);
     }
   }, [user]);
 
@@ -60,33 +58,25 @@ export default function UserProfileEditor({userParam}) {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    if (imageAnterior.includes("UserPictures")) {
-      const fileRef = ref(storage, imageAnterior);
-      await deleteObject(fileRef);
-    }
-    updateUser(user.id, data);
+  const handleSubmit = async () => {
+    await update(data);
     navigate("/user/dashboard");
   };
 
   const handleImageChange = async (event) => {
     if (event.target.files.length > 0) {
-      setLoaded(false);
-      const image = await storage1.upload(
+      const image = await storage.upload(
         event.target.files[0],
         "usersPictures"
       );
-      setImagePath(image);
       const url = await getFileUrl(image);
-      setUrlPhoto(url);
       setData((data) => ({
         ...data,
         picture: url,
       }));
-      /* if (user) {
-        updateUser(user.id, { picture: url });
-      } */
-      setLoaded(true);
+      if (user) {
+        update({ picture: url });
+      }
     }
   };
 
@@ -100,15 +90,7 @@ export default function UserProfileEditor({userParam}) {
         <div className={styles.UserInfoContainer}>
           <div className={styles.photo}>
             {user ? (
-              Loaded == null ? (
-                <img className={styles.img} src={user.picture}></img>
-              ) : Loaded == true ? (
-                <img className={styles.img} src={urlPhoto}></img>
-              ) : (
-                <div>
-                  <Loader></Loader>
-                </div>
-              )
+              <img className={styles.img} src={data.picture}></img>
             ) : (
               <div>
                 <Loader></Loader>
@@ -148,7 +130,7 @@ export default function UserProfileEditor({userParam}) {
               onChange={handleChange}
               className={styles.letra}
               labelText="Nombre y Apellido"
-              placeholder="Jhon Doe..."
+              placeholder="Ingrese su nombre completo"
             />
           </div>
           <div className={styles.input}>
@@ -159,7 +141,7 @@ export default function UserProfileEditor({userParam}) {
               onChange={handleChange}
               className={styles.letra}
               labelText="Telefono"
-              placeholder="0414-22222222"
+              placeholder="Ingrese su número de teléfono"
             />
           </div>
           <div className={styles.input}>

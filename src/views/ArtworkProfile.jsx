@@ -1,5 +1,6 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import { useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
@@ -13,14 +14,19 @@ import { useTours } from "../hooks/tours";
 import styles from "./ArtworkProfile.module.scss";
 
 export default function ArtworkProfile() {
-  const { user } = useAuth();
+  const { user, isLogged } = useAuth();
   const { id } = useParams();
   const artwork = useArtwork(id);
   const artworks = useArtworks();
   const tours = useTours();
   const image = useFile(artwork.data?.images[0]);
+  const isFavorite = useMemo(
+    () => user?.favoritesArtworks.includes(id) ?? null,
+    [id, user]
+  );
+  const navigate = useNavigate();
 
-  async function addingFavorites() {
+  async function toggleFavorite() {
     if (user) {
       const exist = user.favoritesArtworks.includes(id);
       if (exist) {
@@ -47,13 +53,13 @@ export default function ArtworkProfile() {
         await updateDoc(userRef, {
           favoritesArtworks: arrayRemove(id),
         });
-        alert("Pelicula eliminada de sus favoritos");
       } else {
-        alert("La pelicula no forma parte de sus favoritos");
+        await updateDoc(userRef, {
+          favoritesArtworks: arrayUnion(id),
+        });
       }
-      console.log(user);
-    } else {
-      alert("Debe registrarse para usar esta funcion");
+    } else if (isLogged === false) {
+      navigate("/login");
     }
   }
 
@@ -69,34 +75,37 @@ export default function ArtworkProfile() {
     return (
       <>
         <section>
-          <div className={styles.content}>
-            <div className={styles.column1}>
-              <img src={image} className={styles.image}></img>
-            </div>
-            <div className={styles.column2}>
-              <div className={styles.artworkName}>{artwork.data.name}</div>
-              <div className={styles.labelSubtitle}>Autor</div>
-              <div className={styles.text}>{artwork.data.author}</div>
-              <div className={styles.labelSubtitle}>Categoría</div>
-              <div className={styles.text}>{artwork.data.category}</div>
-              <div className={styles.labelSubtitle}>Descripción</div>
-              <div className={styles.text}>{artwork.data.description}</div>
-              <div className={styles.labelSubtitle}>Ubicación</div>
-              <div className={styles.text}>{artwork.data.location}</div>
-              <div className={styles.buttonContainer}>
-                <Button
-                  variant="outlined"
-                  onClick={addingFavorites}
-                  size="small"
-                >
-                  Añadir a favoritos
-                </Button>
-                <Button onClick={removeFavorites} size="small">
-                  Eliminar de favoritos
-                </Button>
+          {artwork.data ? (
+            <div className={styles.content}>
+              <div className={styles.column1}>
+                <img src={image} className={styles.image}></img>
+              </div>
+              <div className={styles.column2}>
+                <div className={styles.artworkName}>{artwork.data.name}</div>
+                <div className={styles.labelSubtitle}>Autor</div>
+                <div className={styles.text}>{artwork.data.author}</div>
+                <div className={styles.labelSubtitle}>Categoría</div>
+                <div className={styles.text}>{artwork.data.category}</div>
+                <div className={styles.labelSubtitle}>Descripción</div>
+                <div className={styles.text}>{artwork.data.description}</div>
+                <div className={styles.labelSubtitle}>Ubicación</div>
+                <div className={styles.text}>{artwork.data.location}</div>
+                <div className={styles.buttonContainer}>
+                  {isFavorite !== null ? (
+                    <Button variant="text" onClick={toggleFavorite}>
+                      {isFavorite === true
+                        ? "Eliminar de favoritos"
+                        : "Añadir a favoritos"}
+                    </Button>
+                  ) : (
+                    <Loader />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <Loader />
+          )}
         </section>
         <section>
           <Divider>
