@@ -19,8 +19,9 @@ export default function ArtworksPage() {
         <div className={styles.contentTitle}>
           <h1>Conoce las obras de arte de la Universidad Metropolitana</h1>
           <div className={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            A continuación se encuentran todas las obras de la Unimet
+            registradas en el sistema. Al hacer click sobre alguna de ellas se
+            visualizan sus características más importantes.
           </div>
         </div>
       </header>
