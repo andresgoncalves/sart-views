@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import bannerImage from "../assets/home-banner.png";
 import ArtworksGrid from "../components/ArtworksGrid";
@@ -6,6 +7,7 @@ import Divider from "../components/Divider";
 import HourModal from "../components/HourModal";
 import InterestPoint from "../components/InterestPoint";
 import Loader from "../components/Loader";
+import PrivateRoute from "../components/PrivateRoute";
 import StarRating from "../components/StarRating";
 import { useArtworks } from "../hooks/artworks";
 import { useTour } from "../hooks/tours";
@@ -15,7 +17,8 @@ export default function TourProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const tour = useTour(id);
-  const artworks = useArtworks();
+  const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
+  const artworks = useArtworks(tourArtworks);
   const match = useMatch("/tours/:id/reservar");
 
   const data = [
@@ -103,10 +106,12 @@ export default function TourProfile() {
           <ArtworksGrid artworks={artworks.data} size="medium" />
         </section>
         {match && (
-          <HourModal
-            tour={tour.data}
-            closeModal={() => navigate(`/tours/${id}`)}
-          />
+          <PrivateRoute role="user">
+            <HourModal
+              tour={tour.data}
+              closeModal={() => navigate(`/tours/${id}`)}
+            />
+          </PrivateRoute>
         )}
       </>
     );

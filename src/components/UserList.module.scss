@@ -1,45 +1,46 @@
-.userList{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: 400px ;
-    width: 80%;
-    border-radius: 16px;
-    border: 0.5px solid var(--gray-2, #9BA9A8);
-    background: #FFF;
-    padding: 0 20px;
+.userList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  max-width: 400px;
+  padding: 0 32px;
+  background: #fff;
+  border: 0.5px solid var(--gray-2, #9ba9a8);
+  border-radius: 16px;
 }
-.containerInfo{
-    display: flex;
-    flex-direction: column;
-    padding: 24px 32px;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-    border-top: 0.5px solid var(--gray-2, #9BA9A8);
-    width: 100%;
+.containerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  align-self: stretch;
+  width: 100%;
+  padding: 24px 32px;
 }
-.Email{
-    font-size:16px;
-    color: var(--gray-3, #6A7D7D);
-    text-align: center;
-    font-family: Quicksand;
-    font-style: normal;
-    font-weight: 1.2em;
-    line-height: normal;
+.email {
+  color: var(--gray-3, #6a7d7d);
+  font-weight: 1.2em;
+  font-size: 16px;
+  font-family: Quicksand;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
 }
-.Name{
-    color: #000;
-    text-align: center;
-    font-size: 1.15em;
-    font-weight: 400;
+.name {
+  color: #000;
+  font-weight: 400;
+  font-size: 1.15em;
+  text-align: center;
 }
-.containerUser{
-    display:flex;
+.containerUser {
+  display: flex;
+  &:not(:last-child) {
+    border-bottom: 0.5px solid var(--gray-2, #9ba9a8);
+  }
 }
-.pencil{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.pencil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

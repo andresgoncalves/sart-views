@@ -13,6 +13,8 @@ import AdminDashboard from "./views/AdminDashboard";
 import AdminProfile from "./views/AdminProfile";
 import AdminTourPage from "./views/AdminTourPage";
 import AdminToursPage from "./views/AdminToursPage";
+import AdminUpdateUser from "./views/AdminUpdateUser";
+import AdminUsers from "./views/AdminUsers";
 import ArtworkProfile from "./views/ArtworkProfile";
 import ArtworksPage from "./views/ArtworksPage";
 import BlankPage from "./views/BlankPage";
@@ -25,10 +27,6 @@ import ProfileUser from "./views/ProfileUser";
 import SearchPage from "./views/SearchPage";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
-import AdminUsers from "./views/AdminUsers";
-import AdminUpdateUser from "./views/AdminUpdateUser";
-import AdminRegisterUser from "./views/AdminRegisterUser";
-
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -42,14 +40,7 @@ export default createBrowserRouter(
         <Route path="/obras/:id" element={<ArtworkProfile />} />
         <Route path="/tours" element={<ToursPage />} />
         <Route path="/tours/:id" element={<TourProfile />} />
-        <Route
-          path="/tours/:id/reservar"
-          element={
-            <PrivateRoute role="user">
-              <TourProfile />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/tours/:id/reservar" element={<TourProfile />} />
         <Route
           path="/user"
           element={
@@ -85,7 +76,6 @@ export default createBrowserRouter(
         <Route path="/admin/tours/:id" element={<AdminTourPage />} />
         <Route path="/admin/tours/crear" element={<AdminTourPage />} />
         <Route path="/admin/usuarios" element={<AdminUsers />} />
-        <Route path="/admin/registrarUsuario" element={<AdminRegisterUser/>}/>
         <Route path="/admin/usuarios/:id" element={<AdminUpdateUser />} />
       </Route>
       <Route

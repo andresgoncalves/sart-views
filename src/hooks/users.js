@@ -7,7 +7,7 @@ import {
 } from "../controllers/users";
 
 /** @param {string[]} ids */
-export function useUsers(ids) {
+export function useUsers(ids = null) {
   /** @type {[import("../controllers/users").UserData[] | null, any]} */
   const [data, setData] = useState(null);
 

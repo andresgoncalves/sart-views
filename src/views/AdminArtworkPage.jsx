@@ -77,7 +77,7 @@ export default function AdminArtworkPage() {
   return (
     <TabbedPanel
       name="artwork"
-      tabs={["Datos de la Obra", "Galería de Imágenes", "Obras Relacionadas"]}
+      tabs={["Datos de la Obra", "Galería de Imágenes"]}
     >
       <AdminEditor
         title="Datos de la Obra"

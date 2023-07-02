@@ -4,14 +4,15 @@ import { useAuth } from "../contexts/AuthContext";
 import styles from "./EditUserProfile.module.scss";
 
 export default function EditUserProfile() {
-  const { user } = useAuth();
+  const { user, update } = useAuth();
+
   return user ? (
     <div className={styles.mainContainer}>
-      <UserProfileEditor userParam={user}></UserProfileEditor>
+      <UserProfileEditor user={user} update={update} />
     </div>
   ) : (
     <div className={styles.loaderContainer}>
-      <Loader></Loader>
+      <Loader />
     </div>
   );
 }
