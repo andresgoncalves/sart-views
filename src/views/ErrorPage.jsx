@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import DonateModal from "../components/DonateModal";
+import ReserveModal from "../components/ReserveModal";
 
 export default function ErrorPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function ErrorPage() {
       <h1>Página no encontrada 🚨</h1>
 
       <button onClick={openModal}>Open Modal</button>
-      {isModalOpen && <DonateModal closeModal={() => setIsModalOpen(false)} />}
+      {isModalOpen && <ReserveModal closeModal={() => setIsModalOpen(false)} />}
     </>
   );
 }

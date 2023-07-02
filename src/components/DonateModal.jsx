@@ -1,17 +1,66 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import PayPalLogo from "../assets/PayPalLogo.svg";
 import Button from "./Button";
 import styles from "./DonateModal.module.scss";
 import TextField from "./TextField";
+import ThanksModal from "./ThanksModal";
 
 export default function DonateModal({ closeModal }) {
   const [moneySelected, setMoneySelected] = useState("0");
+  const [showThanksModal, setShowThanksModal] = useState(false);
+  const [transactionCompleted, setTransactionCompleted] = useState(false);
+  const [showDonateModal, setShowDonateModal] = useState(true);
+
+  const handleThanks = () => {
+    setShowThanksModal(true);
+    setShowDonateModal(false);
+  }
+
+  const closeThanksModal = useCallback(() => {
+    setShowThanksModal(false);
+  }, []);
 
   const handleOnChange = (event) => {
     const { value } = event.target;
     setMoneySelected(value);
     console.log(moneySelected);
+  };
+
+  const handleApprove = (data, actions) => {
+    return actions.order.capture().then(function (details) {
+      // Tu código aquí después de capturar la orden
+      alert(`Transacción completada por ${details.payer.name.given_name}`);
+      return details;
+    }).then((details) => {
+      handleThanks();
+    });
+  };
+
+  const handleCreateOrder = (data, actions) => {
+    const selectedAmount = moneySelected;
+    console.log(selectedAmount);
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: {
+              value: selectedAmount,
+            },
+          },
+        ],
+      })
+      .then((orderId) => {
+        // Tu código aquí después de crear la orden
+        setShowThanksModal(true);
+        setTransactionCompleted(true);
+        return orderId;
+      });
+  };
+
+  const handlePayPalModalClose = () => {
+    setShowThanksModal(false);
+    setTransactionCompleted(false);
   };
 
   return (
@@ -29,7 +78,7 @@ export default function DonateModal({ closeModal }) {
             type="number"
           />
           <div className={styles.modalbuttons}>
-            <Button onClick={() => closeModal()} variant="text" size="base">
+            <Button onClick={closeModal} variant="text" size="base">
               Cancelar
             </Button>
             <PayPalScriptProvider
@@ -41,37 +90,23 @@ export default function DonateModal({ closeModal }) {
               <PayPalButtons
                 fundingSource="paypal"
                 forceReRender={[moneySelected]}
-                createOrder={(data, actions) => {
-                  const selectedAmount = moneySelected;
-                  console.log(selectedAmount);
-                  return actions.order
-                    .create({
-                      purchase_units: [
-                        {
-                          amount: {
-                            value: selectedAmount,
-                          },
-                        },
-                      ],
-                    })
-                    .then((orderId) => {
-                      // Your code here after create the order
-                      return orderId;
-                    });
-                }}
-                onApprove={function (data, actions) {
-                  return actions.order.capture().then(function (details) {
-                    // Your code here after capture the order
-                    alert(
-                      `Transaction completed by ${details.payer.name.given_name}`
-                    );
-                  });
-                }}
+                createOrder={handleCreateOrder}
+                onApprove={handleApprove}
               ></PayPalButtons>
             </PayPalScriptProvider>
           </div>
         </div>
       </div>
+      {showThanksModal && (
+        <ThanksModal closeModal={closeThanksModal} />
+      )}
     </div>
   );
 }
+
+
+
+
+
+
+
