@@ -24,8 +24,8 @@ const initialData = {
   id: "",
 };
 
-export default function UserProfileEditor() {
-  const { user } = useAuth();
+export default function UserProfileEditor({userParam}) {
+  const { user } = userParam;
   const [data, setData] = useState(initialData);
   const [Loaded, setLoaded] = useState(null);
   const [urlPhoto, setUrlPhoto] = useState(null);
