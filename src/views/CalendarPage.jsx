@@ -5,10 +5,11 @@ import Loader from "../components/Loader";
 import TourCard from "../components/TourCard";
 import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
+import { formatDate } from "../utils/date";
 import styles from "./CalendarPage.module.scss";
 
 export default function CalendarPage() {
-  const [date, setDate] = useState("01-07-2023");
+  const [date, setDate] = useState(formatDate(new Date()));
   const reservations = useReservations();
   const tourIds = useMemo(
     () =>
@@ -18,8 +19,6 @@ export default function CalendarPage() {
     [date, reservations.data]
   );
   const tours = useTours(tourIds);
-
-  console.log(date, reservations.data, tours.data);
 
   return (
     <>
