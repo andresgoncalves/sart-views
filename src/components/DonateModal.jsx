@@ -9,17 +9,6 @@ import ThanksModal from "./ThanksModal";
 export default function DonateModal({ closeModal }) {
   const [moneySelected, setMoneySelected] = useState("0");
   const [showThanksModal, setShowThanksModal] = useState(false);
-  const [transactionCompleted, setTransactionCompleted] = useState(false);
-  const [showDonateModal, setShowDonateModal] = useState(true);
-
-  const handleThanks = () => {
-    setShowThanksModal(true);
-    setShowDonateModal(false);
-  }
-
-  const closeThanksModal = useCallback(() => {
-    setShowThanksModal(false);
-  }, []);
 
   const handleOnChange = (event) => {
     const { value } = event.target;
@@ -28,13 +17,16 @@ export default function DonateModal({ closeModal }) {
   };
 
   const handleApprove = (data, actions) => {
-    return actions.order.capture().then(function (details) {
-      // Tu código aquí después de capturar la orden
-      alert(`Transacción completada por ${details.payer.name.given_name}`);
-      return details;
-    }).then((details) => {
-      handleThanks();
-    });
+    return actions.order
+      .capture()
+      .then(function (details) {
+        // Tu código aquí después de capturar la orden
+        alert(`Transacción completada por ${details.payer.name.given_name}`);
+        return details;
+      })
+      .then((details) => {
+        setShowThanksModal(true);
+      });
   };
 
   const handleCreateOrder = (data, actions) => {
@@ -53,15 +45,14 @@ export default function DonateModal({ closeModal }) {
       .then((orderId) => {
         // Tu código aquí después de crear la orden
         setShowThanksModal(true);
-        setTransactionCompleted(true);
         return orderId;
       });
   };
 
-  const handlePayPalModalClose = () => {
+  const handleThanksModalClose = useCallback(() => {
     setShowThanksModal(false);
-    setTransactionCompleted(false);
-  };
+    closeModal(); // Cierra ReserveModal y DonateModal
+  }, [closeModal]);
 
   return (
     <div className={styles.modaloverlay}>
@@ -98,11 +89,12 @@ export default function DonateModal({ closeModal }) {
         </div>
       </div>
       {showThanksModal && (
-        <ThanksModal closeModal={closeThanksModal} />
+        <ThanksModal handleCloseModal={handleThanksModalClose} />
       )}
     </div>
   );
 }
+
 
 
 

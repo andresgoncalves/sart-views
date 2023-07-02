@@ -2,12 +2,12 @@ import Check from "../assets/CheckIcon.svg";
 import styles from "./Modals.module.scss";
 import Button from "./Button";
 import DonateModal from "./DonateModal";
-import PaypalModal from "./ThanksModal";
+import ThanksModal from "./ThanksModal";
 import { useState } from "react";
 
 export default function ReserveModal({ closeModal }) {
   const [showDonateModal, setShowDonateModal] = useState(false);
-  const [showPayPalModal, setShowPayPalModal] = useState(false);
+  const [showThanksModal, setShowThanksModal] = useState(false);
 
   const handleDonateClick = () => {
     setShowDonateModal(true);
@@ -15,11 +15,12 @@ export default function ReserveModal({ closeModal }) {
 
   const handleDonateModalClose = () => {
     setShowDonateModal(false);
+    closeModal(); // Cierra todos los modales
   };
 
-  const handlePayPalModalClose = () => {
-    setShowPayPalModal(false);
-    closeModal();
+  const handleThanksModalClose = () => {
+    setShowThanksModal(false);
+    handleDonateModalClose(); // Cierra el modal de donación y ReserveModal
   };
 
   return (
@@ -38,18 +39,10 @@ export default function ReserveModal({ closeModal }) {
             Culturales de la Universidad Metropolitana
           </p>
           <div className={styles.modalbuttons}>
-            <Button
-              onClick={closeModal}
-              variant="text"
-              size="base"
-            >
+            <Button onClick={closeModal} variant="text" size="base">
               Continuar sin Contribuir
             </Button>
-            <Button
-              onClick= {handleDonateClick}	
-              variant="filled"
-              size="base"
-            >
+            <Button onClick={handleDonateClick} variant="filled" size="base">
               Registrar Donación
             </Button>
           </div>
@@ -58,12 +51,13 @@ export default function ReserveModal({ closeModal }) {
       {showDonateModal && (
         <DonateModal closeModal={handleDonateModalClose} />
       )}
-      {showPayPalModal && (
-        <PaypalModal closeModal={handlePayPalModalClose} />
+      {showThanksModal && (
+        <ThanksModal handleCloseModal={handleThanksModalClose} />
       )}
     </div>
   );
 }
+
 
 
 

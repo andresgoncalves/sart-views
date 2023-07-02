@@ -2,7 +2,7 @@ import Check from "../assets/CheckIcon.svg";
 import styles from "./ThanksModal.module.scss";
 import Button from "./Button";
 
-export default function ThanksModal({ closeModal }) {
+export default function ThanksModal({ handleCloseModal }) {
   return (
     <div className={styles.modaloverlay}>
       <div className={styles.modalwrapper}>
@@ -18,7 +18,7 @@ export default function ThanksModal({ closeModal }) {
             Culturales de la Universidad Metropolitana
           </p>
           <div className={styles.modalbuttons}>
-            <Button onClick={closeModal} variant="filled" size="base">
+            <Button onClick={handleCloseModal} variant="filled" size="base">
               Continuar
             </Button>
           </div>
@@ -27,4 +27,5 @@ export default function ThanksModal({ closeModal }) {
     </div>
   );
 }
+
 
