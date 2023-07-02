@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
 import missionImage from "../assets/home-mission.png";
@@ -12,10 +13,12 @@ import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
   const artworks = useRecentArtworks(14);
-  const reservations = useUpcomingReservations(10);
-  const tours = useTours(
-    reservations.data?.map((reservation) => reservation.tour) || []
+  const reservations = useUpcomingReservations(9);
+  const upcomingTours = useMemo(
+    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    [reservations.data]
   );
+  const tours = useTours(upcomingTours);
 
   return (
     <>
@@ -27,8 +30,10 @@ export default function HomePage() {
         <div className={styles.bannerContent}>
           <h1>Vive la experiencia SartView</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            Bienvenido a SartViews! en este website podrás conocer lo más
+            relevante sobre las obras de arte integradas a la Unimet. Así mismo,
+            podrás realizar reservas para paseos guiados en referencia a estas
+            obras y muchas cosas más!
           </p>
           <Button href="/login" size="large">
             Empieza ahora

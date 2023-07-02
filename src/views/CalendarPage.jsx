@@ -32,8 +32,9 @@ export default function CalendarPage() {
             Mantente al tanto de los próximos eventos
           </div>
           <div className={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            En esta sección se pueden visualizar los proximos tours ofertados
+            por SartViews. Se puede seleccionar una fecha específica y observar
+            más detalles
           </div>
         </div>
       </header>
@@ -59,7 +60,9 @@ export default function CalendarPage() {
           </div>
         </section>
       ) : (
-        <Loader />
+        <div className={styles.loadContainer}>
+          <Loader />
+        </div>
       )}
     </>
   );

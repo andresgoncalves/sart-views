@@ -21,8 +21,10 @@ export default function ToursPage() {
             Metropolitana
           </h1>
           <div className={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            En este apartado, se encuentran todos los tours ofertados hacia los
+            clientes. Al hacer click en alguno de ellos se puede visualizar más
+            información acerca de los mismo, así como realizar reservaciones
+            respectivas
           </div>
         </div>
       </header>
