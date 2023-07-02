@@ -73,9 +73,11 @@
   
       .buttonSection {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
-        margin-top: 30px;
+        margin-top: auto;
+        padding: 20px;
+        border-top: 1px solid #eee;
       }
   
       .closeButton {
@@ -88,7 +90,7 @@
         border: none;
         border-radius: 8px;
         padding: 20px 40px;
-        margin-right: 20px;
+        margin-right: 10px;
       }
   
       .closeButton:hover {
@@ -105,6 +107,7 @@
         border: none;
         border-radius: 8px;
         padding: 20px 40px;
+        margin-left: 10px;
       }
   
       .bookButton:hover {
@@ -112,41 +115,11 @@
       }
   
       .subtitle {
-        font-size: 20px;
-      }
-    }
-  
-    @media screen and (max-width: 767px) {
-      .modalBox {
-        width: 90%;
-        font-size: 15px;
-  
-        .content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin: 25px;
-        }
-  
-        .closeButton {
-          font-size: 15px;
-          padding: 10px 20px;
-        }
-  
-        .bookButton {
-          font-size: 15px;
-          padding: 10px 20px;
-        }
-      }
-    }
-  
-    @media screen and (max-width: 912px) {
-      .modalBox {
-        width: 90%;
-        font-size: 15px;
+        font-weight: bold;
       }
     }
   }
+  
   
   
   
