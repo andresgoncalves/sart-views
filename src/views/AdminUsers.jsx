@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function AdminUsers(){
-    const users= useUsers();
+    const users= useUsers(null);
 
     return(
         <>

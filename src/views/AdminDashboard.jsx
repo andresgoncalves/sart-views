@@ -15,7 +15,7 @@ import Loader from "../components/Loader";
 export default function AdminDashboard() {
     const tours = useTours();
     const artworks = useArtworks();
-    const users= useUsers();
+    const users= useUsers(null);
     return (
         <>
         <AdminDashboardHeader></AdminDashboardHeader>

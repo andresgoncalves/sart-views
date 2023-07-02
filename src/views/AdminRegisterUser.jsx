@@ -8,7 +8,7 @@ import UploadPhoto from "../assets/UploadPhoto.svg";
 import { useUsers } from "../hooks/users";
 
 export default function AdminRegisterUser(){
-    const user=useUsers();
+    const user=useUsers(null);
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
