@@ -6,6 +6,7 @@ import {
   getDocs,
   onSnapshot,
   query,
+  serverTimestamp,
   setDoc,
   updateDoc,
   where,
@@ -108,7 +109,10 @@ export async function createUser(id, data) {
   const userRef = doc(usersRef, id);
   const user = await getDoc(userRef);
   if (!user.exists()) {
-    await setDoc(userRef, data);
+    await setDoc(userRef, {
+      ...data,
+      createdAt: serverTimestamp(),
+    });
   }
 }
 

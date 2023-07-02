@@ -1,7 +1,7 @@
-import  { useCallback, useMemo, useState } from "react";
-import moment from "moment";
+import { useCallback, useMemo, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTourReservations } from "../hooks/reservations";
+import { formatDate } from "../utils/date";
 import Calendario from "./Calendar";
 import styles from "./HourModal.module.scss";
 import HourSelector from "./HourSelector";
@@ -20,11 +20,11 @@ import ReserveModal from "./ReserveModal";
 export default function HourModal({ tour, closeModal }) {
   const { user } = useAuth();
   const reservations = useTourReservations(tour.id);
-  const [date, setDate] = useState(moment(new Date()).format("DD-MM-YYYY"));
+  const [date, setDate] = useState(formatDate(new Date()));
   const [hour, setHour] = useState("");
   const [showReserveModal, setShowReserveModal] = useState(false);
   const [showHourModal, setShowHourModal] = useState(true);
-  const [showLoader, setShowLoader] = useState(false); 
+  const [showLoader, setShowLoader] = useState(false);
 
   const openReserveModal = () => {
     setShowReserveModal(true);
@@ -57,9 +57,9 @@ export default function HourModal({ tour, closeModal }) {
       (reservation) => reservation.date === date && reservation.hour === hour
     );
     if (user && reservation) {
-      setShowLoader(true); 
+      setShowLoader(true);
       await reservations.reserve(reservation.id, user.id);
-      setShowLoader(false); 
+      setShowLoader(false);
       openReserveModal();
     }
     closeModal();
@@ -67,68 +67,63 @@ export default function HourModal({ tour, closeModal }) {
 
   return (
     <div className={styles.wrapper}>
-      {showLoader ? ( 
+      {showLoader ? (
         <Loader />
-      ) : (
-        tour && showHourModal ? (
-          <div className={styles.modalBox}>
-            <div
-              className={styles.imageContainer}
-              style={{ backgroundImage: `url(${bannerImage})` }}
-            >
-              <h1 className={styles.modaltitle2}><strong>{tour.name}</strong></h1>
-            </div>
-            {reservations.data ? (
-              <>
-                <div className={styles.content}>
-                  <div className={styles.leftContent}>
-                    <div className={styles.title}>Selecciona una de las fechas disponibles:</div>
-                    <Calendario
-                      availableDates={availableDates}
-                      date={date}
-                      onChange={(date) => setDate(date)}
-                    />
+      ) : tour && showHourModal ? (
+        <div className={styles.modalBox}>
+          <div
+            className={styles.imageContainer}
+            style={{ backgroundImage: `url(${tour.images[0]})` }}
+          ></div>
+          {reservations.data ? (
+            <>
+              <div className={styles.content}>
+                <div className={styles.leftContent}>
+                  <div className={styles.title}>
+                    Selecciona una de las fechas disponibles:
                   </div>
-                  <div className={styles.rightContent}>
-                    <div className={styles.title}>Selecciona una hora:</div>
-                    <HourSelector
-                      availableHours={availableHours}
-                      hour={hour}
-                      onChange={(hour) => setHour(hour)}
-                    />
-                    <div className={styles.eventDetails}>
-                      <p className={styles.subtitle}>
-                        <strong>Detalles del Evento:</strong>
-                      </p>
-                      <p>
-                        <strong>Lugar:</strong> {tour.location}
-                      </p>
-                      <p>
-                        <strong>Duración:</strong> {tour.duration}
-                      </p>
-                    </div>
+                  <Calendario
+                    availableDates={availableDates}
+                    date={date}
+                    onChange={(date) => setDate(date)}
+                  />
+                </div>
+                <div className={styles.rightContent}>
+                  <div className={styles.title}>Selecciona una hora:</div>
+                  <HourSelector
+                    availableHours={availableHours}
+                    hour={hour}
+                    onChange={(hour) => setHour(hour)}
+                  />
+                  <div className={styles.eventDetails}>
+                    <p className={styles.subtitle}>
+                      <strong>Detalles del Evento:</strong>
+                    </p>
+                    <p>
+                      <strong>Lugar:</strong> {tour.location}
+                    </p>
+                    <p>
+                      <strong>Duración:</strong> {tour.duration}
+                    </p>
                   </div>
                 </div>
-                <div className={styles.buttonSection}>
-                  <button className={styles.closeButton} onClick={closeModal}>
-                    Cancelar
-                  </button>
-                  <button className={styles.bookButton} onClick={handleReserve}>
-                    Reservar
-                  </button>
-                </div>
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
-        ) : null 
-      )}
+              </div>
+              <div className={styles.buttonSection}>
+                <button className={styles.closeButton} onClick={closeModal}>
+                  Cancelar
+                </button>
+                <button className={styles.bookButton} onClick={handleReserve}>
+                  Reservar
+                </button>
+              </div>
+            </>
+          ) : (
+            <Loader />
+          )}
+        </div>
+      ) : null}
 
-      {showReserveModal && (
-        <ReserveModal closeModal={closeReserveModal} />
-      )}
+      {showReserveModal && <ReserveModal closeModal={closeReserveModal} />}
     </div>
   );
 }
-

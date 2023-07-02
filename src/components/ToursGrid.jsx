@@ -9,6 +9,7 @@ import styles from "./ToursGrid.module.scss";
  *   target?: import("./TourCard").TourCardProps["target"];
  *   loader?: React.ReactNode;
  *   fallback?: React.ReactNode;
+ *   more?: React.ReactNode;
  * }} ToursGridProps
  */
 
@@ -17,18 +18,30 @@ export default function ToursGrid({
   tours,
   size = "base",
   target,
-  loader = <Loader />,
+  loader = (
+    <div className={styles.loaderContainer}>
+      <Loader />
+    </div>
+  ),
   fallback,
+  more,
 }) {
   return (
     <div className={[styles.grid, styles[size]].join(" ")}>
-      {tours
-        ? tours.length > 0
-          ? tours.map((data) => (
+      {tours ? (
+        tours.length > 0 ? (
+          <>
+            {tours.map((data) => (
               <TourCard key={data.id} data={data} size={size} target={target} />
-            ))
-          : fallback
-        : loader}
+            ))}
+            {more}
+          </>
+        ) : (
+          fallback
+        )
+      ) : (
+        loader
+      )}
     </div>
   );
 }

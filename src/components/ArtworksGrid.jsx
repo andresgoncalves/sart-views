@@ -9,6 +9,7 @@ import Loader from "./Loader";
  *   target?: import("./ArtworkCard").ArtworkCardProps["target"];
  *   loader?: React.ReactNode;
  *   fallback?: React.ReactNode;
+ *   more?: React.ReactNode;
  * }} ArtworksGridProps
  */
 
@@ -19,16 +20,24 @@ export default function ArtworksGrid({
   target,
   loader = <Loader />,
   fallback,
+  more,
 }) {
   return (
     <div className={[styles.grid, styles[size]].join(" ")}>
-      {artworks
-        ? artworks.length > 0
-          ? artworks.map((data, key) => (
+      {artworks ? (
+        artworks.length > 0 ? (
+          <>
+            {artworks.map((data, key) => (
               <ArtworkCard key={key} data={data} size={size} target={target} />
-            ))
-          : fallback
-        : loader}
+            ))}
+            {more}
+          </>
+        ) : (
+          fallback
+        )
+      ) : (
+        loader
+      )}
     </div>
   );
 }
