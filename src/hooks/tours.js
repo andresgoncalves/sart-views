@@ -6,17 +6,18 @@ import {
   updateTour,
 } from "../controllers/tours";
 
-export function useTours() {
+/** @param {string[]} ids */
+export function useTours(ids = null) {
   /** @type {[import("../controllers/tours").TourData[] | null, any]} */
   const [data, setData] = useState(null);
 
   useEffect(() => {
     async function load() {
-      const tours = await getTours();
+      const tours = await getTours(ids);
       setData(tours);
     }
     load();
-  }, []);
+  }, [ids]);
 
   const create = useCallback(
     async function (

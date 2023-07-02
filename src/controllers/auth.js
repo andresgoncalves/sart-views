@@ -25,6 +25,7 @@ export const singInWithGoogle = async () => {
         sex: "",
         picture: result.user.photoURL,
         admin: false,
+        favoritesArtworks: [],
       });
     }
   } catch (error) {
@@ -48,6 +49,7 @@ export const singInWithFacebook = async () => {
         sex: "",
         picture: result.user.photoURL,
         admin: false,
+        favoritesArtworks: [],
       });
     }
   } catch (error) {

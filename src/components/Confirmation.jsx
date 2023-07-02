@@ -2,7 +2,7 @@ import Question from "../assets/QuestionIcon.svg";
 import styles from "./Confirmation.module.scss"
 import Button from "./Button";
 
-export default function ReserveModal({ closeModal }) {
+export default function ConfirmationModal({ closeModal }) {
     return (
         <div className={styles.modaloverlay}>
             <div className={styles.modalwrapper}>
