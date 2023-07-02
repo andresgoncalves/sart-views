@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
 import missionImage from "../assets/home-mission.png";
@@ -12,10 +13,12 @@ import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
   const artworks = useRecentArtworks(14);
-  const reservations = useUpcomingReservations(10);
-  const tours = useTours(
-    reservations.data?.map((reservation) => reservation.tour) || []
+  const reservations = useUpcomingReservations(9);
+  const upcomingTours = useMemo(
+    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    [reservations.data]
   );
+  const tours = useTours(upcomingTours);
 
   return (
     <>
