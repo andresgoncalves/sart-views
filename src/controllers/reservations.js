@@ -94,11 +94,7 @@ export async function getTourReservations(tourId) {
 export async function getUserReservations(userId) {
   const reservationsRef = collection(db, "reservations");
   const reservationsSnapshots = await getDocs(
-    query(
-      reservationsRef,
-      where("users", "array-contains", userId),
-      orderBy("date")
-    )
+    query(reservationsRef, where("users", "array-contains", userId))
   );
   const reservations = reservationsSnapshots.docs.map(mapToReservationData);
   return reservations;
