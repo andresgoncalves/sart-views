@@ -6,6 +6,7 @@ import Divider from "../components/Divider";
 import HourModal from "../components/HourModal";
 import InterestPoint from "../components/InterestPoint";
 import Loader from "../components/Loader";
+import PrivateRoute from "../components/PrivateRoute";
 import StarRating from "../components/StarRating";
 import { useArtworks } from "../hooks/artworks";
 import { useTour } from "../hooks/tours";
@@ -103,10 +104,12 @@ export default function TourProfile() {
           <ArtworksGrid artworks={artworks.data} size="medium" />
         </section>
         {match && (
-          <HourModal
-            tour={tour.data}
-            closeModal={() => navigate(`/tours/${id}`)}
-          />
+          <PrivateRoute role="user">
+            <HourModal
+              tour={tour.data}
+              closeModal={() => navigate(`/tours/${id}`)}
+            />
+          </PrivateRoute>
         )}
       </>
     );
