@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.0.0",
     "@syncfusion/ej2-react-calendars": "^21.2.8",
     "firebase": "^9.22.1",
     "moment": "^2.29.4",
