@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import bannerImage from "../assets/home-banner.png";
 import ArtworksGrid from "../components/ArtworksGrid";
@@ -16,7 +17,8 @@ export default function TourProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const tour = useTour(id);
-  const artworks = useArtworks();
+  const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
+  const artworks = useArtworks(tourArtworks);
   const match = useMatch("/tours/:id/reservar");
 
   const data = [
