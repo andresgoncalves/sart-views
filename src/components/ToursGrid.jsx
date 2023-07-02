@@ -18,7 +18,11 @@ export default function ToursGrid({
   tours,
   size = "base",
   target,
-  loader = <Loader />,
+  loader = (
+    <div className={styles.loaderContainer}>
+      <Loader />
+    </div>
+  ),
   fallback,
   more,
 }) {
