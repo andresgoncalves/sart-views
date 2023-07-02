@@ -1,5 +1,4 @@
 import unimet from "../assets/unimet.jpg";
-import Button from "../components/Button";
 import UserList from "../components/UserList";
 import { useUsers } from "../hooks/users";
 import styles from "./AdminUsers.module.scss";
@@ -22,9 +21,6 @@ export default function AdminUsers() {
       <section>
         <div className={styles.userBox}>
           <UserList user={users.data}></UserList>
-        </div>
-        <div className={styles.buttonSec}>
-          <Button href="/admin/registrarUsuario">Registrar Usuario</Button>
         </div>
       </section>
     </>
