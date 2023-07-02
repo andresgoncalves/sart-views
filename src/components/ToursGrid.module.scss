@@ -1,17 +1,22 @@
 .grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, var(--size));
   gap: 16px;
   justify-content: center;
+  max-width: calc(5 * var(--size) + 4 * 16px);
+  margin: auto;
+
+  --size: 160px;
 
   &.large {
-    grid-template-columns: repeat(auto-fit, 260px);
+    --size: 260px;
   }
 
   &.medium {
-    grid-template-columns: repeat(auto-fit, 200px);
+    --size: 200px;
   }
 
   &.base {
-    grid-template-columns: repeat(auto-fit, 160px);
+    --size: 160px;
   }
 }

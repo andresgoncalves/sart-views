@@ -5,12 +5,15 @@ import {
   documentId,
   getDoc,
   getDocs,
+  limitToLast,
+  orderBy,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
-import moment from "moment";
 import { db } from "../firebase";
+import { parseDate } from "../utils/date";
 
 /**
  * @typedef {{
@@ -41,7 +44,7 @@ function mapToReservationData(snapshot) {
     limit: snapshot.get("limit"),
   };
   data.status =
-    moment(data.date, "DD-MM-YYYY").diff(new Date()) > 0
+    parseDate(data.date).getTime() - Date.now() > 0
       ? data.users.length < data.limit
         ? "available"
         : "sold-out"
@@ -64,11 +67,24 @@ export async function getReservations(ids = null) {
   return reservations;
 }
 
+/** @param {number} limit */
+export async function getUpcomingReservations(limit) {
+  if (limit == 0) {
+    return [];
+  }
+  const reservationsRef = collection(db, "reservations");
+  const reservationsSnapshots = await getDocs(
+    query(reservationsRef, orderBy("date"), limitToLast(limit))
+  );
+  const reservations = reservationsSnapshots.docs.map(mapToReservationData);
+  return reservations;
+}
+
 /** @param {string} tourId */
 export async function getTourReservations(tourId) {
   const reservationsRef = collection(db, "reservations");
   const reservationsSnapshots = await getDocs(
-    query(reservationsRef, where("tour", "==", tourId))
+    query(reservationsRef, where("tour", "==", tourId), orderBy("date"))
   );
   const reservations = reservationsSnapshots.docs.map(mapToReservationData);
   return reservations;
@@ -78,7 +94,11 @@ export async function getTourReservations(tourId) {
 export async function getUserReservations(userId) {
   const reservationsRef = collection(db, "reservations");
   const reservationsSnapshots = await getDocs(
-    query(reservationsRef, where("users", "array-contains", userId))
+    query(
+      reservationsRef,
+      where("users", "array-contains", userId),
+      orderBy("date")
+    )
   );
   const reservations = reservationsSnapshots.docs.map(mapToReservationData);
   return reservations;
@@ -95,7 +115,10 @@ export async function getReservation(id) {
 /** @param {ReservationData} data */
 export async function createReservation(data) {
   const reservationsRef = collection(db, "reservations");
-  const reservationRef = await addDoc(reservationsRef, data);
+  const reservationRef = await addDoc(reservationsRef, {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
   return reservationRef.id;
 }
 

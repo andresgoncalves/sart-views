@@ -5,13 +5,17 @@ import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import ToursGrid from "../components/ToursGrid";
-import { useArtworks } from "../hooks/artworks";
+import { useRecentArtworks } from "../hooks/artworks";
+import { useUpcomingReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
-  const artworks = useArtworks();
-  const tours = useTours();
+  const artworks = useRecentArtworks(14);
+  const reservations = useUpcomingReservations(10);
+  const tours = useTours(
+    reservations.data?.map((reservation) => reservation.tour) || []
+  );
 
   return (
     <>
@@ -81,13 +85,29 @@ export default function HomePage() {
         <Divider>
           <h2>DESCUBRE NUESTROS TOURS</h2>
         </Divider>
-        <ToursGrid tours={tours.data} size="medium" />
+        <ToursGrid
+          tours={tours.data}
+          size="medium"
+          more={
+            <Button href="/admin/tours" variant="text" size="medium">
+              Ver todos los tours
+            </Button>
+          }
+        />
       </section>
       <section>
         <Divider>
           <h2>CONOCE NUESTRAS OBRAS</h2>
         </Divider>
-        <ArtworksGrid artworks={artworks.data} size="medium" />
+        <ArtworksGrid
+          artworks={artworks.data}
+          size="medium"
+          more={
+            <Button href="/admin/obras" variant="text" size="medium">
+              Ver todas las obras
+            </Button>
+          }
+        />
       </section>
     </>
   );

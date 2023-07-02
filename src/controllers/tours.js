@@ -6,6 +6,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -73,7 +74,10 @@ export async function getTour(id) {
 /** @param {TourData} data */
 export async function createTour(data) {
   const toursRef = collection(db, "tours");
-  const tourRef = await addDoc(toursRef, data);
+  const tourRef = await addDoc(toursRef, {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
   return tourRef.id;
 }
 
