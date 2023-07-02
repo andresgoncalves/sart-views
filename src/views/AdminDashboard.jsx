@@ -49,7 +49,6 @@ export default function AdminDashboard() {
           </div>
           <div className={styles.contentTour}>
             <div className={styles.label}>Tours Realizados</div>
-<<<<<<<<< Temporary merge branch 1
             {reservations.data ? (
               <div className={styles.info}>
                 {
@@ -57,10 +56,6 @@ export default function AdminDashboard() {
                     .length
                 }
               </div>
-=========
-            {tours.data ? (
-              <div className={styles.info}>{tours.data.length}</div>
->>>>>>>>> Temporary merge branch 2
             ) : (
               <Loader />
             )}
