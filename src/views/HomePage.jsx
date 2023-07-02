@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import bannerImage from "../assets/home-banner.png";
-import missionImage from "../assets/home-mission.png";
+import vision from "../assets/home-mission.png";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
@@ -10,6 +10,8 @@ import { useRecentArtworks } from "../hooks/artworks";
 import { useUpcomingReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import styles from "./HomePage.module.scss";
+import mision from "../assets/mision.jpg";
+import objetivo from "../assets/objetivo.jpg"
 
 export default function HomePage() {
   const artworks = useRecentArtworks(14);
@@ -47,7 +49,7 @@ export default function HomePage() {
         <div className={styles.aboutUs}>
           <div className={styles.group}>
             <div className={styles.image}>
-              <img src={missionImage} alt="" />
+              <img src={mision} alt="" />
             </div>
             <div className={styles.content}>
               <h3>Nuestra misión</h3>
@@ -59,7 +61,7 @@ export default function HomePage() {
           </div>
           <div className={styles.group}>
             <div className={styles.image}>
-              <img src={missionImage} alt="" />
+              <img src={vision} alt="" />
             </div>
             <div className={styles.content}>
               <h3>Nuestra visión</h3>
@@ -71,7 +73,7 @@ export default function HomePage() {
           </div>
           <div className={styles.group}>
             <div className={styles.image}>
-              <img src={missionImage} alt="" />
+              <img src={objetivo} alt="" />
             </div>
             <div className={styles.content}>
               <h3>Nuestro objetivo</h3>
