@@ -1,0 +1,45 @@
+.userList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px ;
+    width: 80%;
+    border-radius: 16px;
+    border: 0.5px solid var(--gray-2, #9BA9A8);
+    background: #FFF;
+    padding: 0 20px;
+}
+.containerInfo{
+    display: flex;
+    flex-direction: column;
+    padding: 24px 32px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-top: 0.5px solid var(--gray-2, #9BA9A8);
+    width: 100%;
+}
+.Email{
+    font-size:16px;
+    color: var(--gray-3, #6A7D7D);
+    text-align: center;
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: 1.2em;
+    line-height: normal;
+}
+.Name{
+    color: #000;
+    text-align: center;
+    font-size: 1.15em;
+    font-weight: 400;
+}
+.containerUser{
+    display:flex;
+}
+.pencil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

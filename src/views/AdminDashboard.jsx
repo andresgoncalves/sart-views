@@ -16,8 +16,6 @@ export default function AdminDashboard() {
     const tours = useTours();
     const artworks = useArtworks();
     const users= useUsers();
-
-    console.log(tours);
     return (
         <>
         <AdminDashboardHeader></AdminDashboardHeader>
