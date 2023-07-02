@@ -11,7 +11,6 @@ import AdminArtworkPage from "./views/AdminArtworkPage";
 import AdminArtworksPage from "./views/AdminArtworksPage";
 import AdminDashboard from "./views/AdminDashboard";
 import AdminProfile from "./views/AdminProfile";
-import AdminRegisterUser from "./views/AdminRegisterUser";
 import AdminTourPage from "./views/AdminTourPage";
 import AdminToursPage from "./views/AdminToursPage";
 import AdminUpdateUser from "./views/AdminUpdateUser";
@@ -77,7 +76,6 @@ export default createBrowserRouter(
         <Route path="/admin/tours/:id" element={<AdminTourPage />} />
         <Route path="/admin/tours/crear" element={<AdminTourPage />} />
         <Route path="/admin/usuarios" element={<AdminUsers />} />
-        <Route path="/admin/registrarUsuario" element={<AdminRegisterUser />} />
         <Route path="/admin/usuarios/:id" element={<AdminUpdateUser />} />
       </Route>
       <Route
