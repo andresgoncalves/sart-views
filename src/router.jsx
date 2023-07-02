@@ -25,6 +25,10 @@ import ProfileUser from "./views/ProfileUser";
 import SearchPage from "./views/SearchPage";
 import TourProfile from "./views/TourProfile";
 import ToursPage from "./views/ToursPage";
+import AdminUsers from "./views/AdminUsers";
+import AdminUpdateUser from "./views/AdminUpdateUser";
+import AdminRegisterUser from "./views/AdminRegisterUser";
+
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -80,8 +84,9 @@ export default createBrowserRouter(
         <Route path="/admin/tours" element={<AdminToursPage />} />
         <Route path="/admin/tours/:id" element={<AdminTourPage />} />
         <Route path="/admin/tours/crear" element={<AdminTourPage />} />
-        <Route path="/admin/usuarios" element={<BlankPage />} />
-        <Route path="/admin/usuarios/:id" element={<BlankPage />} />
+        <Route path="/admin/usuarios" element={<AdminUsers />} />
+        <Route path="/admin/registrarUsuario" element={<AdminRegisterUser/>}/>
+        <Route path="/admin/usuarios/:id" element={<AdminUpdateUser />} />
       </Route>
       <Route
         path="/admin/perfil"
