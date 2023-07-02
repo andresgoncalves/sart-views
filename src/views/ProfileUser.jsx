@@ -13,12 +13,19 @@ import { logout } from "../controllers/auth";
 import { useArtworks } from "../hooks/artworks";
 import { useTours } from "../hooks/tours";
 import styles from "./ProfileUser.module.scss";
+import { useUserReservations } from "../hooks/reservations";
+import { useMemo } from "react";
 
 export default function ProfileUser() {
   const { user } = useAuth();
-  const tours = useTours();
   const artworks = useArtworks(user?.favoritesArtworks || []);
-
+  const reservations=useUserReservations(user?.id);
+  const upcomingReservation= useMemo(
+    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    [reservations.data]
+  );
+  const tours = useTours(upcomingReservation);
+  
   const image1 = "https://masdearte.com/media/g_SalaMendoza.jpg";
 
   const handleLogout = async () => {
@@ -92,7 +99,7 @@ export default function ProfileUser() {
                 fallback="No hay obras destacadas"
               />
             ) : (
-              <div>hola</div>
+              <div><Loader></Loader></div>
             )}
           </div>
         </div>

@@ -7,7 +7,7 @@ export default function EditUserProfile() {
   const { user } = useAuth();
   return user ? (
     <div className={styles.mainContainer}>
-      <UserProfileEditor userParam={user}></UserProfileEditor>
+      <UserProfileEditor></UserProfileEditor>
     </div>
   ) : (
     <div className={styles.loaderContainer}>

@@ -24,13 +24,13 @@ export default function ArtworkProfile() {
     if (user) {
       const exist = user.favoritesArtworks.includes(id);
       if (exist) {
-        alert("Ya la pelicula forma parte de sus favoritos");
+        alert("Ya la obra forma parte de sus favoritos");
       } else {
         const userRef = doc(db, "users", user.id);
         await updateDoc(userRef, {
           favoritesArtworks: arrayUnion(id),
         });
-        alert("Pelicula agregada a sus favoritos");
+        alert("Obra agregada a sus favoritos");
         user.favoritesArtworks.push(id);
       }
       console.log(user);

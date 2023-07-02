@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useMemo } from "react";
 import logo from "../assets/LogoSartViews.svg";
 import AdminDashboardHeader from "../components/AdminDashboardHeader";
 import Button from "../components/Button";
@@ -9,11 +10,25 @@ import { useArtworks } from "../hooks/artworks";
 import { useTours } from "../hooks/tours";
 import { useUsers } from "../hooks/users";
 import styles from "./AdminDashboard.module.scss";
+import { useAuth } from "../contexts/AuthContext";
+import ArtworksGrid from "../components/ArtworksGrid";
+import { useUpcomingReservations } from "../hooks/reservations";
+import DetailedToursGrid from "../components/DetailedToursGrid";
+
 
 export default function AdminDashboard() {
   const tours = useTours();
-  const artworks = useArtworks();
   const users = useUsers(null);
+  const { user } = useAuth();
+  const artworksCount=useArtworks();
+  const artworks = useArtworks(user?.favoritesArtworks || []);
+  const reservations = useUpcomingReservations(9);
+  const upcomingTours = useMemo(
+    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    [reservations.data]
+  );
+  const toursNext = useTours(upcomingTours);
+
   return (
     <>
       <AdminDashboardHeader></AdminDashboardHeader>
@@ -33,9 +48,19 @@ export default function AdminDashboard() {
           </div>
           <div className={styles.contentTour}>
             <div className={styles.label}>Tours Realizados</div>
+            {tours.data ? (
+              <div className={styles.info}>{tours.data.length}</div>
+            ) : (
+              <Loader />
+            )}
           </div>
-          <div className={styles.contentBox}>
-            <div className={styles.label}>Fondos Recaudados</div>
+          <div className={styles.contentTour}>
+            <div className={styles.label}>Obras Registradas</div>
+            {artworksCount.data ? (
+              <div className={styles.info}>{artworksCount.data.length}</div>
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
       </section>
@@ -43,11 +68,18 @@ export default function AdminDashboard() {
         <Divider>
           <div className={styles.titleLabel}>Próximos Eventos</div>
         </Divider>
+        <div className={styles.nextContainer}>
+          <DetailedToursGrid
+            tours={toursNext.data}
+            size="base"
+          />
+        </div>
         <div className={styles.nextTours}>
-          <Button>Crear Evento</Button>
+          <Button className={styles.create}>Crear Evento</Button>
         </div>
       </section>
       <section>
+        <Divider></Divider>
         <div className={styles.dataAdmin}>
           <div className={styles.column1}>
             <div className={styles.container}>
@@ -62,6 +94,16 @@ export default function AdminDashboard() {
             <div className={styles.container}>
               <div className={styles.titleLabel}>Obras Destacadas</div>
               <Button>Agregar Obra</Button>
+            </div>
+            <div className={styles.tourContainer}>
+              {artworks.data ? (
+                <ArtworksGrid
+                  artworks={artworks.data}
+                  fallback="No hay obras destacadas"
+                />
+              ) : (
+                <div><Loader></Loader></div>
+              )}
             </div>
           </div>
         </div>
