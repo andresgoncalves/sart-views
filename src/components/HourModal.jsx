@@ -47,6 +47,7 @@ export default function HourModal({ tour, closeModal }) {
     if (user && reservation) {
       await reservations.reserve(reservation.id, user.id);
     }
+    closeModal();
   }, [date, hour, reservations, user]);
 
   return (
