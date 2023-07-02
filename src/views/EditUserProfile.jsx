@@ -1,19 +1,14 @@
 import Loader from "../components/Loader";
 import UserProfileEditor from "../components/UserProfileEditor";
 import { useAuth } from "../contexts/AuthContext";
-import { useUser } from "../hooks/users";
 import styles from "./EditUserProfile.module.scss";
 
 export default function EditUserProfile() {
-  const {
-    user: { id },
-  } = useAuth();
+  const { user, update } = useAuth();
 
-  const user = useUser(id);
-
-  return user.data ? (
+  return user ? (
     <div className={styles.mainContainer}>
-      <UserProfileEditor user={user.data} update={user.update} />
+      <UserProfileEditor user={user} update={update} />
     </div>
   ) : (
     <div className={styles.loaderContainer}>

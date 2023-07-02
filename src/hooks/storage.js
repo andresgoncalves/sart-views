@@ -16,7 +16,11 @@ export function useStorage() {
 export function useFile(path) {
   const [url, setUrl] = useState(null);
   useEffect(() => {
-    getFileUrl(path).then((file) => setUrl(file));
+    if (path) {
+      getFileUrl(path).then((file) => setUrl(file));
+    } else {
+      setUrl(null);
+    }
   }, [path]);
   return url;
 }
