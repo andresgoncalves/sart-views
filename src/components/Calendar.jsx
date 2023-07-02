@@ -1,6 +1,6 @@
-import moment from "moment";
 import { useCallback } from "react";
 import ReactCalendar from "react-calendar";
+import { formatDate, parseDate } from "../utils/date";
 import styles from "./Calendar.module.scss";
 
 /**
@@ -15,7 +15,7 @@ import styles from "./Calendar.module.scss";
 export default function Calendar({ availableDates, date, onChange }) {
   const handleChange = useCallback(
     (/** @type {Date} */ date) => {
-      const dateText = moment(date).format("DD-MM-YYYY");
+      const dateText = formatDate(date);
       if (onChange && (!availableDates || availableDates.includes(dateText))) {
         onChange(dateText);
       }
@@ -27,13 +27,11 @@ export default function Calendar({ availableDates, date, onChange }) {
     <div className={styles.calendarContainer}>
       <ReactCalendar
         onChange={handleChange}
-        value={moment(date, "DD-MM-YYYY").toDate()}
+        value={parseDate(date)}
         defaultView="month"
         maxDetail="month"
         minDetail="month"
-        tileDisabled={({ date }) =>
-          !availableDates?.includes(moment(date).format("DD-MM-YYYY"))
-        }
+        tileDisabled={({ date }) => !availableDates?.includes(formatDate(date))}
         formatShortWeekday={(_, date) =>
           ["D", "L", "M", "X", "J", "V", "S"][date.getDay()]
         }

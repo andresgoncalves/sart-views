@@ -5,7 +5,10 @@ import {
   documentId,
   getDoc,
   getDocs,
+  limitToLast,
+  orderBy,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -60,6 +63,19 @@ export async function getArtworks(ids = null) {
   return artworks;
 }
 
+/** @param {number} limit */
+export async function getRecentArtworks(limit) {
+  if (limit == 0) {
+    return [];
+  }
+  const artworksRef = collection(db, "artworks");
+  const artworkSnapshots = await getDocs(
+    query(artworksRef, orderBy("createdAt"), limitToLast(limit))
+  );
+  const artworks = artworkSnapshots.docs.map(mapToArtworkData);
+  return artworks;
+}
+
 /** @param {string} id */
 export async function getArtwork(id) {
   const artworksRef = collection(db, "artworks");
@@ -71,7 +87,10 @@ export async function getArtwork(id) {
 /** @param {ArtworkData} data */
 export async function createArtwork(data) {
   const artworksRef = collection(db, "artworks");
-  const artworkRef = await addDoc(artworksRef, data);
+  const artworkRef = await addDoc(artworksRef, {
+    ...data,
+    createdAt: serverTimestamp(),
+  });
   return artworkRef.id;
 }
 

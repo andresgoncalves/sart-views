@@ -4,6 +4,7 @@ import {
   getReservation,
   getReservations,
   getTourReservations,
+  getUpcomingReservations,
   getUserReservations,
   updateReservation,
 } from "../controllers/reservations";
@@ -38,6 +39,27 @@ export function useReservations(ids = null) {
   );
 
   return useMemo(() => ({ data, create }), [data, create]);
+}
+
+/** @param {number} limit */
+export function useUpcomingReservations(limit) {
+  /**
+   * @type {[
+   *   import("../controllers/reservations").ReservationData[] | null,
+   *   any
+   * ]}
+   */
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      const reservations = await getUpcomingReservations(limit);
+      setData(reservations);
+    }
+    load();
+  }, [limit]);
+
+  return useMemo(() => ({ data }), [data]);
 }
 
 /** @param {string} tourId */

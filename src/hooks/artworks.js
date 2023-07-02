@@ -3,6 +3,7 @@ import {
   createArtwork,
   getArtwork,
   getArtworks,
+  getRecentArtworks,
   updateArtwork,
 } from "../controllers/artworks";
 
@@ -29,6 +30,22 @@ export function useArtworks(ids = null) {
   []);
 
   return useMemo(() => ({ data, create }), [data, create]);
+}
+
+/** @param {number} limit */
+export function useRecentArtworks(limit) {
+  /** @type {[import("../controllers/artworks").ArtworkData[] | null, any]} */
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      const artworks = await getRecentArtworks(limit);
+      setData(artworks);
+    }
+    load();
+  }, [limit]);
+
+  return useMemo(() => ({ data }), [data]);
 }
 
 /** @param {string} id */
