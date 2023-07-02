@@ -6,6 +6,7 @@ import Divider from "../components/Divider";
 import Loader from "../components/Loader";
 import ToursGrid from "../components/ToursGrid";
 import { useArtworks } from "../hooks/artworks";
+import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import { useUsers } from "../hooks/users";
 import styles from "./AdminDashboard.module.scss";
@@ -13,7 +14,9 @@ import styles from "./AdminDashboard.module.scss";
 export default function AdminDashboard() {
   const tours = useTours();
   const artworks = useArtworks();
-  const users = useUsers(null);
+  const users = useUsers();
+  const reservations = useReservations();
+
   return (
     <>
       <AdminDashboardHeader></AdminDashboardHeader>
@@ -33,6 +36,16 @@ export default function AdminDashboard() {
           </div>
           <div className={styles.contentTour}>
             <div className={styles.label}>Tours Realizados</div>
+            {reservations.data ? (
+              <div className={styles.info}>
+                {
+                  reservations.data.filter((tour) => tour.status == "closed")
+                    .length
+                }
+              </div>
+            ) : (
+              <Loader />
+            )}
           </div>
           <div className={styles.contentBox}>
             <div className={styles.label}>Fondos Recaudados</div>
