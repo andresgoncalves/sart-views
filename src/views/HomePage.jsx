@@ -30,8 +30,10 @@ export default function HomePage() {
         <div className={styles.bannerContent}>
           <h1>Vive la experiencia SartView</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            Bienvenido a SartViews! en este website podrás conocer lo más
+            relevante sobre las obras de arte integradas a la Unimet. Así mismo,
+            podrás realizar reservas para paseos guiados en referencia a estas
+            obras y muchas cosas más!
           </p>
           <Button href="/login" size="large">
             Empieza ahora

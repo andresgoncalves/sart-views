@@ -1,89 +1,99 @@
 .banner {
-    position: relative;
-    padding: 150px;
-    color: white;
-    background-size: cover;
-    @media (max-width: 800px) {
-      padding: 64px;
-    }
-    
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-    }
+  position: relative;
+  padding: 150px;
+  color: white;
+  background-size: cover;
+  @media (max-width: 800px) {
+    padding: 64px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
-.textContainer{
-    width: 50%;
-    position: relative;
-    z-index: 2;
+.textContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 50%;
 }
-.title{
-    font-size: 2.5em;
-    font-weight: bold;
+.title {
+  font-weight: bold;
+  font-size: 2.5em;
 }
-.description{
-    font-size: 1.3em;
+.description {
+  font-size: 1.3em;
 }
-.content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 32px 32px;
-    gap: 32px;
+.content {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  margin: 32px 32px;
 }
-.column1, .column2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 32px;
+.column1,
+.column2 {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
 }
-.tours{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: auto;
+.tours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: auto;
 }
-.label{
-    font-size: 1.2em;
-    font-weight: bold;
+.label {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.loadContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 @media (max-width: 800px) {
-    .banner {
-      padding: 64px;
-    }
-    
-    .textContainer {
-      width: 100%;
-      text-align: start;
-    }
-    
-    .title {
-      font-size: 2em;
-    }
-    
-    .description {
-      font-size: 1.1em;
-    }
-    
-    .content {
-      flex-direction: column;
-    }
-    
-    .column1,
-    .column2 {
-      width: 100%;
-      text-align: center;
-    }
-    
-    .tours {
-      gap: 10px;
-    }
+  .banner {
+    padding: 64px;
+  }
+
+  .textContainer {
+    width: 100%;
+    text-align: start;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+
+  .description {
+    font-size: 1.1em;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .column1,
+  .column2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tours {
+    gap: 10px;
+  }
 }
