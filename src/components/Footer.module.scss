@@ -33,3 +33,9 @@
     border-radius: 0px;
   }
 }
+
+@media (max-width: 870px) {
+  .footer {
+    justify-content: center;
+  }
+}
