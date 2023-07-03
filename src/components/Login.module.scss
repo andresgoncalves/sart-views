@@ -379,3 +379,45 @@
 .iconCursor {
   cursor: pointer;
 }
+
+@media (max-width: 870px) {
+  .body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    padding: 5px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0px;
+    text-align: center;
+    background-color: #ffffff;
+  }
+
+  .overlayPanel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 39.5%;
+    height: 100%;
+    padding: 0px 20px;
+    text-align: center;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+}
