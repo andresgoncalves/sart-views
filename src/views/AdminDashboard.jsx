@@ -18,17 +18,20 @@ import DetailedToursGrid from "../components/DetailedToursGrid";
 
 
 export default function AdminDashboard() {
-  const tours = useTours();
-  const users = useUsers(null);
-  const { user } = useAuth();
-  const artworksCount=useArtworks();
-  const artworks = useArtworks(user?.favoritesArtworks || []);
-  const reservations = useUpcomingReservations(9);
-  const upcomingTours = useMemo(
-    () => reservations.data?.map((reservation) => reservation.tour) || [],
-    [reservations.data]
-  );
-  const toursNext = useTours(upcomingTours);
+    const tours = useTours();
+    const users = useUsers(null);
+    const { user } = useAuth();
+    const artworksCount=useArtworks();
+    const artworks = useArtworks(user?.favoritesArtworks || []);
+    const reservations = useUpcomingReservations(9);
+    const upcomingTours = useMemo(
+      () => reservations.data?.map((reservation) => reservation.tour) || [],
+      [reservations.data]
+    );
+    const toursNext = useTours(upcomingTours);
+    
+
+
 
   return (
     <>
@@ -63,7 +66,7 @@ export default function AdminDashboard() {
           <div className={styles.contentTour}>
             <div className={styles.label}>Obras Registradas</div>
             {artworks.data ? (
-              <div className={styles.info}>{artworks.data.length}</div>
+              <div className={styles.info}>{artworksCount.data.length}</div>
             ) : (
               <Loader />
             )}
@@ -76,7 +79,7 @@ export default function AdminDashboard() {
         </Divider>
         <div className={styles.nextContainer}>
           <DetailedToursGrid
-            tours={tours.data}
+            tours={toursNext.data}
             size="base"
           />
         </div>
