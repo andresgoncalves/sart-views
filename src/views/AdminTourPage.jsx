@@ -23,6 +23,7 @@ const initialData = {
   images: [],
   pointsOfInterest: [],
   relatedTours: [],
+  feedback: [],
 };
 
 export default function AdminTourPage() {

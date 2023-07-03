@@ -61,7 +61,8 @@ export default function HourModal({ tour, closeModal }) {
       setShowLoader(false);
       openReserveModal();
     }
-  }, [date, hour, reservations, user]);
+    closeModal();
+  }, [closeModal, date, hour, reservations, user]);
 
   return (
     <div className={styles.wrapper}>
