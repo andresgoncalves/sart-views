@@ -2,19 +2,19 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
   color: black;
 }
 
 .modalwrapper {
   position: relative;
-  width: 50%;
-  max-width: 500px;
+  width: calc(100% - 32px);
+  max-width: 1000px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
@@ -24,17 +24,21 @@
 }
 
 .modalcontent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-sizing: border-box;
+  max-height: calc(100vh - 64px);
+  padding: 32px 16px;
+  text-align: center;
   background-color: white;
-  padding: 10%;
   border-radius: 16px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .modalresults {
-  z-index: 9999;
+  flex-shrink: 1;
+  overflow-y: auto;
 }
 
 .modalimage img {
@@ -44,13 +48,13 @@
 
 .modalimage {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   max-width: 100px;
   height: 100px;
-  border-radius: 50%;
-  border: 8px solid #0f0;
   margin: 0 auto;
+  border: 8px solid #0f0;
+  border-radius: 50%;
 }
 
 .modaltitle {
@@ -63,7 +67,8 @@
 
 .modalbuttons {
   display: flex;
-  justify-content: space-between;
+  gap: 32px;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -96,5 +101,3 @@
     margin-top: 10px;
   }
 }
-
-  

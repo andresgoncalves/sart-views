@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import AdminEditor from "../components/AdminEditor";
+import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
+import SearchModal from "../components/SearchModal";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
+import { useArtworks } from "../hooks/artworks";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
@@ -28,6 +31,8 @@ export default function AdminTourPage() {
   const storage = useStorage();
   const tours = useTours();
   const tour = useTour(id);
+  const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
+  const artworks = useArtworks(tourArtworks);
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
@@ -74,6 +79,7 @@ export default function AdminTourPage() {
       }
     }
   };
+
   const handleImageDelete = async (event) => {
     const { path } = event.target.dataset;
     if (path) {
@@ -93,6 +99,41 @@ export default function AdminTourPage() {
   const handleImageUpload = () => {
     imageInputRef.current?.click();
   };
+
+  const handleArtworksAdd = useCallback(
+    async (/** @type {string[]} */ selectedArtworks) => {
+      if (selectedArtworks.length > 0) {
+        setData((data) => ({
+          ...data,
+          artworks: Array.from(
+            new Set([...data.artworks, ...selectedArtworks])
+          ),
+        }));
+        if (id && tour.data) {
+          tour.update({
+            artworks: Array.from(
+              new Set([...data.artworks, ...selectedArtworks])
+            ),
+          });
+        }
+      }
+      setModalOpen(false);
+    },
+    [data.artworks, id, tour]
+  );
+
+  const handleArtworkRemove = async (/** @type {string} */ id) => {
+    setData((data) => ({
+      ...data,
+      artworks: data.artworks.filter((artwork) => artwork !== id),
+    }));
+    if (id && tour.data) {
+      tour.update({
+        artworks: tour.data.artworks.filter((artwork) => artwork !== id),
+      });
+    }
+  };
+
   //Esto es para el modal
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -102,7 +143,7 @@ export default function AdminTourPage() {
   return (
     <TabbedPanel
       name="tour"
-      tabs={["Datos del Tour", "Galería de Imágenes", "Tours Relacionadas"]}
+      tabs={["Datos del Tour", "Galería de Imágenes", "Obras incluidas"]}
     >
       <AdminEditor
         title="Datos del Tour"
@@ -181,10 +222,32 @@ export default function AdminTourPage() {
           </div>
         }
       />
-
-      {/* Esto es para inicializar el modal, lo comento porque no me quedó claro si aqui quieres el botón y como lo quieres, avísame */}
-      {/* <Button onClick={openModal}>Agregar Obra </Button>
-      {modalOpen && <SearchModal closeModal={closeModal} />} */}
+      <AdminEditor
+        title="Obras incluidas"
+        content={
+          <>
+            <ArtworksGrid
+              artworks={artworks.data}
+              target={null}
+              onClick={(id) => handleArtworkRemove(id)}
+            />
+            {modalOpen && (
+              <SearchModal
+                closeModal={closeModal}
+                onSubmit={handleArtworksAdd}
+                exclude={data.artworks}
+              />
+            )}
+          </>
+        }
+        actions={
+          <div className={styles.imagesButtons}>
+            <Button onClick={openModal} variant="text">
+              Agregar obra
+            </Button>
+          </div>
+        }
+      />
     </TabbedPanel>
   );
 }
