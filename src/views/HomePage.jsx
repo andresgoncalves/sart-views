@@ -6,12 +6,14 @@ import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import ToursGrid from "../components/ToursGrid";
+import { useAuth } from "../contexts/AuthContext";
 import { useRecentArtworks } from "../hooks/artworks";
 import { useUpcomingReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
+  const { user, isLogged } = useAuth();
   const artworks = useRecentArtworks(14);
   const reservations = useUpcomingReservations(9);
   const upcomingTours = useMemo(
@@ -35,9 +37,15 @@ export default function HomePage() {
             podrás realizar reservas para paseos guiados en referencia a estas
             obras y muchas cosas más!
           </p>
-          <Button href="/login" size="large">
-            Empieza ahora
-          </Button>
+          {isLogged ? (
+            <Button href="/tours" size="large">
+              Empieza ahora
+            </Button>
+          ) : (
+            <Button href="/login" size="large">
+              Empieza ahora
+            </Button>
+          )}
         </div>
       </header>
       <section>

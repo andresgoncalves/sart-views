@@ -15,7 +15,7 @@ export default function ReserveModal({ closeModal }) {
 
   const handleDonateModalClose = () => {
     setShowDonateModal(false);
-    closeModal(); // Cierra todos los modales
+    closeModal(); // Cierra solo el modal ReserveModal, no el modal de donación
   };
 
   const handleThanksModalClose = () => {
@@ -57,6 +57,7 @@ export default function ReserveModal({ closeModal }) {
     </div>
   );
 }
+
 
 
 
