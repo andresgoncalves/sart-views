@@ -14,6 +14,17 @@ import { db } from "../firebase";
 
 /**
  * @typedef {{
+ *   user: string;
+ *   satisfaction?: string;
+ *   likedMost?: string;
+ *   wouldAdd?: string;
+ *   wouldAssist?: string;
+ *   rating?: number;
+ * }} FeedbackData
+ */
+
+/**
+ * @typedef {{
  *   id?: string;
  *   name: string;
  *   department: string;
@@ -25,6 +36,7 @@ import { db } from "../firebase";
  *   images: string[];
  *   pointsOfInterest: string[];
  *   relatedTours: string[];
+ *   feedback: FeedbackData[];
  * }} TourData
  */
 
@@ -47,9 +59,11 @@ function mapToTourData(snapshot) {
     images: snapshot.get("images"),
     pointsOfInterest: snapshot.get("pointsOfInterest"),
     relatedTours: snapshot.get("relatedTours"),
+    feedback: snapshot.get("feedback"),
   };
 }
 
+/** @param {string[]} ids */
 export async function getTours(ids = null) {
   if (ids && ids.length == 0) {
     return [];
@@ -58,7 +72,6 @@ export async function getTours(ids = null) {
   const tourSnapshots = await getDocs(
     ids ? query(toursRef, where(documentId(), "in", ids)) : toursRef
   );
-  // await getDocs(toursRef);
   const tours = tourSnapshots.docs.map(mapToTourData);
   return tours;
 }
