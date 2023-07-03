@@ -72,14 +72,18 @@ export default function ArtworkProfile() {
                 <div className={styles.labelSubtitle}>Ubicación</div>
                 <div className={styles.text}>{artwork.data.location}</div>
                 <div className={styles.buttonContainer}>
-                  {isFavorite !== null ? (
-                    <Button variant="text" onClick={toggleFavorite}>
-                      {isFavorite === true
-                        ? "Eliminar de favoritos"
-                        : "Añadir a favoritos"}
-                    </Button>
+                  {isLogged ? (
+                    isFavorite !== null ? (
+                      <Button variant="text" onClick={toggleFavorite}>
+                        {isFavorite === true
+                          ? "Eliminar de favoritos"
+                          : "Añadir a favoritos"}
+                      </Button>
+                    ) : (
+                      <Loader />
+                    )
                   ) : (
-                    <Loader />
+                    ""
                   )}
                 </div>
               </div>

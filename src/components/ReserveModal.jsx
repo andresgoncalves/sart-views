@@ -39,7 +39,7 @@ export default function ReserveModal({ closeModal }) {
             Culturales de la Universidad Metropolitana
           </p>
           <div className={styles.modalbuttons}>
-            <Button onClick={closeModal} variant="text" size="base">
+            <Button onClick={closeModal} href= "/user/dashboard" variant="text" size="base">
               Continuar sin Contribuir
             </Button>
             <Button onClick={handleDonateClick} variant="filled" size="base">

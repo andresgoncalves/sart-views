@@ -4,11 +4,14 @@ import Loader from "./Loader";
 
 /**
  * @typedef {{
- *   tours: import("../controllers/tours").TourData[];
+ *   tours: (import("../controllers/tours").TourData & {
+ *     status?: import("./DetailedTourCard").DetailedTourCardProps["status"];
+ *   })[];
  *   size?: import("./DetailedTourCard").DetailedTourCardProps["size"];
  *   loader?: React.ReactNode;
  *   fallback?: React.ReactNode;
- * }} DetailedToursGridProps
+ * }}
+ *   DetailedToursGridProps
  */
 
 /** @param {DetailedToursGridProps} props */
@@ -20,13 +23,22 @@ export default function DetailedToursGrid({
 }) {
   return (
     <div className={[styles.grid, styles[size]].join(" ")}>
-      {tours
-        ? tours.length > 0
-          ? tours.map((data, key) => (
-              <DetailedTourCard key={key} data={data} size={size} />
-            ))
-          : fallback
-        : loader}
+      {tours ? (
+        tours.length > 0 ? (
+          tours.map(({ status, ...data }, key) => (
+            <DetailedTourCard
+              key={key}
+              data={data}
+              status={status}
+              size={size}
+            />
+          ))
+        ) : (
+          <div className={styles.fallback}>{fallback}</div>
+        )
+      ) : (
+        loader
+      )}
     </div>
   );
 }
