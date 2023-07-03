@@ -35,9 +35,6 @@ export default function SearchPage() {
     {
       name: "Esculturas",
     },
-    {
-      name: "Murales",
-    },
   ];
 
   const results = useMemo(() => {
