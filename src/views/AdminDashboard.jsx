@@ -80,7 +80,11 @@ export default function AdminDashboard() {
               <Button>Agregar Tour</Button>
             </div>
             <div className={styles.tourContainer}>
-              <ToursGrid tours={tours.data} fallback="No hay tours visitados" />
+              <ToursGrid
+                target="admin"
+                tours={tours.data?.slice(0, 8)}
+                fallback="No hay tours registrados"
+              />
             </div>
           </div>
           <div className={styles.column2}>
@@ -89,16 +93,11 @@ export default function AdminDashboard() {
               <Button>Agregar Obra</Button>
             </div>
             <div className={styles.tourContainer}>
-              {artworks.data ? (
-                <ArtworksGrid
-                  artworks={artworks.data}
-                  fallback="No hay obras destacadas"
-                />
-              ) : (
-                <div>
-                  <Loader></Loader>
-                </div>
-              )}
+              <ArtworksGrid
+                target="admin"
+                artworks={artworks.data?.slice(0, 12)}
+                fallback="No hay obras registradas"
+              />
             </div>
           </div>
         </div>

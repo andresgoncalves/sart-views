@@ -5,7 +5,6 @@ import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import HourModal from "../components/HourModal";
-import InterestPoint from "../components/InterestPoint";
 import Loader from "../components/Loader";
 import PrivateRoute from "../components/PrivateRoute";
 import StarRating from "../components/StarRating";
@@ -84,7 +83,7 @@ export default function TourProfile() {
             </div>
           </div>
         </section>
-        <section>
+        {/* <section>
           <Divider>
             <h2>PUNTOS DE INTERÉS</h2>
           </Divider>
@@ -98,7 +97,7 @@ export default function TourProfile() {
               />
             ))}
           </div>
-        </section>
+        </section> */}
         <section>
           <Divider>
             <h2>OBRAS INTEGRADAS EN EL TOUR</h2>
