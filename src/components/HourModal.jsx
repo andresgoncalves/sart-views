@@ -17,6 +17,7 @@ import ReserveModal from "./ReserveModal";
 
 /** @param {HourModalProps} props */
 export default function HourModal({ tour, closeModal }) {
+  const [validation, setValidation] = useState(true);
   const { user } = useAuth();
   const reservations = useTourReservations(tour.id);
   const [date, setDate] = useState(formatDate(new Date()));
@@ -55,14 +56,20 @@ export default function HourModal({ tour, closeModal }) {
     const reservation = reservations.data?.find(
       (reservation) => reservation.date === date && reservation.hour === hour
     );
-    if (user && reservation) {
-      setShowLoader(true);
-      await reservations.reserve(reservation.id, user.id);
-      setShowLoader(false);
-      openReserveModal();
-      return;
+    console.log(reservation)
+    if(reservation === undefined){
+      setValidation(false);
+    }else{
+      if (user && reservation) {
+        setShowLoader(true);
+        await reservations.reserve(reservation.id, user.id);
+        setShowLoader(false);
+        openReserveModal();
+        return;
+      }
+      closeModal();
     }
-    closeModal();
+    
   }, [closeModal, date, hour, reservations, user]);
 
   return (
@@ -104,11 +111,16 @@ export default function HourModal({ tour, closeModal }) {
                     </p>
                     <p>
                       <strong>Duración:</strong> {tour.duration}
-                    </p>
+                    </p>  
+                    {validation ? (
+                      null
+                    ):(
+                    <p className={styles.alert}><strong>Por favor, selecciona un horario válido</strong></p>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className={styles.buttonSection}>
+              <div className={styles.buttonSection}>                
                 <button className={styles.closeButton} onClick={closeModal}>
                   Cancelar
                 </button>
@@ -116,6 +128,7 @@ export default function HourModal({ tour, closeModal }) {
                   Reservar
                 </button>
               </div>
+              
             </>
           ) : (
             <Loader />
