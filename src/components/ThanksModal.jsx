@@ -18,7 +18,7 @@ export default function ThanksModal({ handleCloseModal }) {
             Culturales de la Universidad Metropolitana
           </p>
           <div className={styles.modalbuttons}>
-            <Button onClick={handleCloseModal} variant="filled" size="base">
+            <Button onClick={handleCloseModal} href="/user/dashboard" variant="filled" size="base">
               Continuar
             </Button>
           </div>
