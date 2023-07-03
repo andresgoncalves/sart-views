@@ -1,25 +1,17 @@
-import styles from './RadioButton.module.scss';
+import styles from "./RadioButton.module.scss";
 
-export default function RadioButton({group, label, onChange}){
-
-
-    const handleChange = (event) => {
-        onChange(event.target.value);
-    };
-
-    return(
-        <>
-            <label>
-                <input
-                    type="radio"
-                    name={group}
-                    value={label}
-                    className={styles.radio}
-                    onChange={handleChange}
-                />                    
-                <span>{label}</span>
-            </label>
-        </>
-    )
+export default function RadioButton({ name, label, value, onChange }) {
+  return (
+    <label className={styles.container}>
+      <input
+        type="radio"
+        name={name}
+        value={label}
+        className={styles.radio}
+        onChange={onChange}
+        checked={label == value}
+      />
+      <span>{label}</span>
+    </label>
+  );
 }
-

@@ -14,12 +14,12 @@ import { db } from "../firebase";
 
 /**
  * @typedef {{
- *   user: string;
- *   satisfaction?: string;
- *   likedMost?: string;
- *   wouldAdd?: string;
- *   wouldAssist?: string;
- *   rating?: number;
+ *   user?: string;
+ *   satisfaction: string;
+ *   likedMost: string;
+ *   wouldAdd: string;
+ *   wouldAssist: string;
+ *   rating: number;
  * }} FeedbackData
  */
 
@@ -31,12 +31,12 @@ import { db } from "../firebase";
  *   location: string;
  *   duration: number;
  *   description: string;
- *   rating: number;
  *   artworks: string[];
  *   images: string[];
  *   pointsOfInterest: string[];
  *   relatedTours: string[];
  *   feedback: FeedbackData[];
+ *   rating?: number;
  * }} TourData
  */
 
@@ -47,20 +47,24 @@ import { db } from "../firebase";
  * @returns {TourData}
  */
 function mapToTourData(snapshot) {
-  return {
+  /** @type {TourData} */
+  const data = {
     id: snapshot.id,
     name: snapshot.get("name"),
     department: snapshot.get("department"),
     location: snapshot.get("location"),
     duration: snapshot.get("duration"),
     description: snapshot.get("description"),
-    rating: snapshot.get("rating"),
     artworks: snapshot.get("artworks"),
     images: snapshot.get("images"),
     pointsOfInterest: snapshot.get("pointsOfInterest"),
     relatedTours: snapshot.get("relatedTours"),
     feedback: snapshot.get("feedback"),
   };
+  data.rating =
+    data.feedback.reduce((prev, curr) => prev + curr.rating, 0) /
+    data.feedback.length;
+  return data;
 }
 
 /** @param {string[]} ids */
