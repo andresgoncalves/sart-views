@@ -31,14 +31,20 @@ export default function UserSideBar() {
       <Link to="/user/dashboard" className={styles.option}>
         Dashboard
       </Link>
+      <Link to="/" className={styles.option}>
+        Inicio
+      </Link>
       <Link to="/obras" className={styles.option}>
         Obras
       </Link>
       <Link to="/tours" className={styles.option}>
         Tours
       </Link>
-      <Link to="/" className={styles.optionSpe}>
-        Inicio
+      <Link to="/calendario" className={styles.option}>
+        Calendario
+      </Link>
+      <Link to="/buscar" className={styles.optionSpe}>
+        Buscar
       </Link>
     </div>
   );
