@@ -38,9 +38,17 @@ export default function Login() {
 
   const onSumbit = async (event) => {
     event.preventDefault();
-    const { email, password, ...extraData } = signUpData;
-    await registerWithEmailAndPassword(email, password, extraData);
-    navigate("/user/dashboard");
+    if (signUpData.name === '') {
+      alert('Por favor llenar todos los campos');
+    } else {
+        if((signUpData.name.length)>20){
+          alert("El nombre ingresado excede el número de caracteres válido")
+        }else{
+          const { email, password, ...extraData } = signUpData;
+          await registerWithEmailAndPassword(email, password, extraData);
+          navigate("/user/dashboard");
+        } 
+      }
   };
 
   const [signUpData, setSignUpData] = useState({
@@ -56,8 +64,10 @@ export default function Login() {
   });
 
   const handleSignUpChange = (event) => {
+    
     const { name, value } = event.target;
-    setSignUpData((data) => ({
+    setSignUpData((data) => (
+      {
       ...data,
       [name]: value,
     }));
@@ -90,14 +100,16 @@ export default function Login() {
     event.preventDefault();
     const { email, password } = loginData;
     const usuario = await getUserByEmail(email);
-    if (!usuario.admin) {
-      await loginWithEmailAndPassword(email, password);
-      navigate("/admin/dashboard");
-    } else {
-      alert(
-        "Ups! parece que la cuenta que ha ingresado es una cuenta de administrador"
-      );
-    }
+    console.log(signUpData.name)
+    
+      if (!usuario.admin) {
+        await loginWithEmailAndPassword(email, password);
+        navigate("/admin/dashboard");
+      } else {
+        alert(
+          "Ups! parece que la cuenta que ha ingresado es una cuenta de administrador"
+        );
+      }
   };
 
   const onSumbitLoginAdmin = async (event) => {
