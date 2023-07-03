@@ -17,7 +17,6 @@ import AdminUpdateUser from "./views/AdminUpdateUser";
 import AdminUsers from "./views/AdminUsers";
 import ArtworkProfile from "./views/ArtworkProfile";
 import ArtworksPage from "./views/ArtworksPage";
-import BlankPage from "./views/BlankPage";
 import CalendarPage from "./views/CalendarPage";
 import EditUserProfile from "./views/EditUserProfile";
 import ErrorPage from "./views/ErrorPage";
@@ -33,7 +32,6 @@ export default createBrowserRouter(
     <Route errorElement={<ErrorPage />}>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/registro" element={<BlankPage />} />
         <Route path="/calendario" element={<CalendarPage />} />
         <Route path="/buscar" element={<SearchPage />} />
         <Route path="/obras" element={<ArtworksPage />} />
