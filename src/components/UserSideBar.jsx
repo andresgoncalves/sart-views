@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { logout } from "../controllers/auth";
 import Loader from "./Loader";
 import styles from "./UserSideBar.module.scss";
 
 export default function UserSideBar() {
   const { user } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-  };
 
   return (
     <div className={styles.container}>

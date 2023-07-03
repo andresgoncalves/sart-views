@@ -92,7 +92,9 @@ export default function ProfileUser() {
                 fallback="No hay obras destacadas"
               />
             ) : (
-              <div>hola</div>
+              <div>
+                <Loader></Loader>
+              </div>
             )}
           </div>
         </div>
