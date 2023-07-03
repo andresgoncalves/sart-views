@@ -60,6 +60,7 @@ export default function HourModal({ tour, closeModal }) {
       await reservations.reserve(reservation.id, user.id);
       setShowLoader(false);
       openReserveModal();
+      return;
     }
     closeModal();
   }, [closeModal, date, hour, reservations, user]);
@@ -126,3 +127,4 @@ export default function HourModal({ tour, closeModal }) {
     </div>
   );
 }
+
