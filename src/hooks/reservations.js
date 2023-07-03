@@ -118,8 +118,10 @@ export function useUserReservations(userId) {
 
   useEffect(() => {
     async function load() {
-      const reservations = await getUserReservations(userId);
-      setData(reservations);
+      if (userId) {
+        const reservations = await getUserReservations(userId);
+        setData(reservations);
+      }
     }
     load();
   }, [userId]);

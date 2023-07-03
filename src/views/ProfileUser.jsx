@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import editLapiz from "../assets/EditLapiz.svg";
@@ -11,12 +12,18 @@ import ToursGrid from "../components/ToursGrid";
 import { useAuth } from "../contexts/AuthContext";
 import { logout } from "../controllers/auth";
 import { useArtworks } from "../hooks/artworks";
+import { useUserReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import styles from "./ProfileUser.module.scss";
 
 export default function ProfileUser() {
   const { user } = useAuth();
-  const tours = useTours();
+  const reservations = useUserReservations(user?.id);
+  const reservedTours = useMemo(
+    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    [reservations.data]
+  );
+  const tours = useTours(reservedTours);
   const artworks = useArtworks(user?.favoritesArtworks || []);
 
   const image1 = "https://masdearte.com/media/g_SalaMendoza.jpg";
@@ -74,7 +81,15 @@ export default function ProfileUser() {
           <h2>Tus próximos eventos</h2>
         </Divider>
         <DetailedToursGrid
-          tours={tours.data}
+          tours={tours.data?.map((tour) => ({
+            ...tour,
+            status:
+              reservations.data?.find(
+                (reservation) => reservation.tour === tour.id
+              ).status === "closed"
+                ? "visited"
+                : "reserved",
+          }))}
           fallback="No hay eventos próximos"
         />
       </section>
