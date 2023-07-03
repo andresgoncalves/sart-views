@@ -7,6 +7,7 @@ import Loader from "./Loader";
  *   artworks: import("../controllers/artworks").ArtworkData[];
  *   size?: import("./ArtworkCard").ArtworkCardProps["size"];
  *   target?: import("./ArtworkCard").ArtworkCardProps["target"];
+ *   onClick?: import("./ArtworkCard").ArtworkCardProps["onClick"];
  *   loader?: React.ReactNode;
  *   fallback?: React.ReactNode;
  *   more?: React.ReactNode;
@@ -18,6 +19,7 @@ export default function ArtworksGrid({
   artworks,
   size = "base",
   target,
+  onClick,
   loader = <Loader />,
   fallback,
   more,
@@ -27,8 +29,14 @@ export default function ArtworksGrid({
       {artworks ? (
         artworks.length > 0 ? (
           <>
-            {artworks.map((data, key) => (
-              <ArtworkCard key={key} data={data} size={size} target={target} />
+            {artworks.map((data) => (
+              <ArtworkCard
+                key={data.id}
+                data={data}
+                size={size}
+                target={target}
+                onClick={onClick}
+              />
             ))}
             {more}
           </>
