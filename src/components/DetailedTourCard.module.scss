@@ -28,6 +28,14 @@
   .buttons {
     display: flex;
     gap: 8px;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .reserved {
+    color: rgb(18, 207, 18);
+    font-weight: bold;
+    font-size: 0.9rem;
   }
 
   &.large {
