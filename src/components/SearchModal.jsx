@@ -1,29 +1,47 @@
-// SearchModal.jsx
-import styles from "./SearchModal.module.scss";
-import SearchField from "./SearchField";
-import Button from "./Button";
-import Divider from "./Divider";
 import { useMemo, useState } from "react";
-import ArtworkCard from "./ArtworkCard";
 import { useArtworks } from "../hooks/artworks";
+import ArtworksGrid from "./ArtworksGrid";
+import Button from "./Button";
+import SearchField from "./SearchField";
+import styles from "./SearchModal.module.scss";
 
-export default function SearchModal({ closeModal }) {
+/** @param {string} text */
+const removeAccents = (text) => {
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
+/**
+ * @typedef {{
+ *   closeModal: () => void;
+ *   onSubmit: (artworks: string[]) => void;
+ *   exclude?: string[];
+ * }} SearchModalProps
+ */
+
+/** @param {SearchModalProps} props */
+export default function SearchModal({ closeModal, onSubmit, exclude = [] }) {
   const artworks = useArtworks();
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredArtworks, setFilteredArtworks] = useState([]);
+  const [selectedArtworks, setSelectedArtworks] = useState([]);
 
-  useMemo(() => {
-    if (searchQuery === "") {
-      const randomArtworks = artworks?.data?.sort(() => Math.random() - 0.5).slice(0, 4);
-      setFilteredArtworks(randomArtworks);
-    } else {
-      const filteredArtworks = artworks?.data?.filter(
+  const results = useMemo(
+    () =>
+      artworks.data?.filter(
         (artwork) =>
-          artwork.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredArtworks(filteredArtworks?.slice(0, 4));
-    }
-  }, [artworks?.data, searchQuery]);
+          removeAccents(artwork.name.toLowerCase()).includes(
+            removeAccents(searchQuery.toLowerCase())
+          ) && !exclude.includes(artwork.id)
+      ) || [],
+    [artworks.data, exclude, searchQuery]
+  );
+
+  const handleSelect = (/** @type {string} */ id) => {
+    setSelectedArtworks((artworks) =>
+      artworks.includes(id)
+        ? artworks.filter((artwork) => artwork !== id)
+        : [...artworks, id]
+    );
+  };
 
   return (
     <div className={styles.modaloverlay}>
@@ -33,15 +51,28 @@ export default function SearchModal({ closeModal }) {
             <SearchField placeholder="Buscar" action={setSearchQuery} />
           </div>
           <div className={styles.modalresults}>
-            {filteredArtworks?.map((artwork, index) => (
-              <ArtworkCard key={index} data={artwork} />
-            ))}
+            <ArtworksGrid
+              artworks={results}
+              target={null}
+              onClick={handleSelect}
+            />
           </div>
           <div className={styles.modalbuttons}>
-            <Button onClick={() => closeModal()} variant="text" size="base">
+            <Button
+              onClick={() => {
+                setSelectedArtworks([]);
+                closeModal();
+              }}
+              variant="text"
+              size="base"
+            >
               Cancelar
             </Button>
-            <Button onClick={() => closeModal()} variant="filled" size="base">
+            <Button
+              onClick={() => onSubmit(selectedArtworks)}
+              variant="filled"
+              size="base"
+            >
               Añadir
             </Button>
           </div>
@@ -50,6 +81,3 @@ export default function SearchModal({ closeModal }) {
     </div>
   );
 }
-
-
-  
