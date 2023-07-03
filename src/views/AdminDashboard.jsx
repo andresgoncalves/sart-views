@@ -10,7 +10,7 @@ import Loader from "../components/Loader";
 import ToursGrid from "../components/ToursGrid";
 import { useAuth } from "../contexts/AuthContext";
 import { useArtworks } from "../hooks/artworks";
-import { useUpcomingReservations } from "../hooks/reservations";
+import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import { useUsers } from "../hooks/users";
 import styles from "./AdminDashboard.module.scss";
@@ -21,12 +21,12 @@ export default function AdminDashboard() {
   const { user } = useAuth();
   const artworksCount = useArtworks();
   const artworks = useArtworks(user?.favoritesArtworks || []);
-  const reservations = useUpcomingReservations(6);
+  const reservations = useReservations();
   const upcomingTours = useMemo(
     () => reservations.data?.map((reservation) => reservation.tour) || [],
     [reservations.data]
   );
-  const toursNext = useTours(upcomingTours);
+  const toursNext = tours;
 
   return (
     <>
@@ -54,6 +54,14 @@ export default function AdminDashboard() {
                     .length
                 }
               </div>
+            ) : (
+              <Loader />
+            )}
+          </div>
+          <div className={styles.contentTour}>
+            <div className={styles.label}>Obras Registradas</div>
+            {artworksCount.data ? (
+              <div className={styles.info}>{artworksCount.data.length}</div>
             ) : (
               <Loader />
             )}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logoImage from "../assets/LogoSartViews.svg";
 import searchImage from "../assets/Search.svg";
 import { useAuth } from "../contexts/AuthContext";
+import AdminDashboardHeader from "./AdminDashboardHeader";
 import Button from "./Button";
 import styles from "./Header.module.scss";
 import Loader from "./Loader";
@@ -14,7 +15,11 @@ export default function Header() {
   return (
     <>
       <MediaQuery maxWidth={870}>
-        <UserHeaderResponsive></UserHeaderResponsive>
+        {isAdmin ? (
+          <AdminDashboardHeader></AdminDashboardHeader>
+        ) : (
+          <UserHeaderResponsive></UserHeaderResponsive>
+        )}
       </MediaQuery>
       <MediaQuery minWidth={870}>
         <div className={styles.header}>

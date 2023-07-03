@@ -23,18 +23,22 @@ export default function DetailedToursGrid({
 }) {
   return (
     <div className={[styles.grid, styles[size]].join(" ")}>
-      {tours
-        ? tours.length > 0
-          ? tours.map(({ status, ...data }, key) => (
-              <DetailedTourCard
-                key={key}
-                data={data}
-                status={status}
-                size={size}
-              />
-            ))
-          : fallback
-        : loader}
+      {tours ? (
+        tours.length > 0 ? (
+          tours.map(({ status, ...data }, key) => (
+            <DetailedTourCard
+              key={key}
+              data={data}
+              status={status}
+              size={size}
+            />
+          ))
+        ) : (
+          <div className={styles.fallback}>{fallback}</div>
+        )
+      ) : (
+        loader
+      )}
     </div>
   );
 }

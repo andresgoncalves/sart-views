@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
+import salaMendozaImage from "../assets/SalaMendoza.jpg";
+import ArtesaniaImage from "../assets/SalaMendozaArtesania.jpg";
 import bannerImage from "../assets/home-banner.png";
 import missionImage from "../assets/home-mission.png";
 import ArtworksGrid from "../components/ArtworksGrid";
@@ -67,7 +69,7 @@ export default function HomePage() {
           </div>
           <div className={styles.group}>
             <div className={styles.image}>
-              <img src={missionImage} alt="" />
+              <img src={ArtesaniaImage} alt="" />
             </div>
             <div className={styles.content}>
               <h3>Nuestra visión</h3>
@@ -79,7 +81,7 @@ export default function HomePage() {
           </div>
           <div className={styles.group}>
             <div className={styles.image}>
-              <img src={missionImage} alt="" />
+              <img src={salaMendozaImage} alt="" />
             </div>
             <div className={styles.content}>
               <h3>Nuestro objetivo</h3>
