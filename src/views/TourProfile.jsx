@@ -11,6 +11,8 @@ import StarRating from "../components/StarRating";
 import { useArtworks } from "../hooks/artworks";
 import { useTour } from "../hooks/tours";
 import styles from "./TourProfile.module.scss";
+import { useFile } from "../hooks/storage";
+
 
 export default function TourProfile() {
   const { id } = useParams();
@@ -19,7 +21,7 @@ export default function TourProfile() {
   const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
   const artworks = useArtworks(tourArtworks);
   const match = useMatch("/tours/:id/reservar");
-
+  const image = useFile(tour.data?.images[0])
   const data = [
     {
       image:
@@ -74,14 +76,18 @@ export default function TourProfile() {
             <Button href={`/tours/${id}/reservar`}>Reservar</Button>
           </div>
           <div className={styles.text}>
+          <div className = {styles.tourimage}>
+              <img src={image} alt="Imagen del Tour" className={styles.image} />
+              </div>
             <div className={styles.columna}>
-              <div className={styles.lugar}>Lugar: {tour.data.location}</div>
-              <div className={styles.fechas}>Próximas fechas:</div>
+              <div className={styles.lugar}><strong>Lugar: </strong>{tour.data.location}</div>
+              <div className={styles.fechas}><strong>Próximas fechas:</strong></div>
             </div>
             <div className={styles.columna1}>
-              Descripción: {tour.data.description}
+              <div className={styles.description}><strong>Descripción: </strong> {tour.data.description}</div>
             </div>
           </div>
+
         </section>
         {/* <section>
           <Divider>

@@ -51,7 +51,7 @@ export default function DonateModal({ closeModal }) {
 
   const handleThanksModalClose = useCallback(() => {
     setShowThanksModal(false);
-    closeModal(); // Cierra ReserveModal y DonateModal
+    closeModal(); 
   }, [closeModal]);
 
   return (
@@ -69,7 +69,7 @@ export default function DonateModal({ closeModal }) {
             type="number"
           />
           <div className={styles.modalbuttons}>
-            <Button onClick={closeModal} variant="text" size="base">
+            <Button onClick={closeModal} href="/user/dashboard"variant="text" size="base">
               Cancelar
             </Button>
             <PayPalScriptProvider
