@@ -6,7 +6,6 @@ import Calendario from "./Calendar";
 import styles from "./HourModal.module.scss";
 import HourSelector from "./HourSelector";
 import Loader from "./Loader";
-import bannerImage from "../assets/home-banner.png";
 import ReserveModal from "./ReserveModal";
 
 /**
@@ -63,7 +62,7 @@ export default function HourModal({ tour, closeModal }) {
       openReserveModal();
     }
     closeModal();
-  }, [date, hour, reservations, user]);
+  }, [closeModal, date, hour, reservations, user]);
 
   return (
     <div className={styles.wrapper}>

@@ -56,5 +56,15 @@ export function useTour(id) {
     [id, data]
   );
 
-  return useMemo(() => ({ data, update }), [data, update]);
+  const feedback = useCallback(
+    async function (
+      /** @type {import("../controllers/tours").FeedbackData} */ newData
+    ) {
+      await updateTour(id, { feedback: [...data.feedback, newData] });
+      setData({ ...data, feedback: [...data.feedback, newData] });
+    },
+    [id, data]
+  );
+
+  return useMemo(() => ({ data, update, feedback }), [data, update, feedback]);
 }

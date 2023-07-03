@@ -9,7 +9,7 @@
   grid-template-columns: repeat(auto-fit, var(--size));
   gap: 16px;
   justify-content: center;
-  max-width: calc(5 * var(--size) + 4 * 16px);
+  max-width: min(calc(5 * var(--size) + 4 * 16px), 100%);
   margin: auto;
 
   --size: 160px;
