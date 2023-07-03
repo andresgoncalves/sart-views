@@ -7,6 +7,7 @@ import SearchModal from "../components/SearchModal";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
 import { useArtworks } from "../hooks/artworks";
+import { useReservations } from "../hooks/reservations";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
@@ -33,10 +34,24 @@ export default function AdminTourPage() {
   const tours = useTours();
   const tour = useTour(id);
   const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
-  const artworks = useArtworks(tourArtworks);
+  const artworks = useArtworks(tourArtworks.slice(0, 30));
+  const reservations = useReservations();
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
+
+  /** @type {import("../controllers/reservations").ReservationData} */
+  const initialReservationData = {
+    tour: id,
+    date: "",
+    hour: "",
+    users: [],
+    limit: 30,
+  };
+
+  const [reservationData, setReservationData] = useState(
+    initialReservationData
+  );
 
   /** @type {React.MutableRefObject<HTMLInputElement>} */
   const imageInputRef = useRef();
@@ -49,6 +64,13 @@ export default function AdminTourPage() {
 
   const handleChange = (event) => {
     setData((data) => ({
+      ...data,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleReservationChange = (event) => {
+    setReservationData((data) => ({
       ...data,
       [event.target.name]: event.target.value,
     }));
@@ -135,16 +157,25 @@ export default function AdminTourPage() {
     }
   };
 
-  //Esto es para el modal
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
+  const handleReservation = () => {
+    reservations.create(reservationData);
+    setReservationData(initialReservationData);
+  };
+
   return (
     <TabbedPanel
       name="tour"
-      tabs={["Datos del Tour", "Galería de Imágenes", "Obras incluidas"]}
+      tabs={[
+        "Datos del Tour",
+        "Galería de Imágenes",
+        "Obras incluidas",
+        "Agregar horario",
+      ]}
     >
       <AdminEditor
         title="Datos del Tour"
@@ -245,6 +276,35 @@ export default function AdminTourPage() {
           <div className={styles.imagesButtons}>
             <Button onClick={openModal} variant="text">
               Agregar obra
+            </Button>
+          </div>
+        }
+      />
+      <AdminEditor
+        title="Agregar horario"
+        content={
+          <>
+            <InputField
+              name="date"
+              labelText="Fecha:"
+              placeholder="2023-12-31"
+              pattern={/\d\d\d\d-\d\d-\d\d/.source}
+              value={reservationData.date}
+              onChange={handleReservationChange}
+            />
+            <InputField
+              name="hour"
+              labelText="Hora:"
+              placeholder="12:00 PM"
+              value={reservationData.hour}
+              onChange={handleReservationChange}
+            />
+          </>
+        }
+        actions={
+          <div className={styles.imagesButtons}>
+            <Button onClick={handleReservation} variant="text">
+              Agregar horario
             </Button>
           </div>
         }

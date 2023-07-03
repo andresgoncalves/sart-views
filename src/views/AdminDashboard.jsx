@@ -77,6 +77,7 @@ export default function AdminDashboard() {
             </div>
             <div className={styles.tourContainer}>
               <ToursGrid
+                target="admin"
                 tours={tours.data?.slice(0, 8)}
                 fallback="No hay tours registrados"
               />
@@ -89,6 +90,7 @@ export default function AdminDashboard() {
             </div>
             <div className={styles.tourContainer}>
               <ArtworksGrid
+                target="admin"
                 artworks={artworks.data?.slice(0, 12)}
                 fallback="No hay obras registradas"
               />
