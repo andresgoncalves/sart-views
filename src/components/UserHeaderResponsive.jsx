@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Button from "./Button";
 import HamburgerMenu from "./HamburgerMenu";
 import Loader from "./Loader";
+import PublicSideBar from "./PublicSideBar";
 import styles from "./UserHeaderResponsive.module.scss";
 import UserSideBar from "./UserSideBar";
 
@@ -23,7 +24,11 @@ export default function UserHeaderResponsive() {
         <div
           className={`${styles.sideBar} ${isOpen ? styles.sideBarOpen : ""}`}
         >
-          <UserSideBar></UserSideBar>
+          {isLogged ? (
+            <UserSideBar></UserSideBar>
+          ) : (
+            <PublicSideBar></PublicSideBar>
+          )}
         </div>
       </div>
       <div className={styles.container}>
@@ -51,9 +56,14 @@ export default function UserHeaderResponsive() {
             </div>
           )
         ) : (
-          <Button href="login" size="medium">
-            Ingresa a tu cuenta
-          </Button>
+          <>
+            <Button href="login" size="medium">
+              Ingresa a tu cuenta
+            </Button>
+            <div onClick={handleClick}>
+              <HamburgerMenu></HamburgerMenu>
+            </div>
+          </>
         )}
       </div>
     </div>
