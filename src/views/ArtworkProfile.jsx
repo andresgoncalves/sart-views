@@ -26,6 +26,26 @@ export default function ArtworkProfile() {
   );
   const navigate = useNavigate();
 
+  const filteredTours = useMemo(() => {
+    if (tours.data && artwork.data) {
+      return tours.data.filter((tour) =>
+        tour.artworks.includes(artwork.data.id)
+      );
+    }
+    return [];
+  }, [tours.data, artwork.data]);
+
+  const relatedArtworks = useMemo(() => {
+    if (artworks.data && artwork.data) {
+      return artworks.data.filter(
+        (art) =>
+          art.author === artwork.data.author ||
+          art.category === artwork.data.category
+      );
+    }
+    return [];
+  }, [artworks.data, artwork.data]);
+
   async function toggleFavorite() {
     if (user) {
       const userRef = doc(db, "users", user.id);
@@ -96,13 +116,13 @@ export default function ArtworkProfile() {
           <Divider>
             <div className={styles.textDivider}>Tours Relacionados</div>
           </Divider>
-          <ToursGrid tours={tours.data} size="medium" />
+          <ToursGrid tours={filteredTours} size="medium" />
         </section>
         <section>
           <Divider>
             <div className={styles.textDivider}>Obras Relacionadas</div>
           </Divider>
-          <ArtworksGrid artworks={artworks.data} size="medium" />
+          <ArtworksGrid artworks={relatedArtworks} size="medium" />
         </section>
       </>
     );
