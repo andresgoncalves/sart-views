@@ -92,6 +92,36 @@
   }
 }
 
-.feedbackLabel {
+.reservation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--placeholder-color);
+  }
+
+  & > div {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.feedbackLabel,
+.reservationLabel {
   font-weight: bold;
+}
+
+.reservationsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.addReservation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

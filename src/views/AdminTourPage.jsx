@@ -8,7 +8,7 @@ import StarRating from "../components/StarRating";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
 import { useArtworks } from "../hooks/artworks";
-import { useReservations } from "../hooks/reservations";
+import { useTourReservations } from "../hooks/reservations";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
@@ -36,7 +36,7 @@ export default function AdminTourPage() {
   const tour = useTour(id);
   const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
   const artworks = useArtworks(tourArtworks);
-  const reservations = useReservations();
+  const reservations = useTourReservations(id);
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
@@ -282,11 +282,34 @@ export default function AdminTourPage() {
           </div>
         }
       />
-      <div>
+      <div className={styles.reservationsContainer}>
         <AdminEditor
           title="Horarios"
           content={
-            <>
+            <div className={styles.reservations}>
+              {reservations.data?.map((reservation, key) => (
+                <div key={key} className={styles.reservation}>
+                  <div>
+                    <div className={styles.reservationLabel}>Fecha:</div>
+                    <div className={styles.reservationValue}>
+                      {reservation.date}
+                    </div>
+                  </div>
+                  <div>
+                    <div className={styles.reservationLabel}>Hora:</div>
+                    <div className={styles.reservationValue}>
+                      {reservation.hour}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          }
+        />
+        <AdminEditor
+          title="Programar evento"
+          content={
+            <div className={styles.addReservation}>
               <InputField
                 name="date"
                 labelText="Fecha:"
@@ -302,7 +325,7 @@ export default function AdminTourPage() {
                 value={reservationData.hour}
                 onChange={handleReservationChange}
               />
-            </>
+            </div>
           }
           actions={
             <div className={styles.imagesButtons}>
