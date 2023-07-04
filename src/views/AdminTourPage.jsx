@@ -6,7 +6,10 @@ import Button from "../components/Button";
 import SearchModal from "../components/SearchModal";
 import StarRating from "../components/StarRating";
 import TabbedPanel from "../components/TabbedPanel";
-import InputField from "../components/TextField";
+import {
+  default as InputField,
+  default as TextField,
+} from "../components/TextField";
 import { useArtworks } from "../hooks/artworks";
 import { useTourReservations } from "../hooks/reservations";
 import { useFiles, useStorage } from "../hooks/storage";
@@ -40,6 +43,8 @@ export default function AdminTourPage() {
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
+
+  const [pointOfInterestValue, setPointOfInterestValue] = useState("");
 
   /** @type {import("../controllers/reservations").ReservationData} */
   const initialReservationData = {
@@ -124,6 +129,18 @@ export default function AdminTourPage() {
     imageInputRef.current?.click();
   };
 
+  const handlePointOfInterestAdd = useCallback(async () => {
+    setData((data) => ({
+      ...data,
+      pointsOfInterest: [...data.pointsOfInterest, pointOfInterestValue],
+    }));
+    if (id && tour.data) {
+      tour.update({
+        pointsOfInterest: [...data.pointsOfInterest, pointOfInterestValue],
+      });
+    }
+  }, [data.pointsOfInterest, id, pointOfInterestValue, tour]);
+
   const handleArtworksAdd = useCallback(
     async (/** @type {string[]} */ selectedArtworks) => {
       if (selectedArtworks.length > 0) {
@@ -175,6 +192,7 @@ export default function AdminTourPage() {
         "Datos del Tour",
         "Galería de Imágenes",
         "Obras incluidas",
+        "Puntos de interés",
         "Horarios",
         "Feedback",
       ]}
@@ -279,6 +297,30 @@ export default function AdminTourPage() {
             <Button onClick={openModal} variant="text">
               Agregar obra
             </Button>
+          </div>
+        }
+      />
+      <AdminEditor
+        title="Puntos de interés"
+        content={
+          <>
+            <div className={styles.pointsOfInterest}>
+              {data.pointsOfInterest.map((point, key) => (
+                <div key={key} className={styles.pointOfInterest}>
+                  {point}
+                </div>
+              ))}
+            </div>
+          </>
+        }
+        actions={
+          <div className={styles.formButtons}>
+            <TextField
+              placeholder="Punto de interés"
+              value={pointOfInterestValue}
+              onChange={(event) => setPointOfInterestValue(event.target.value)}
+            />
+            <Button onClick={handlePointOfInterestAdd}>Agregar</Button>
           </div>
         }
       />

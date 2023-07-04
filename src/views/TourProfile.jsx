@@ -5,6 +5,7 @@ import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
 import HourModal from "../components/HourModal";
+import InterestPoint from "../components/InterestPoint";
 import Loader from "../components/Loader";
 import PrivateRoute from "../components/PrivateRoute";
 import StarRating from "../components/StarRating";
@@ -21,32 +22,6 @@ export default function TourProfile() {
   const artworks = useArtworks(tourArtworks);
   const match = useMatch("/tours/:id/reservar");
   const image = useFile(tour.data?.images[0]);
-  const data = [
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-      number: 1,
-      name: "hola",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-      number: 2,
-      name: "hola",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-      number: 3,
-      name: "hola",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG",
-      number: 4,
-      name: "hola",
-    },
-  ];
 
   if (tour.data == null) {
     return (
@@ -94,21 +69,31 @@ export default function TourProfile() {
             </div>
           </div>
         </section>
-        {/* <section>
+        <section>
           <Divider>
             <h2>PUNTOS DE INTERÉS</h2>
           </Divider>
           <div className={styles.pointsContainer}>
-            {data.map((item, index) => (
-              <InterestPoint
-                key={index}
-                image={item.image}
-                number={item.number}
-                name={item.name}
-              />
-            ))}
+            {tour.data ? (
+              tour.data.pointsOfInterest.length > 0 ? (
+                tour.data.pointsOfInterest.map((point, key) => (
+                  <InterestPoint
+                    key={key}
+                    image={
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG"
+                    }
+                    number={key + 1}
+                    name={point}
+                  />
+                ))
+              ) : (
+                <div>No hay puntos de interés registrados </div>
+              )
+            ) : (
+              <Loader />
+            )}
           </div>
-        </section> */}
+        </section>
         <section>
           <Divider>
             <h2>OBRAS INTEGRADAS EN EL TOUR</h2>

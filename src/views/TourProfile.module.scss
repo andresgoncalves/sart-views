@@ -106,7 +106,8 @@
 
 .pointsContainer {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 32px 10px;
   align-items: center;
   justify-content: center;
   margin: 55px auto;
@@ -195,7 +196,6 @@
 
 .pointsContainer {
   display: flex;
-  gap: 10px;
   align-items: center;
   justify-content: center;
   margin: 55px auto;

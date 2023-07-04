@@ -1,84 +1,84 @@
 .circle {
-    display: flex;
-    align-items: center;
-    position: relative;
-    justify-content: center;
-    margin: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
 }
-  
+
 .bigCircle {
-    display: flex;
-    width: 15vw;
-    height: 15vw;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
 }
 
 .smallCircle {
-    display: flex;
-    position: absolute;
-    top: 0px;
-    transform: translateY(-50%);
-    width: 7vw;
-    height: 7vw;
-    border-radius: 50%;
-    background-color: #062726;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7vw;
+  height: 7vw;
+  background-color: #062726;
+  border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .number {
-    text-align: center;
-    font-size: 1.5em;
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .name {
-    text-align: center;
-    font-size: 2em;
-    color: white;
-    position: absolute;
-    font-weight: bold;
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: var(--text-base);
+  text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
-    .bigCircle {
-        width: 30vw;
-        height: 30vw;
-    }
+  .bigCircle {
+    width: 30vw;
+    height: 30vw;
+  }
 
-    .smallCircle {
-        width: 15vw;
-        height: 15vw;
-    }
+  .smallCircle {
+    width: 15vw;
+    height: 15vw;
+  }
 
-    .number {
-        font-size: 1.5em;
-    }
+  .number {
+    font-size: 1.5em;
+  }
 
-    .name {
-        font-size: 1.7em;
-    }
+  .name {
+    font-size: 1.7em;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-    .bigCircle {
-        width: 50vw;
-        height: 50vw;
-    }
+  .bigCircle {
+    width: 50vw;
+    height: 50vw;
+  }
 
-    .smallCircle {
-        width: 25vw;
-        height: 25vw;
-    }
+  .smallCircle {
+    width: 25vw;
+    height: 25vw;
+  }
 
-    .number {
-        font-size: 1em;
-    }
+  .number {
+    font-size: 1em;
+  }
 
-    .name {
-        font-size: 1.2em;
-    }
+  .name {
+    font-size: 1.2em;
+  }
 }

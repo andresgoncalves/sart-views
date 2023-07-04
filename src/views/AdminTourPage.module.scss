@@ -17,6 +17,7 @@
 .formButtons {
   display: flex;
   gap: 8px;
+  align-items: center;
   justify-content: center;
 }
 
@@ -121,6 +122,12 @@
 }
 
 .addReservation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pointsOfInterst {
   display: flex;
   flex-direction: column;
   gap: 16px;
