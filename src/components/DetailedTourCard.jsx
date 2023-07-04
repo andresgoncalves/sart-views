@@ -11,6 +11,7 @@ import StarRating from "./StarRating";
  * @typedef {{
  *   data: import("../controllers/tours").TourData;
  *   status?: "available" | "unavailable" | "reserved" | "visited";
+ *   target?: "details" | "admin";
  *   size?: "large" | "base" | "small";
  * }} DetailedTourCardProps
  */
@@ -20,6 +21,7 @@ export default function DetailedTourCard({
   data: { id, name, description, location, images: imagePaths, rating },
   status = "available",
   size = "base",
+  target = "details",
 }) {
   const { user } = useAuth();
   const tour = useTour(id);
@@ -44,7 +46,17 @@ export default function DetailedTourCard({
           <StarRating value={rating} />
         </div>
         <div className={styles.location}>{location}</div>
-        {status === "available" ? (
+        {target === "admin" || status === "unavailable" ? (
+          <div className={styles.buttons}>
+            <Button
+              href={target === "admin" ? `/admin/tours/${id}` : `/tours/${id}`}
+              variant="text"
+              size={size === "small" ? "small" : "base"}
+            >
+              Detalles
+            </Button>
+          </div>
+        ) : status === "available" ? (
           <div className={styles.buttons}>
             <Button
               href={`/tours/${id}`}
@@ -58,16 +70,6 @@ export default function DetailedTourCard({
               size={size === "small" ? "small" : "base"}
             >
               Reservar
-            </Button>
-          </div>
-        ) : status === "unavailable" ? (
-          <div className={styles.buttons}>
-            <Button
-              href={`/tours/${id}`}
-              variant="text"
-              size={size === "small" ? "small" : "base"}
-            >
-              Detalles
             </Button>
           </div>
         ) : status === "reserved" ? (

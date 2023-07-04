@@ -64,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 24px;
 }
 
 @media (max-width: 800px) {
@@ -94,9 +95,5 @@
 
   .tourContainer {
     margin: 24px auto;
-  }
-
-  .nextTours {
-    margin-top: 24px;
   }
 }

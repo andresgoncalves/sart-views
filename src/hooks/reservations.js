@@ -80,6 +80,17 @@ export function useTourReservations(tourId) {
     load();
   }, [tourId]);
 
+  const create = useCallback(
+    async function (
+      /** @type {import("../controllers/reservations").ReservationData} */ newData
+    ) {
+      const id = await createReservation(newData);
+      setData([...data, { ...newData, id }]);
+      return id;
+    },
+    [data]
+  );
+
   const reserve = useCallback(
     async function (
       /** @type {string} */ reservationId,
@@ -103,7 +114,7 @@ export function useTourReservations(tourId) {
     [data]
   );
 
-  return useMemo(() => ({ data, reserve }), [data, reserve]);
+  return useMemo(() => ({ data, create, reserve }), [data, create, reserve]);
 }
 
 /** @param {string} userId */

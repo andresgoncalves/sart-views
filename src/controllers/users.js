@@ -54,9 +54,14 @@ export async function getUsers(ids = null) {
   }
   const usersRef = collection(db, "users");
   const userSnapshots = await getDocs(
-    ids ? query(usersRef, where(documentId(), "in", ids)) : usersRef
+    ids && ids.length < 30
+      ? query(usersRef, where(documentId(), "in", ids))
+      : usersRef
   );
   const users = userSnapshots.docs.map(mapToUserData);
+  if (ids && ids.length >= 30) {
+    return users.filter((user) => ids.includes(user.id));
+  }
   return users;
 }
 

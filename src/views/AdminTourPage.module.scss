@@ -17,6 +17,7 @@
 .formButtons {
   display: flex;
   gap: 8px;
+  align-items: center;
   justify-content: center;
 }
 
@@ -58,4 +59,76 @@
   display: flex;
   gap: 8px;
   justify-content: flex-end;
+}
+
+.averageRating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: var(--text-lg);
+}
+
+.feedbackList {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--placeholder-color);
+  }
+
+  & > div:not(:last-child) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.reservation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--placeholder-color);
+  }
+
+  & > div {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.feedbackLabel,
+.reservationLabel {
+  font-weight: bold;
+}
+
+.reservationsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.addReservation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pointsOfInterst {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTourReservations } from "../hooks/reservations";
 import { formatDate } from "../utils/date";
+import Button from "./Button";
 import Calendario from "./Calendar";
 import styles from "./HourModal.module.scss";
 import HourSelector from "./HourSelector";
@@ -120,13 +121,11 @@ export default function HourModal({ tour, closeModal }) {
                   </div>
                 </div>
               </div>
-              <div className={styles.buttonSection}>                
-                <button className={styles.closeButton} onClick={closeModal}>
+              <div className={styles.buttonSection}>
+                <Button variant="text" onClick={closeModal}>
                   Cancelar
-                </button>
-                <button className={styles.bookButton} onClick={handleReserve}>
-                  Reservar
-                </button>
+                </Button>
+                <Button onClick={handleReserve}>Reservar</Button>
               </div>
               
             </>
@@ -140,4 +139,3 @@ export default function HourModal({ tour, closeModal }) {
     </div>
   );
 }
-

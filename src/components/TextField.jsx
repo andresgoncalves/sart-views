@@ -22,7 +22,7 @@ export default function TextField({
         className || "",
       ].join(" ")}
     >
-      <div className={styles.label}>{labelText}</div>
+      {labelText && <div className={styles.label}>{labelText}</div>}
       <input
         className={[styles.input, negative ? styles.negative : ""].join(" ")}
         {...props}

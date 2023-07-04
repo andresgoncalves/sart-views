@@ -8,6 +8,9 @@
   background: #fff;
   border: 0.5px solid var(--gray-2, #9ba9a8);
   border-radius: 16px;
+  @media (max-width: 800px) {
+    width: 70%;
+  }
 }
 .containerInfo {
   display: flex;
@@ -17,6 +20,9 @@
   align-self: stretch;
   width: 100%;
   padding: 24px 32px;
+  @media (max-width: 800px) {
+    padding: 5px 5px;
+  }
 }
 .email {
   color: var(--gray-3, #6a7d7d);
@@ -26,6 +32,10 @@
   font-style: normal;
   line-height: normal;
   text-align: center;
+
+  @media (max-width: 800px) {
+    font-size: 10px;
+  }
 }
 .name {
   color: #000;

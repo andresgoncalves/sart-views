@@ -7,6 +7,7 @@ import Loader from "./Loader";
  *   tours: (import("../controllers/tours").TourData & {
  *     status?: import("./DetailedTourCard").DetailedTourCardProps["status"];
  *   })[];
+ *   target?: import("./DetailedTourCard").DetailedTourCardProps["target"];
  *   size?: import("./DetailedTourCard").DetailedTourCardProps["size"];
  *   loader?: React.ReactNode;
  *   fallback?: React.ReactNode;
@@ -18,6 +19,7 @@ import Loader from "./Loader";
 export default function DetailedToursGrid({
   tours,
   size = "base",
+  target = "details",
   loader = <Loader />,
   fallback,
 }) {
@@ -30,6 +32,7 @@ export default function DetailedToursGrid({
               key={key}
               data={data}
               status={status}
+              target={target}
               size={size}
             />
           ))
