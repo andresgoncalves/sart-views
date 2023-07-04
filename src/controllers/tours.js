@@ -74,9 +74,14 @@ export async function getTours(ids = null) {
   }
   const toursRef = collection(db, "tours");
   const tourSnapshots = await getDocs(
-    ids ? query(toursRef, where(documentId(), "in", ids)) : toursRef
+    ids && ids.length < 30
+      ? query(toursRef, where(documentId(), "in", ids))
+      : toursRef
   );
   const tours = tourSnapshots.docs.map(mapToTourData);
+  if (ids && ids.length >= 30) {
+    return tours.filter((tour) => ids.includes(tour.id));
+  }
   return tours;
 }
 

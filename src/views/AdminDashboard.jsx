@@ -8,8 +8,7 @@ import DetailedToursGrid from "../components/DetailedToursGrid";
 import Divider from "../components/Divider";
 import Loader from "../components/Loader";
 import ToursGrid from "../components/ToursGrid";
-import { useAuth } from "../contexts/AuthContext";
-import { useArtworks } from "../hooks/artworks";
+import { useArtworks, useRecentArtworks } from "../hooks/artworks";
 import { useReservations } from "../hooks/reservations";
 import { useTours } from "../hooks/tours";
 import { useUsers } from "../hooks/users";
@@ -17,16 +16,18 @@ import styles from "./AdminDashboard.module.scss";
 
 export default function AdminDashboard() {
   const tours = useTours();
-  const users = useUsers(null);
-  const { user } = useAuth();
+  const users = useUsers();
   const artworksCount = useArtworks();
-  const artworks = useArtworks(user?.favoritesArtworks || []);
+  const artworks = useRecentArtworks(15);
   const reservations = useReservations();
   const upcomingTours = useMemo(
-    () => reservations.data?.map((reservation) => reservation.tour) || [],
+    () =>
+      reservations.data
+        ?.filter((reservation) => reservation.status !== "closed")
+        .map((reservation) => reservation.tour) || [],
     [reservations.data]
   );
-  const toursNext = tours;
+  const toursNext = useTours(upcomingTours);
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
             {reservations.data ? (
               <div className={styles.info}>
                 {
-                  reservations.data.filter((tour) => tour.status == "closed")
+                  reservations.data?.filter((tour) => tour.status === "closed")
                     .length
                 }
               </div>
@@ -73,10 +74,11 @@ export default function AdminDashboard() {
           <div className={styles.titleLabel}>Próximos Eventos</div>
         </Divider>
         <div className={styles.nextContainer}>
-          <DetailedToursGrid tours={toursNext.data} size="base" />
-        </div>
-        <div className={styles.nextTours}>
-          <Button className={styles.create}>Crear Evento</Button>
+          <DetailedToursGrid
+            tours={toursNext.data?.slice(0, 6)}
+            size="base"
+            target="admin"
+          />
         </div>
       </section>
       <section>

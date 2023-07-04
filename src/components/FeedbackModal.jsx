@@ -60,6 +60,8 @@ export default function FeedBackModal({ closeModal, onSubmit }) {
               name="satisfaction"
               labelText="¿Qué tan satisfecho/a estás con el tour?"
               placeholder="Introduzca su respuesta"
+              value={data.satisfaction}
+              onChange={handleChange}
             />
             <div>
               <div>¿Asistirías a otro de nuestros Tours?</div>

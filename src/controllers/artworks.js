@@ -57,9 +57,14 @@ export async function getArtworks(ids = null) {
   }
   const artworksRef = collection(db, "artworks");
   const artworkSnapshots = await getDocs(
-    ids ? query(artworksRef, where(documentId(), "in", ids)) : artworksRef
+    ids && ids.length < 30
+      ? query(artworksRef, where(documentId(), "in", ids))
+      : artworksRef
   );
   const artworks = artworkSnapshots.docs.map(mapToArtworkData);
+  if (ids && ids.length >= 30) {
+    return artworks.filter((artwork) => ids.includes(artwork.id));
+  }
   return artworks;
 }
 

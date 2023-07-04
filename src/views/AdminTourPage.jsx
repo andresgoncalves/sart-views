@@ -4,6 +4,7 @@ import AdminEditor from "../components/AdminEditor";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import SearchModal from "../components/SearchModal";
+import StarRating from "../components/StarRating";
 import TabbedPanel from "../components/TabbedPanel";
 import InputField from "../components/TextField";
 import { useArtworks } from "../hooks/artworks";
@@ -34,7 +35,7 @@ export default function AdminTourPage() {
   const tours = useTours();
   const tour = useTour(id);
   const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
-  const artworks = useArtworks(tourArtworks.slice(0, 30));
+  const artworks = useArtworks(tourArtworks);
   const reservations = useReservations();
 
   const [data, setData] = useState(initialData);
@@ -174,7 +175,8 @@ export default function AdminTourPage() {
         "Datos del Tour",
         "Galería de Imágenes",
         "Obras incluidas",
-        "Agregar horario",
+        "Horarios",
+        "Feedback",
       ]}
     >
       <AdminEditor
@@ -280,33 +282,84 @@ export default function AdminTourPage() {
           </div>
         }
       />
+      <div>
+        <AdminEditor
+          title="Horarios"
+          content={
+            <>
+              <InputField
+                name="date"
+                labelText="Fecha:"
+                placeholder="2023-12-31"
+                pattern={/\d\d\d\d-\d\d-\d\d/.source}
+                value={reservationData.date}
+                onChange={handleReservationChange}
+              />
+              <InputField
+                name="hour"
+                labelText="Hora:"
+                placeholder="12:00 PM"
+                value={reservationData.hour}
+                onChange={handleReservationChange}
+              />
+            </>
+          }
+          actions={
+            <div className={styles.imagesButtons}>
+              <Button onClick={handleReservation} variant="text">
+                Agregar horario
+              </Button>
+            </div>
+          }
+        />
+      </div>
       <AdminEditor
-        title="Agregar horario"
+        title="Feedback"
         content={
           <>
-            <InputField
-              name="date"
-              labelText="Fecha:"
-              placeholder="2023-12-31"
-              pattern={/\d\d\d\d-\d\d-\d\d/.source}
-              value={reservationData.date}
-              onChange={handleReservationChange}
-            />
-            <InputField
-              name="hour"
-              labelText="Hora:"
-              placeholder="12:00 PM"
-              value={reservationData.hour}
-              onChange={handleReservationChange}
-            />
+            <div className={styles.averageRating}>
+              <div className={styles.feedbackLabel}>
+                Calificación promedio:{" "}
+              </div>
+              <StarRating value={data.rating} />
+            </div>
+            <div className={styles.feedbackList}>
+              {data.feedback.map((feedback, key) => (
+                <div key={key} className={styles.feedback}>
+                  <div>
+                    <div className={styles.feedbackLabel}>
+                      ¿Qué tan satisfecho/a estás con el tour?
+                    </div>
+                    <div className={styles.feedbackValue}>
+                      {feedback.satisfaction}
+                    </div>
+                  </div>
+                  <div>
+                    <div className={styles.feedbackLabel}>
+                      ¿Qué fue lo que más te gustó?
+                    </div>
+                    <div className={styles.feedbackValue}>
+                      {feedback.likedMost}
+                    </div>
+                  </div>
+                  <div>
+                    <div className={styles.feedbackLabel}>
+                      ¿Asistirías a otro de nuestros Tours?
+                    </div>
+                    <div className={styles.feedbackValue}>
+                      {feedback.wouldAssist}
+                    </div>
+                  </div>
+                  <div>
+                    <div className={styles.feedbackLabel}>
+                      Califica este Tour:
+                    </div>
+                    <StarRating value={feedback.rating} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </>
-        }
-        actions={
-          <div className={styles.imagesButtons}>
-            <Button onClick={handleReservation} variant="text">
-              Agregar horario
-            </Button>
-          </div>
         }
       />
     </TabbedPanel>
