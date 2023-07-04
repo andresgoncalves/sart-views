@@ -38,9 +38,17 @@ export default function Login() {
 
   const onSumbit = async (event) => {
     event.preventDefault();
-    const { email, password, ...extraData } = signUpData;
-    await registerWithEmailAndPassword(email, password, extraData);
-    navigate("/user/dashboard");
+    if(signUpData.name===""){
+      alert("Llenar los campos vacíos")
+    } else{
+      if((signUpData.name.length)>20){
+        alert("El nombre ingresado excede el número de carecteres válidos (20)")
+      } else{
+        const { email, password, ...extraData } = signUpData;
+        await registerWithEmailAndPassword(email, password, extraData);
+        navigate("/user/dashboard");
+      }
+    }
   };
 
   const [signUpData, setSignUpData] = useState({
