@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import bannerImage from "../assets/home-banner.png";
+import imgPointInteres from "../assets/unsplash_oXfqLmJMQcQ.svg";
 import ArtworksGrid from "../components/ArtworksGrid";
 import Button from "../components/Button";
 import Divider from "../components/Divider";
@@ -79,9 +80,7 @@ export default function TourProfile() {
                 tour.data.pointsOfInterest.map((point, key) => (
                   <InterestPoint
                     key={key}
-                    image={
-                      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG/492px-Mona_Lisa_%28copy%2C_Vernon_collection%29.JPG"
-                    }
+                    image={imgPointInteres}
                     number={key + 1}
                     name={point}
                   />
