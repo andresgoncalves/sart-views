@@ -3,8 +3,10 @@ import { defineConfig } from "vite";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
 const options: Partial<VitePWAOptions> = {
+  registerType: "prompt",
   manifest: {
     name: "Sart Views",
+    short_name: "Sart Views",
     description:
       "Servicio de recorridos guíados por las distintas obras de arte expuestas en la Universidad Metropolitana.",
     icons: [
@@ -36,7 +38,7 @@ const options: Partial<VitePWAOptions> = {
     start_url: "/",
     orientation: "portrait",
   },
-  includeAssets: "/vite.svg",
+  includeAssets: "vite.svg",
 };
 
 // https://vitejs.dev/config/
