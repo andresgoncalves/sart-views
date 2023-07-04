@@ -6,9 +6,12 @@ import Button from "../components/Button";
 import SearchModal from "../components/SearchModal";
 import StarRating from "../components/StarRating";
 import TabbedPanel from "../components/TabbedPanel";
-import InputField from "../components/TextField";
+import {
+  default as InputField,
+  default as TextField,
+} from "../components/TextField";
 import { useArtworks } from "../hooks/artworks";
-import { useReservations } from "../hooks/reservations";
+import { useTourReservations } from "../hooks/reservations";
 import { useFiles, useStorage } from "../hooks/storage";
 import { useTour, useTours } from "../hooks/tours";
 import styles from "./AdminTourPage.module.scss";
@@ -36,10 +39,12 @@ export default function AdminTourPage() {
   const tour = useTour(id);
   const tourArtworks = useMemo(() => tour.data?.artworks || [], [tour.data]);
   const artworks = useArtworks(tourArtworks);
-  const reservations = useReservations();
+  const reservations = useTourReservations(id);
 
   const [data, setData] = useState(initialData);
   const images = useFiles(data.images);
+
+  const [pointOfInterestValue, setPointOfInterestValue] = useState("");
 
   /** @type {import("../controllers/reservations").ReservationData} */
   const initialReservationData = {
@@ -124,6 +129,18 @@ export default function AdminTourPage() {
     imageInputRef.current?.click();
   };
 
+  const handlePointOfInterestAdd = useCallback(async () => {
+    setData((data) => ({
+      ...data,
+      pointsOfInterest: [...data.pointsOfInterest, pointOfInterestValue],
+    }));
+    if (id && tour.data) {
+      tour.update({
+        pointsOfInterest: [...data.pointsOfInterest, pointOfInterestValue],
+      });
+    }
+  }, [data.pointsOfInterest, id, pointOfInterestValue, tour]);
+
   const handleArtworksAdd = useCallback(
     async (/** @type {string[]} */ selectedArtworks) => {
       if (selectedArtworks.length > 0) {
@@ -175,6 +192,7 @@ export default function AdminTourPage() {
         "Datos del Tour",
         "Galería de Imágenes",
         "Obras incluidas",
+        "Puntos de interés",
         "Horarios",
         "Feedback",
       ]}
@@ -282,11 +300,58 @@ export default function AdminTourPage() {
           </div>
         }
       />
-      <div>
+      <AdminEditor
+        title="Puntos de interés"
+        content={
+          <>
+            <div className={styles.pointsOfInterest}>
+              {data.pointsOfInterest.map((point, key) => (
+                <div key={key} className={styles.pointOfInterest}>
+                  {point}
+                </div>
+              ))}
+            </div>
+          </>
+        }
+        actions={
+          <div className={styles.formButtons}>
+            <TextField
+              placeholder="Punto de interés"
+              value={pointOfInterestValue}
+              onChange={(event) => setPointOfInterestValue(event.target.value)}
+            />
+            <Button onClick={handlePointOfInterestAdd}>Agregar</Button>
+          </div>
+        }
+      />
+      <div className={styles.reservationsContainer}>
         <AdminEditor
           title="Horarios"
           content={
-            <>
+            <div className={styles.reservations}>
+              {reservations.data?.map((reservation, key) => (
+                <div key={key} className={styles.reservation}>
+                  <div>
+                    <div className={styles.reservationLabel}>Fecha:</div>
+                    <div className={styles.reservationValue}>
+                      {reservation.date}
+                    </div>
+                  </div>
+                  <div>
+                    <div className={styles.reservationLabel}>Hora:</div>
+                    <div className={styles.reservationValue}>
+                      {reservation.hour}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          }
+        />
+        <AdminEditor
+          title="Programar evento"
+          content={
+            <div className={styles.addReservation}>
               <InputField
                 name="date"
                 labelText="Fecha:"
@@ -302,7 +367,7 @@ export default function AdminTourPage() {
                 value={reservationData.hour}
                 onChange={handleReservationChange}
               />
-            </>
+            </div>
           }
           actions={
             <div className={styles.imagesButtons}>
