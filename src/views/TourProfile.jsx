@@ -59,9 +59,6 @@ export default function TourProfile() {
                 <strong>Lugar: </strong>
                 {tour.data.location}
               </div>
-              <div className={styles.fechas}>
-                <strong>Próximas fechas:</strong>
-              </div>
             </div>
             <div className={styles.columna1}>
               <div className={styles.description}>
